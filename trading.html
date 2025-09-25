@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Portfolio - Nikofinanciar</title>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg viewBox='0 0 115 80' xmlns='http://www.w3.org/2000/svg'><g fill='none'><path d='M10 70 V 10 L 50 70 V 10' stroke='%23166534' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/><path d='M55 10 H 105' stroke='%23166534' stroke-width='12' stroke-linecap='round'/><path d='M55 40 H 95' stroke='%23166534' stroke-width='12' stroke-linecap='round'/><g stroke-width='4' stroke-linecap='round'><line x1='75' y1='5' x2='75' y2='75' stroke='%2322c55e'/><rect x='67' y='20' width='16' height='40' fill='%2322c55e' stroke='none'/></g></g></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-accent: #22c55e; /* Green */
+            --color-accent-dark: #166534; /* Dark Green for logo text */
+            --color-accent-glow: rgba(34, 197, 94, 0.7);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+        .text-accent { color: var(--color-accent); }
+        .bg-accent { background-color: var(--color-accent); }
+        .border-accent { border-color: var(--color-accent); }
+        .glow-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px var(--color-accent-glow), 0 0 10px var(--color-accent-glow);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 15px var(--color-accent-glow), 0 0 30px var(--color-accent-glow);
+            transform: scale(1.05);
+        }
+        .header-bg {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .card-bg {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .card-bg:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 header-bg">
+        <div class="container mx-auto flex justify-between items-center p-4 md:p-6">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <svg class="h-14 w-auto" viewBox="0 0 115 80" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="none">
+                        <path d="M10 70 V 10 L 50 70 V 10" stroke="var(--color-accent-dark)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M55 10 H 105" stroke="var(--color-accent-dark)" stroke-width="12" stroke-linecap="round"/>
+                        <path d="M55 40 H 95" stroke="var(--color-accent-dark)" stroke-width="12" stroke-linecap="round"/>
+                        <g stroke-width="4" stroke-linecap="round">
+                            <line x1="75" y1="5" x2="75" y2="75" stroke="var(--color-accent)"/>
+                            <rect x="67" y="20" width="16" height="40" fill="var(--color-accent)" stroke="none"/>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-800 hover:text-accent transition-colors">Home</a>
+                <a href="trading.html" class="text-accent font-bold">Trading</a>
+                <a href="programming.html" class="text-gray-800 hover:text-accent transition-colors">Programming</a>
+                <a href="business-architecture.html" class="text-gray-800 hover:text-accent transition-colors">Business</a>
+                <a href="#contact" class="text-gray-800 hover:text-accent transition-colors">Contact</a>
+            </nav>
+            <a href="#contact" class="hidden md:inline-block bg-accent text-white font-bold py-3 px-6 rounded-lg glow-button">
+                Contact Me
+            </a>
+            <button id="mobile-menu-btn" class="md:hidden z-50 text-gray-800">
+                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform -translate-x-full transition-transform duration-500 ease-in-out flex items-center justify-center md:hidden">
+        <nav class="flex flex-col items-center space-y-10">
+            <a href="index.html" class="nav-link text-3xl font-bold text-gray-800">Home</a>
+            <a href="trading.html" class="nav-link text-3xl font-bold text-accent">Trading</a>
+            <a href="programming.html" class="nav-link text-3xl font-bold text-gray-800">Programming</a>
+            <a href="business-architecture.html" class="nav-link text-3xl font-bold text-gray-800">Business</a>
+            <a href="#contact" class="nav-link text-3xl font-bold text-gray-800">Contact</a>
+        </nav>
+    </div>
+
+    <main class="pt-24">
+        <!-- Trading Hero Section -->
+        <section id="trading-hero" class="py-20 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6 md:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-4 text-gray-900 reveal">
+                    Trading Portfolio
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
+                    A transparent, data-driven look into my quantitative trading strategies, performance, and market insights.
+                </p>
+            </div>
+        </section>
+
+        <!-- Trading Performance Section -->
+        <section id="trading-performance" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 md:px-8">
+                <div class="card-bg p-6 md:p-8 lg:p-12 rounded-2xl reveal shadow-2xl">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-900">Live Performance Dashboard</h2>
+                    <div class="flex flex-col lg:flex-row items-start justify-between gap-8">
+
+                        <!-- Left Column: Weekly Chart & Ticks Gained -->
+                        <div class="w-full lg:w-1/3 flex flex-col gap-8">
+                            <a href="trading-calendar.html" class="block card-bg border p-6 rounded-lg text-center shadow-lg">
+                                <div class="text-sm text-gray-500 mb-2">TICKER: NASDAQ</div>
+                                <div id="tickTotal" data-target="0" class="text-5xl font-bold text-accent my-2">Loading...</div>
+                                <div class="text-sm text-accent font-semibold mb-4">TICKS GAINED (YTD)</div>
+                                <p class="text-xs text-gray-400">Updated daily with verified trades. Click to view full calendar.</p>
+                            </a>
+                            
+                            <div class="card-bg border p-6 rounded-lg shadow-lg">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-4">This Week's P&L Chart</h4>
+                                <div class="h-64">
+                                    <canvas id="weeklyPerformanceChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Economic Calendar -->
+                        <div class="w-full lg:w-2/3">
+                            <div class="tradingview-widget-container">
+                                <div class="tradingview-widget-container__widget"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                                {
+                                    "colorTheme": "light",
+                                    "isTransparent": false,
+                                    "locale": "en",
+                                    "countryFilter": "us",
+                                    "importanceFilter": "-1,0,1",
+                                    "width": "100%",
+                                    "height": "600"
+                                }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monthly Overview Section -->
+        <section id="monthly-overview-section" class="pb-20 md:pb-32">
+            <div class="container mx-auto px-6 md:px-8">
+                <div class="card-bg p-6 md:p-8 lg:p-12 rounded-2xl reveal shadow-2xl">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-900">Monthly P&L Overview</h2>
+                    <div id="monthlyOverview" class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-10 gap-2 text-center text-sm">
+                        <!-- Days will load here -->
+                        <span class="text-gray-500 col-span-full">Loading monthly P&L data...</span>
+                    </div>
+                    <div id="monthlyTotal" class="mt-6 text-center text-lg font-bold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6 md:px-8 max-w-4xl">
+                 <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">Let's Build Something Together</h2>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
+                        Have a project, an idea, or an opportunity you'd like to discuss? Reach out.
+                    </p>
+                </div>
+                <div class="card-bg rounded-2xl p-8 md:p-12 reveal shadow-lg">
+                    <form action="https://formspree.io/f/xovkvwlg" method="POST" class="space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <input type="text" name="name" placeholder="Your Name" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                            <input type="email" name="email" placeholder="Your Email Address" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                        </div>
+                        <textarea name="message" placeholder="Your Message" rows="5" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"></textarea>
+                        <button type="submit" class="w-full bg-accent text-white font-bold py-4 px-6 rounded-lg glow-button text-lg">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200">
+        <div class="container mx-auto px-6 md:px-8 py-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <p class="text-gray-500 mb-4 md:mb-0">&copy; 2025 Nikofinanciar. All Rights Reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-500 hover:text-accent transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/nikofinanciar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-500 hover:text-accent transition-colors">
+                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919C8.356 2.175 8.741 2.163 12 2.163m0-2.163C8.74.001 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
+                </a>
+                 <a href="https://www.tiktok.com/@nikolasfinancial" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="text-gray-500 hover:text-accent transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- General Setup ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = mobileMenu.querySelectorAll('.nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('-translate-x-full');
+        });
+        
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('-translate-x-full');
+            });
+        });
+
+        // --- Animations ---
+        let counterAnimated = false;
+        const revealElements = document.querySelectorAll('.reveal');
+        const tickTotalEl = document.getElementById('tickTotal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counterAnimated && tickTotalEl.dataset.target !== '0') {
+                    animateNumberCounter();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.8 });
+
+        if (tickTotalEl) {
+            counterObserver.observe(tickTotalEl);
+        }
+        
+        function animateNumberCounter() {
+            if (!tickTotalEl) return;
+            
+            counterAnimated = true;
+            const target = parseFloat(tickTotalEl.dataset.target);
+            if(isNaN(target)) return;
+
+            let current = 0;
+            const increment = target / 100;
+            const duration = 1500;
+            const stepTime = Math.abs(Math.floor(duration / 100)) || 1;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if ((increment >= 0 && current >= target) || (increment < 0 && current <= target)) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                const formatted = current >= 0 
+                    ? `+${Math.round(current).toLocaleString()}` 
+                    : Math.round(current).toLocaleString();
+                tickTotalEl.textContent = formatted;
+            }, stepTime);
+        }
+
+        // --- Main Data Fetching and Processing Logic ---
+        async function initializeTradingDashboard() {
+            const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRjF0O7KHhyxE4BuD5nqRYBSIX5y-0MtvCF0sS8h1W9MRBXWNE7u5h4KOZoBwIDkTfhsKSY73BL-cOz/pub?output=csv";
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                const text = await response.text();
+                
+                const allRows = text.split('\n').filter(row => row.trim() !== '');
+                if (allRows.length <= 1) throw new Error("CSV has no data rows.");
+
+                const parsedData = allRows.slice(1).map(parseRow).filter(Boolean);
+
+                if (parsedData.length === 0) throw new Error("No valid data rows found after parsing.");
+
+                updateTickCounter(parsedData);
+                updateMonthlyOverview(parsedData); // Changed from weekly to monthly
+                renderWeeklyPerformanceChart(parsedData);
+
+            } catch (error) {
+                console.error("Dashboard Initialization Error:", error);
+                displayErrorMessages();
+            }
+        }
+
+        function parseRow(rowString) {
+            const columns = rowString.split(",");
+            if (columns.length < 20) return null;
+
+            const dateStr = columns[2]?.replace(/"/g, '').trim();
+            const date = parseDate(dateStr);
+
+            if (!date) return null;
+
+            return {
+                date: date,
+                trade: columns[3]?.replace(/"/g, '').trim() || 'N/A',
+                ticks: parseFloat(columns[4]),
+                pnl: parseFloat(columns[19])
+            };
+        }
+
+        function parseDate(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') return null;
+            const parts = dateStr.split('/');
+            if (parts.length !== 3) return null;
+            
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1;
+            let year = parseInt(parts[2], 10);
+            
+            if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+            if (year < 100) year += 2000;
+
+            const date = new Date(Date.UTC(year, month, day));
+            if (date.getUTCFullYear() !== year || date.getUTCMonth() !== month || date.getUTCDate() !== day) {
+                return null;
+            }
+            
+            return date;
+        }
+
+        function updateTickCounter(data) {
+            const totalTicks = data.reduce((sum, row) => sum + (isNaN(row.ticks) ? 0 : row.ticks), 0);
+            if (tickTotalEl) {
+                tickTotalEl.dataset.target = totalTicks;
+                const initialFormatted = totalTicks >= 0 ? '+0' : '0';
+                tickTotalEl.innerText = initialFormatted;
+
+                if (document.readyState === 'complete') {
+                    animateNumberCounter();
+                }
+            }
+        }
+        
+        function updateMonthlyOverview(data) {
+            const container = document.getElementById("monthlyOverview");
+            const totalContainer = document.getElementById("monthlyTotal");
+            if (!container || !totalContainer) return;
+
+            const today = new Date();
+            const currentMonth = today.getUTCMonth();
+            const currentYear = today.getUTCFullYear();
+
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getUTCDate();
+            const monthlyData = {};
+            for (let d = 1; d <= daysInMonth; d++) {
+                monthlyData[d] = null;
+            }
+
+            let monthlySum = 0;
+
+            data.forEach(row => {
+                if (row.date.getUTCMonth() === currentMonth && row.date.getUTCFullYear() === currentYear) {
+                    const day = row.date.getUTCDate();
+                    if (!isNaN(row.pnl)) {
+                        monthlyData[day] = (monthlyData[day] || 0) + row.pnl;
+                        monthlySum += row.pnl;
+                    }
+                }
+            });
+
+            container.innerHTML = Object.keys(monthlyData).map(day => {
+                const result = monthlyData[day];
+                let color = "text-gray-500";
+                let display = "-";
+                if (result !== null) {
+                    color = result >= 0 ? "text-green-600" : "text-red-600";
+                    display = result >= 0 ? `+${result.toFixed(2)}` : result.toFixed(2);
+                }
+                return `
+                    <div class="bg-gray-50 p-2 rounded-lg border">
+                        <div class="font-semibold text-gray-800">${day}</div>
+                        <div class="${color} font-semibold">${display}</div>
+                    </div>
+                `;
+            }).join("");
+
+            let totalColor = monthlySum >= 0 ? "text-green-600" : "text-red-600";
+            let totalDisplay = monthlySum >= 0 ? `+${monthlySum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : monthlySum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            
+            totalContainer.innerHTML = `<div class="${totalColor}">Total This Month: ${totalDisplay}</div>`;
+        }
+
+
+        function renderWeeklyPerformanceChart(data) {
+            const ctx = document.getElementById('weeklyPerformanceChart')?.getContext('2d');
+            if (!ctx) return;
+            
+            const today = new Date();
+            const startOfWeek = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+            startOfWeek.setUTCDate(startOfWeek.getUTCDate() - (startOfWeek.getUTCDay() === 0 ? 6 : startOfWeek.getUTCDay() - 1));
+
+            const weekData = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }; // Mon-Fri
+            data.forEach(row => {
+                if (row.date >= startOfWeek) {
+                    const dayIndex = row.date.getUTCDay();
+                    if (weekData.hasOwnProperty(dayIndex) && !isNaN(row.pnl)) {
+                        weekData[dayIndex] += row.pnl;
+                    }
+                }
+            });
+
+            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+            let cumulativePnl = 0;
+            const chartData = labels.map((day, index) => {
+                cumulativePnl += weekData[index + 1];
+                return cumulativePnl;
+            });
+            
+            const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+            gradient.addColorStop(0, 'rgba(34, 197, 94, 0.5)');
+            gradient.addColorStop(1, 'rgba(34, 197, 94, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Cumulative P&L',
+                        data: chartData,
+                        borderColor: 'var(--color-accent)',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: 'var(--color-accent)',
+                        pointRadius: 4,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { color: '#6b7280' }, grid: { color: '#e5e7eb' } },
+                        x: { ticks: { color: '#6b7280' }, grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (context) => ` P&L: ${context.formattedValue}` } }
+                    }
+                }
+            });
+        }
+        
+        function displayErrorMessages() {
+            const monthlyOverviewContainer = document.getElementById("monthlyOverview");
+            const monthlyTotalContainer = document.getElementById("monthlyTotal");
+            
+            if (tickTotalEl) tickTotalEl.innerText = "Error";
+            if (monthlyOverviewContainer) monthlyOverviewContainer.innerHTML = '<span class="text-red-500 col-span-full">Error loading data.</span>';
+            if (monthlyTotalContainer) monthlyTotalContainer.innerHTML = '';
+        }
+
+        // --- Initialize Dashboard ---
+        initializeTradingDashboard();
+    });
+    </script>
+</body>
+</html>
+
