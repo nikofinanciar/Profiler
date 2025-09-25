@@ -1,644 +1,685 @@
-<!DOCTYPE html><!--  This site was created by Nikolas Papurica (Code by Alex)  -->
-<html lang="en">
-   <head>
-      <meta charset="utf-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <title>Nikofinanciar • Trader, Business Arhitect and Programmer</title>
-      <meta name="description" content="Helping brands thrive in the digital world. Located in The Netherlands. Delivering tailor-made digital designs and building interactive websites from scratch. © Code by Dennis"/>
-      <meta property="og:title" content="Nikofinanciar •  Trader, Business Arhitect & Programmer"/>
-      <meta property="og:description" content="Helping brands thrive in the digital world. Located in The Netherlands. Delivering tailor-made digital designs and building interactive websites from scratch. © Code by Dennis"/>
-      <meta property="og:image" content="https://dennissnellenberg.com/media/site/89d468b455-1646837228/meta-image-dennis-snellenberg-860x540-crop-q72.jpg"/>
-      <meta property="og:site_name" content="Nikofinanciar"/>
-                              <meta property="og:locale" content="en"/>
-      <meta property="og:type" content="website"/>      <meta property="twitter:title" content="Nikofinanciar •  Trader, Business Arhitect & Programmer"/>
-      <meta property="twitter:description" content="Helping brands thrive in the digital world. Located in Germany. Delivering tailor-made digital designs and building interactive websites from scratch. © Code by Dennis"/>
-      <meta property="twitter:image" content="https://dennissnellenberg.com/media/site/89d468b455-1646837228/meta-image-dennis-snellenberg-860x540-crop-q72.jpg"/>
-      <meta name="twitter:card" content="summary_large_image"/>
-      <meta name="google" content="notranslate"/>
-      <meta property="og:locale" content="en"/>
-      <link rel="canonical" href="https://dennissnellenberg.com"/>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikofinanciar - Trader, Business Architect, Programmer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF; /* Changed to white */
+            color: #1F2937; /* Changed to dark gray/black */
+            cursor: none; /* Hide the default cursor */
+        }
 
-      <link rel="preload" as="font" href="https://dennissnellenberg.com/assets/fonts/NeueMontreal-Regular.otf" type="font/otf" crossorigin="anonymous">
+        /* Custom Cursor */
+        .cursor-dot, .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: opacity 0.3s, transform 0.3s, width 0.3s, height 0.3s;
+        }
 
-      <link href="https://dennissnellenberg.com/assets/css/normalize.css" rel="stylesheet">      <link href="https://dennissnellenberg.com/assets/css/locomotive-scroll.css" rel="stylesheet">      <link href="https://dennissnellenberg.com/assets/css/styleguide.css" rel="stylesheet">      <link href="https://dennissnellenberg.com/assets/css/components.css" rel="stylesheet">      <link href="https://dennissnellenberg.com/assets/css/style-new.css" rel="stylesheet">
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-SGWQQRQ15Y"></script>
-		<script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
-         gtag('set', 'page', window.location.pathname);
-         gtag('send', 'pageview');
-         
-         gtag('config', 'G-SGWQQRQ15Y');
-		</script>
-      
-   </head>
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #16a34a; /* Changed to dark green */
+        }
 
-    <body data-barba="wrapper">
-        <div class="no-scroll-overlay"></div>
-        <div class="loading-container">
-            <div class="loading-screen">
-                <div class="rounded-div-wrap top">
-                    <div class="rounded-div"></div>
-                </div>
-                <div class="loading-words">
-                    <h2 class="home-active home-active-first">Hello<div class="dot"></div></h2>
-                    <h2 class="home-active">Bonjour<div class="dot"></div></h2>
-                    <h2 class="home-active">स्वागत हे<div class="dot"></div></h2>
-                    <h2 class="home-active">Ciao<div class="dot"></div></h2>
-                    <h2 class="home-active">Olá<div class="dot"></div></h2>
-                    <h2 class="home-active jap">おい<div class="dot"></div></h2>
-                    <h2 class="home-active">Hallå<div class="dot"></div></h2>
-                    <h2 class="home-active">Guten tag<div class="dot"></div></h2>
-                    <h2 class="home-active-last">Hallo<div class="dot"></div></h2>
-                                        <h2 class="active">Home<div class="dot"></div></h2>
-                                        <h2>Work<div class="dot"></div></h2>
-                                        <h2>TWICE<div class="dot"></div></h2>
-                                        <h2>The Damai<div class="dot"></div></h2>
-                                        <h2>FABRIC&trade;<div class="dot"></div></h2>
-                                        <h2>Aanstekelijk<div class="dot"></div></h2>
-                                        <h2>Base Create<div class="dot"></div></h2>
-                                        <h2>AVVR<div class="dot"></div></h2>
-                                        <h2>GraphicHunters<div class="dot"></div></h2>
-                                        <h2>Future Goals<div class="dot"></div></h2>
-                                        <h2>Atypikal<div class="dot"></div></h2>
-                                        <h2>One:Nil<div class="dot"></div></h2>
-                                        <h2>Andy Hardy<div class="dot"></div></h2>
-                                        <h2>About<div class="dot"></div></h2>
-                                        <h2>Contact<div class="dot"></div></h2>
-                                        <h2>Success<div class="dot"></div></h2>
-                                        <h2>Archive<div class="dot"></div></h2>
-                                        <h2>Error<div class="dot"></div></h2>
-                                        <h2>Styleguide<div class="dot"></div></h2>
-                                    </div>
-                <div class="rounded-div-wrap bottom">
-                    <div class="rounded-div"></div>
-                </div>
-            </div>
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #16a34a; /* Changed to dark green */
+            transition: all 0.1s ease-out;
+        }
+        
+        /* Interactive element hover effect on cursor */
+        .interactive:hover ~ .cursor-outline {
+            width: 60px;
+            height: 60px;
+            border-width: 3px;
+            background-color: rgba(22, 163, 74, 0.2); /* Changed to dark green */
+        }
+        .interactive:hover ~ .cursor-dot {
+            opacity: 0;
+        }
+
+        /* Page transition styles */
+        .page {
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Changed to light gray */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #16a34a; /* Changed to dark green */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #15803d; /* Changed to darker green */
+        }
+
+        .portfolio-card {
+            background: #F9FAFB; /* Changed to light gray */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Adjusted for light theme */
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #16a34a; /* Changed to dark green */
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        .nav-link:hover::after, .nav-link.active-link::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        /* Gemini Modal */
+        #gemini-modal {
+            background-color: rgba(0,0,0,0.5); /* Kept dark overlay for focus */
+            backdrop-filter: blur(8px);
+        }
+
+        /* Typing cursor effect */
+        .typing-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.5rem;
+            background-color: #16a34a; /* Changed to dark green */
+            animation: blink 1s step-end infinite;
+            margin-left: 4px;
+            vertical-align: bottom;
+        }
+        @keyframes blink {
+            from, to { background-color: transparent }
+            50% { background-color: #16a34a; } /* Changed to dark green */
+        }
+
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-6 md:p-8 bg-transparent">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" data-target="home" class="nav-link interactive">
+                <img src="new_logo.png" alt="Nikofinanciar Logo" class="h-10 w-auto">
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" data-target="home" class="nav-link active-link text-lg font-medium relative interactive">Home</a>
+                <a href="#" data-target="coding" class="nav-link text-lg font-medium relative interactive">Coding</a>
+                <a href="#" data-target="trading" class="nav-link text-lg font-medium relative interactive">Trading</a>
+                <a href="#" data-target="business" class="nav-link text-lg font-medium relative interactive">Business Architecture</a>
+            </nav>
+            <a href="#contact" class="hidden md:inline-block bg-[#16a34a] text-white font-bold py-3 px-6 rounded-lg interactive hover:bg-[#15803d] transition-colors">
+                Contact Me
+            </a>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden interactive z-50">
+                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
         </div>
-        <main class="main" id="home" data-barba="container" data-barba-namespace="home" >
-                    <div class="mouse-pos-list-image no-select">
-                <div class="mouse-pos-list-image-bounce overlay">
-                    <div class="float-image-wrap">
-                                                <li class="mouse-pos-list-image-inner development interaction visible">
-                            <div class="overlay overlay-image lazy" style="background-color: #F1F1F1; background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/media/pages/work/twice/0ab7e43954-1710404752/thumbnail-twice-810x810-crop-q72.jpg"></div>                        </li>
-                                                <li class="mouse-pos-list-image-inner design development interaction visible">
-                            <div class="overlay overlay-image lazy" style="background-color: #E0D9D1; background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/media/pages/work/the-damai/b511d32d21-1710452224/thumbnail-thedamai-v2-810x810-crop-q72.jpg"></div>                        </li>
-                                                <li class="mouse-pos-list-image-inner design development interaction visible">
-                            <div class="overlay overlay-image lazy" style="background-color: #48494A; background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/media/pages/work/fabric/ac07564a5f-1688453092/thumbnail-fabric-darkgray-810x810-crop-q72.jpg"></div>                        </li>
-                                                <li class="mouse-pos-list-image-inner design development interaction visible">
-                            <div class="overlay overlay-image lazy" style="background-color: #101010; background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/media/pages/work/aanstekelijk/441187fb44-1687423090/thumbnail-aanstekelijk-810x810-crop-q72.jpg"></div>                        </li>
-                                            </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform -translate-y-full transition-transform duration-500 ease-in-out flex items-center justify-center">
+        <nav class="flex flex-col items-center space-y-8">
+            <a href="#" data-target="home" class="nav-link text-3xl font-bold relative interactive">Home</a>
+            <a href="#" data-target="coding" class="nav-link text-3xl font-bold relative interactive">Coding</a>
+            <a href="#" data-target="trading" class="nav-link text-3xl font-bold relative interactive">Trading</a>
+            <a href="#" data-target="business" class="nav-link text-3xl font-bold relative interactive">Business Architecture</a>
+             <a href="#contact" class="mt-8 inline-block bg-[#16a34a] text-white font-bold py-4 px-8 rounded-lg interactive hover:bg-[#15803d] transition-colors">
+                Contact Me
+            </a>
+        </nav>
+    </div>
+
+
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <!-- Hero Section -->
+            <div class="h-screen flex items-center justify-center text-center relative overflow-hidden">
+                 <div class="absolute inset-0 bg-white opacity-20 z-10"></div>
+                 <img src="WhatsApp Image 2025-09-25 at 12.11.01_bef13b00.jpg" alt="Niko Papurica" class="absolute inset-0 w-full h-full object-cover object-center opacity-30">
+
+                <div class="z-20 relative px-4">
+                    <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter mb-4 reveal">Nikofinanciar</h1>
+                    <p class="text-xl md:text-3xl text-gray-800 reveal" style="transition-delay: 0.2s;">
+                        <span class="font-semibold text-[#16a34a]">Trader</span> &bull;
+                        <span class="font-semibold text-[#16a34a]">Business Architect</span> &bull;
+                        <span class="font-semibold text-[#16a34a]">Programmer</span>
+                    </p>
+                    <div class="mt-8 flex justify-center space-x-6 reveal" style="transition-delay: 0.4s;">
+                        <!-- LinkedIn Icon -->
+                        <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-600 hover:text-[#16a34a] transition-colors interactive">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                            </svg>
+                        </a>
+                        <!-- X (Twitter) Icon -->
+                        <a href="#" aria-label="X" class="text-gray-600 hover:text-[#16a34a] transition-colors interactive">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                            </svg>
+                        </a>
+                        <!-- Instagram Icon -->
+                        <a href="https://www.instagram.com/nikofinanciar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-600 hover:text-[#16a34a] transition-colors interactive">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
+                    <a href="#about" class="interactive">
+                        <svg class="w-8 h-8 animate-bounce text-[#16a34a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    </a>
                 </div>
             </div>
-            <div class="mouse-pos-list-btn no-select"></div>
-            <div class="mouse-pos-list-span no-select"><p>View</p></div>
-                                                            <div class="btn btn-hamburger">
-                <div class="btn-click magnetic" data-strength="50" data-strength-text="25">
-                    <div class="btn-fill"></div>
-                    <div class="btn-text">
-                        <div class="btn-bars"></div>
-                        <span class="btn-text-inner">Menu</span>
+
+            <!-- About Section -->
+            <div id="about" class="container mx-auto px-6 md:px-8 py-20 md:py-32">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
+                    <div class="md:col-span-2 reveal">
+                         <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Crafting Financial Futures & Digital Solutions.</h2>
+                         <button id="ai-twin-btn" class="bg-transparent border-2 border-[#16a34a] text-[#16a34a] font-bold py-3 px-6 rounded-lg interactive hover:bg-[#16a34a] hover:text-white transition-colors">
+                            ✨ Chat with my AI Twin
+                        </button>
+                    </div>
+                    <div class="md:col-span-3 text-lg md:text-xl text-gray-600 space-y-6 reveal" style="transition-delay: 0.2s;">
+                        <p>My name is Niko Papurica, and I operate at the intersection of finance, business strategy, and technology. As a trader, I navigate the complexities of the market to identify and capitalize on opportunities.</p>
+                        <p>As a business architect, I partner with companies to refine their strategies, optimize operations, and unlock sustainable growth. As a programmer, I build the tools and platforms that bring these ideas to life, creating elegant and efficient digital experiences.</p>
+                        <p>This portfolio is a showcase of my journey across these diverse yet interconnected fields.</p>
                     </div>
                 </div>
             </div>
-            <div class="overlay fixed-nav-back"></div>
-            <div class="fixed-nav theme-dark">
-                <div class="fixed-nav-rounded-div">
-                    <div class="rounded-div-wrap">
-                        <div class="rounded-div"></div>
-                    </div>
+
+            <!-- Portfolio Links Section -->
+            <div class="container mx-auto px-6 md:px-8 py-20 md:py-32">
+                <h2 class="text-center text-4xl md:text-5xl font-bold mb-16 tracking-tight reveal">Explore My Work</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Coding Card -->
+                    <a href="#" data-target="coding" class="nav-link portfolio-card rounded-2xl p-8 group reveal interactive">
+                        <h3 class="text-3xl font-bold mb-4">Coding Portfolio</h3>
+                        <p class="text-gray-600 mb-6">Innovative applications, algorithms, and full-stack projects.</p>
+                        <span class="font-semibold text-[#16a34a] group-hover:underline">View Projects &rarr;</span>
+                    </a>
+                    <!-- Trading Card -->
+                    <a href="#" data-target="trading" class="nav-link portfolio-card rounded-2xl p-8 group reveal interactive" style="transition-delay: 0.2s;">
+                        <h3 class="text-3xl font-bold mb-4">Trading Portfolio</h3>
+                        <p class="text-gray-600 mb-6">Market analysis, strategies, and performance insights.</p>
+                        <span class="font-semibold text-[#16a34a] group-hover:underline">View Analysis &rarr;</span>
+                    </a>
+                    <!-- Business Architecture Card -->
+                    <a href="#" data-target="business" class="nav-link portfolio-card rounded-2xl p-8 group reveal interactive" style="transition-delay: 0.4s;">
+                        <h3 class="text-3xl font-bold mb-4">Business Architecture</h3>
+                        <p class="text-gray-600 mb-6">Growth blueprints, market entry plans, and success stories.</p>
+                        <span class="font-semibold text-[#16a34a] group-hover:underline">View Case Studies &rarr;</span>
+                    </a>
                 </div>
-                <div class="fixed-nav-inner">
-                    <div class="row nav-row">
-                        <h5>Navigation</h5>
-                        <div class="stripe"></div>
-                        <ul class="links-wrap">
-                            <li class="btn btn-link active">
-                                <a href="https://dennissnellenberg.com" class="btn-click magnetic" data-strength="24" data-strength-text="12">
-                                <span class="btn-text">
-                                    <span class="btn-text-inner">Home</span>
-                                </span>
-                                </a>
-                            </li>
-                            <li class="btn btn-link">
-                                <a href="https://dennissnellenberg.com/work" class="btn-click magnetic" data-strength="24" data-strength-text="12">
-                                <span class="btn-text">
-                                    <span class="btn-text-inner">Work</span>
-                                </span>
-                                </a>
-                            </li>
-                            <li class="btn btn-link">
-                                <a href="https://dennissnellenberg.com/about" class="btn-click magnetic" data-strength="24" data-strength-text="12">
-                                <span class="btn-text">
-                                    <span class="btn-text-inner">About</span>
-                                </span>
-                                </a>
-                            </li>
-                            <li class="btn btn-link">
-                                <a href="https://dennissnellenberg.com/contact" class="btn-click magnetic" data-strength="24" data-strength-text="12">
-                                <span class="btn-text">
-                                    <span class="btn-text-inner">Contact</span>
-                                </span>
-                                </a>
-                            </li>
-                        </ul>
+            </div>
+            
+             <!-- Contact & Newsletter Section -->
+            <section id="contact" class="py-20 md:py-32 bg-gray-100">
+                <div class="container mx-auto px-6 md:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight reveal">Let's Connect</h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
+                            Have a project in mind, a question about the markets, or need a strategic partner for your business? I'm always open to new conversations.
+                        </p>
                     </div>
-                    <div class="row social-row">
-                        <div class="stripe"></div>
-                        <div class="socials">
-                            <h5>Socials</h5>
-                            <ul>
-                                <li class="btn btn-link btn-link-external">
-                                    <a href="https://www.awwwards.com/dennissnellenberg/" target="_blank" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                                        <span class="btn-text">
-                                            <span class="btn-text-inner">Awwwards</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="btn btn-link btn-link-external">
-                                    <a href="https://www.instagram.com/codebydennis/" target="_blank" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                                        <span class="btn-text">
-                                            <span class="btn-text-inner">Instagram</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="btn btn-link btn-link-external">
-                                    <a href="https://twitter.com/codebydennis" target="_blank" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                                        <span class="btn-text">
-                                            <span class="btn-text-inner">Twitter</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="btn btn-link btn-link-external">
-                                    <a href="https://www.linkedin.com/in/dennissnellenberg/" target="_blank" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                                        <span class="btn-text">
-                                            <span class="btn-text-inner">LinkedIn</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
+                    
+                    <div class="grid md:grid-cols-2 gap-16 items-start">
+                        <!-- Left Side: Contact Info -->
+                        <div class="reveal" style="transition-delay: 0.4s;">
+                            <h3 class="text-2xl font-bold mb-6 text-left">Contact Details</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-center space-x-4">
+                                    <svg class="w-8 h-8 text-[#16a34a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    <div>
+                                        <p class="font-semibold text-lg">Phone</p>
+                                        <a href="tel:+40765436735" class="text-gray-600 hover:text-[#16a34a] transition-colors interactive">+40 765 436 735</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <svg class="w-8 h-8 text-[#16a34a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <div>
+                                        <p class="font-semibold text-lg">Email</p>
+                                        <a href="mailto:niko@nikofinanciar.com" class="text-gray-600 hover:text-[#16a34a] transition-colors interactive">niko@nikofinanciar.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Right Side: Form -->
+                        <div class="reveal" style="transition-delay: 0.6s;">
+                             <h3 class="text-2xl font-bold mb-6">Send me a message</h3>
+                             <!-- 
+                                To make this form work, you need to connect it to a backend service.
+                                You can use a service like Formspree (https://formspree.io/).
+                                1. Create an account on Formspree.
+                                2. Create a new form and get your form endpoint URL.
+                                3. Replace the '#' in the action attribute with your Formspree URL.
+                                Example: action="https://formspree.io/f/your_unique_form_id"
+                             -->
+                            <form action="https://formspree.io/f/xovkvwlg" method="POST" class="space-y-6">
+                                <input type="email" name="email" placeholder="Your Email Address" required class="w-full bg-white border-2 border-gray-300 rounded-lg py-4 px-6 focus:outline-none focus:border-[#16a34a] transition-colors">
+                                <textarea name="message" placeholder="Your Message" rows="5" required class="w-full bg-white border-2 border-gray-300 rounded-lg py-4 px-6 focus:outline-none focus:border-[#16a34a] transition-colors"></textarea>
+                                <button type="submit" class="w-full bg-[#16a34a] text-white font-bold py-4 px-6 rounded-lg interactive hover:bg-[#15803d] transition-colors text-lg">
+                                    Send Message
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
+            </section>
+        </section>
+
+        <!-- Coding Portfolio Page -->
+        <section id="coding" class="page">
+            <div class="container mx-auto px-6 md:px-8 py-32 md:py-40">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 reveal">Coding Portfolio</h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-16 max-w-4xl reveal" style="transition-delay: 0.2s;">A collection of my work in software development. Below is an example of a Python script for analyzing stock data. Use the AI tool to understand what it does.</p>
+                
+                <div class="bg-gray-900 rounded-2xl p-8 reveal">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold text-gray-200">Python Stock Analyzer</h3>
+                        <button id="code-explainer-btn" class="bg-[#16a34a] text-white font-bold py-2 px-5 rounded-lg interactive hover:bg-[#15803d] transition-colors">
+                            ✨ Explain Code
+                        </button>
+                    </div>
+                    <pre><code id="code-snippet" class="language-python text-gray-300 text-sm overflow-x-auto">
+import pandas as pd
+import numpy as np
+
+def analyze_stock_data(filepath):
+    """
+    Loads stock data from a CSV file and calculates
+    daily returns and rolling volatility.
+    """
+    try:
+        data = pd.read_csv(filepath, index_col='Date', parse_dates=True)
+        
+        # Calculate daily returns
+        data['Daily_Return'] = data['Adj Close'].pct_change()
+        
+        # Calculate 30-day rolling volatility
+        data['Volatility'] = data['Daily_Return'].rolling(window=30).std() * np.sqrt(252)
+        
+        return data[['Adj Close', 'Daily_Return', 'Volatility']].dropna()
+        
+    except FileNotFoundError:
+        return "Error: Data file not found."
+
+# Example usage:
+# stock_analysis = analyze_stock_data('stock_data.csv')
+# print(stock_analysis.tail())
+                    </code></pre>
+                </div>
             </div>
-            <div class="main-wrap" data-scroll-container><header class="section home-header theme-dark" data-scroll-section>
-   <div class="overlay personal-image no-select once-in" data-scroll data-scroll-speed="-3" data-scroll-position="top">
-      <img src="https://dennissnellenberg.com/assets/img/DSC07033.jpg"/>
-   </div>
-   <div class="overlay get-height once-in once-in-secondary">
-      <div class="hanger">
-         <p><span>Located </span><span>in</span><span>Germany</span></p>
-         <?xml version="1.0" encoding="UTF-8"?>
-<svg width="300px" height="121px" viewBox="0 0 300 121" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Combined Shape</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard" transform="translate(0.000000, -366.000000)" fill="#1C1D20">
-            <g id="Group" transform="translate(149.816828, 426.633657) rotate(90.000000) translate(-149.816828, -426.633657) translate(89.816828, 276.816828)">
-                <g id="Hanger" transform="translate(60.000000, 149.816828) rotate(-90.000000) translate(-60.000000, -149.816828) translate(-89.816828, 89.816828)">
-                    <path d="M239.633657,0 C272.770742,1.0182436e-15 299.633657,26.862915 299.633657,60 C299.633657,93.137085 272.770742,120 239.633657,120 L0,120 L0,0 L239.633657,0 Z M239.633657,18.7755102 C216.866,18.7755102 198.409167,37.232343 198.409167,60 C198.409167,82.767657 216.866,101.22449 239.633657,101.22449 C262.401314,101.22449 280.858147,82.767657 280.858147,60 C280.858147,37.232343 262.401314,18.7755102 239.633657,18.7755102 Z" id="Combined-Shape"></path>
-                </g>
-            </g>
-        </g>
-    </g>
-</svg>         <div class="digital-ball">
-            <div class="overlay"></div>
-            <div class="globe">
-               <div class="globe-wrap">
-                  <div class="circle"></div>
-                  <div class="circle"></div>
-                  <div class="circle"></div>
-                  <div class="circle-hor"></div>
-                  <div class="circle-hor-middle"></div>
-               </div>
+        </section>
+
+        <!-- Trading Portfolio Page -->
+        <section id="trading" class="page">
+             <div class="container mx-auto px-6 md:px-8 py-32 md:py-40">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 reveal">Trading Portfolio</h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-16 max-w-4xl reveal" style="transition-delay: 0.2s;">Leverage AI to get real-time insights. Enter a stock ticker (e.g., GOOGL, AAPL, TSLA) or a market sector to get a quick analysis of the latest trends.</p>
+                
+                <div class="bg-gray-100 rounded-2xl p-8 reveal">
+                     <h3 class="text-3xl font-bold mb-6 text-center">Market Trend Analyzer</h3>
+                     <div class="flex flex-col md:flex-row gap-4">
+                        <input id="market-input" type="text" placeholder="Enter stock ticker or sector (e.g., 'TSLA' or 'AI Stocks')" class="flex-grow bg-white border-2 border-gray-300 rounded-lg py-4 px-6 focus:outline-none focus:border-[#16a34a] transition-colors">
+                        <button id="market-analyzer-btn" class="bg-[#16a34a] text-white font-bold py-4 px-6 rounded-lg interactive hover:bg-[#15803d] transition-colors text-lg">
+                           ✨ Analyze Now
+                        </button>
+                    </div>
+                </div>
+
             </div>
-         </div>
-      </div>
-   </div>
-   <div class="nav-bar">
-    <div class="credits-top">
-        <div class="btn btn-link btn-left-top">
-            <a href="https://dennissnellenberg.com" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-            <span class="btn-text">
-                <div class="credit"><span>©</span></div><div class="cbd"><span class="code-by">Code by </span><span class="Niko"><span class="nikolas-span"> Nikolas</span> <span class="papurica"></span></span></span></div>
-            </span>
-            </a>
+        </section>
+
+        <!-- Business Architecture Portfolio Page -->
+        <section id="business" class="page">
+            <div class="container mx-auto px-6 md:px-8 py-32 md:py-40">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 reveal">Business Architecture</h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-16 max-w-4xl reveal" style="transition-delay: 0.2s;">Have a business idea? Put it to the test. Describe your concept, and my AI assistant will provide an initial analysis of potential challenges and key considerations.</p>
+                
+                <div class="bg-gray-100 rounded-2xl p-8 reveal">
+                    <h3 class="text-3xl font-bold mb-6 text-center">Business Idea Stress Test</h3>
+                    <textarea id="business-idea-input" placeholder="Describe your business idea here... e.g., 'A subscription box service for rare indoor plants.'" rows="4" class="w-full bg-white border-2 border-gray-300 rounded-lg py-4 px-6 focus:outline-none focus:border-[#16a34a] transition-colors mb-4"></textarea>
+                    <button id="business-idea-btn" class="w-full bg-[#16a34a] text-white font-bold py-4 px-6 rounded-lg interactive hover:bg-[#15803d] transition-colors text-lg">
+                       ✨ Stress Test My Idea
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 border-t border-gray-200">
+        <div class="container mx-auto px-6 md:px-8 py-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <p class="text-gray-600 mb-4 md:mb-0">&copy; 2025 Nikofinanciar. All Rights Reserved.</p>
+            <div class="flex space-x-6">
+                <!-- LinkedIn Icon -->
+                <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-500 hover:text-[#16a34a] transition-colors interactive">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <!-- X (Twitter) Icon -->
+                <a href="#" aria-label="X" class="text-gray-500 hover:text-[#16a34a] transition-colors interactive">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <!-- Instagram Icon -->
+                <a href="https://www.instagram.com/nikofinanciar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-500 hover:text-[#16a34a] transition-colors interactive">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gemini AI Modal -->
+    <div id="gemini-modal" class="fixed inset-0 z-[100] items-center justify-center hidden">
+        <div class="bg-white rounded-2xl shadow-2xl w-11/12 md:max-w-2xl max-h-[80vh] flex flex-col text-gray-800">
+            <div class="flex justify-between items-center p-6 border-b border-gray-200">
+                <h2 id="modal-title" class="text-2xl font-bold">AI Assistant</h2>
+                <button id="close-modal-btn" class="text-gray-500 hover:text-gray-900 interactive">&times;</button>
+            </div>
+            <div id="modal-body" class="p-6 overflow-y-auto space-y-4">
+                <!-- Content will be injected here -->
+            </div>
+            <div id="modal-footer" class="p-6 border-t border-gray-200 mt-auto">
+                 <!-- Footer content / input will be injected here -->
+            </div>
         </div>
     </div>
-    <ul class="links-wrap">
-        <li class="btn btn-link">
-            <a href="https://dennissnellenberg.com/work" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-            <span class="btn-text">
-                <span class="btn-text-inner">Work</span>
-            </span>
-            </a>
-        </li>
-        <li class="btn btn-link">
-            <a href="https://dennissnellenberg.com/about" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-            <span class="btn-text">
-                <span class="btn-text-inner">About</span>
-            </span>
-            </a>
-        </li>
-        <li class="btn btn-link">
-            <a href="https://dennissnellenberg.com/contact" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-            <span class="btn-text">
-                <span class="btn-text-inner">Contact</span>
-            </span>
-            </a>
-        </li>
-        <li class="btn btn-link btn-menu">
-            <div class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                <div class="btn-text">
-                    <span class="btn-text-inner">Menu</span>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>   <div class="container once-in once-in-secondary">
-      <div class="row">
-         <div class="flex-col">
-            <div class="header-above-h4" data-scroll data-scroll-speed="1">
-               <div class="arrow big"><?xml version="1.0" encoding="UTF-8"?>
-<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>arrow-up-right</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard" transform="translate(-1019.000000, -279.000000)" stroke="#FFFFFF" stroke-width="1.5">
-            <g id="arrow-up-right" transform="translate(1026.000000, 286.000000) rotate(90.000000) translate(-1026.000000, -286.000000) translate(1020.000000, 280.000000)">
-                <polyline id="Path" points="2.76923077 0 12 0 12 9.23076923"></polyline>
-                <line x1="12" y1="0" x2="0" y2="12" id="Path"></line>
-            </g>
-        </g>
-    </g>
-</svg></div>
-            </div>
-            <h4><span>Trader</span>Business Arhitect & Programmer</h4>
-         </div>
-      </div>
-   </div>
-   <div class="big-name">
-      <div class="name-h1" data-scroll data-scroll-direction="horizontal" data-scroll-speed="4" data-scroll-position="top">
-         <div class="name-wrap">
-            <h1 class="no-select once-in once-in-secondary">Nikofinanciar<span class="spacer">—</span></h1>
-         </div>
-      </div>
-   </div>
-   <div class="white-block"></div>
-</header>
-<section class="section home-intro" data-scroll-section>
-   <div class="container medium">
-      <div class="row">
-         <div class="flex-col">
-            <h4 class="span-lines animate">Helping brands to stand out in the digital era. Together we will set the new status quo. No nonsense, always on the cutting edge.</h4>
-         </div>
-         <div class="flex-col">
-            <div class="text-wrap fade-in animate">
-               <p>The combination of my passion for design, code & interaction positions me in a unique place in the web design world.</p>
-            </div>
-            <div class="btn btn-round" data-scroll data-scroll-speed="2">
-               <a href="https://dennissnellenberg.com/about" class="btn-click magnetic " data-strength="100" data-strength-text="50">
-                  <div class="btn-fill"></div>
-                  <span class="btn-text">
-                     <span class="btn-text-inner">About me</span>
-                  </span>
-               </a>
-            </div>
-         </div>
-      </div>
-   </div>
-</section>
-<section class="section work-grid large-work-grid" data-scroll-section>
-   <div class="container">
-      <div class="grid-sub-title">
-         <div class="flex-col">
-            <h5>Recent work</h5>
-         </div>
-         <!-- <div class="flex-col">
-            <h5>Services</h5>
-         </div> -->
-      </div>
-      <ul class="work-items mouse-pos-list-image-wrap">
-                     <li class="development interaction visible">
-            <div class="stripe animate"></div>
-            <a href="https://dennissnellenberg.com/work/twice" class="row">
-               <div class="flex-col">
-                  <h4><span>TWICE</span></h4>
-               </div>
-               <div class="flex-col animate">
-                  <p>Interaction & Development</p>
-               </div>
-            </a>
-         </li>
-                     <li class="design development interaction visible">
-            <div class="stripe animate"></div>
-            <a href="https://dennissnellenberg.com/work/the-damai" class="row">
-               <div class="flex-col">
-                  <h4><span>The Damai</span></h4>
-               </div>
-               <div class="flex-col animate">
-                  <p>Design & Development</p>
-               </div>
-            </a>
-         </li>
-                     <li class="design development interaction visible">
-            <div class="stripe animate"></div>
-            <a href="https://dennissnellenberg.com/work/fabric" class="row">
-               <div class="flex-col">
-                  <h4><span>FABRIC™</span></h4>
-               </div>
-               <div class="flex-col animate">
-                  <p>Design & Development</p>
-               </div>
-            </a>
-         </li>
-                     <li class="design development interaction visible">
-            <div class="stripe animate"></div>
-            <a href="https://dennissnellenberg.com/work/aanstekelijk" class="row">
-               <div class="flex-col">
-                  <h4><span>Aanstekelijk</span></h4>
-               </div>
-               <div class="flex-col animate">
-                  <p>Design & Development</p>
-               </div>
-            </a>
-         </li>
-                  <div class="stripe last animate"></div>
-      </ul>
-   </div>
-</section>
-<section class="section work-tiles work-tiles-home" data-scroll-section>
-   <div class="container">
-      <ul>
-                  <li class="development interaction visible">
-            <div class="single-tile-wrap">
-               <a href="https://dennissnellenberg.com/work/twice" class="row">
-                  <div class="flex-col">
-                     <div class="tile-image">
-                        <div class="overlay overlay-image lazy" style="background-color: #F1F1F1; background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/media/pages/work/twice/0ab7e43954-1710404752/thumbnail-twice.jpg"></div>                     </div>
-                  </div>
-                  <div class="flex-col">
-                     <h4><span>TWICE</span></h4>
-                     <div class="stripe"></div>
-                  </div>
-                  <div class="flex-col">
-                     <p>Interaction & Development</p>
-                  </div>
-                  <div class="flex-col">
-                     <p>2024</p>
-                  </div>
-               </a>
-            </div>
-         </li>
-                  <li class="design development interaction visible">
-            <div class="single-tile-wrap">
-               <a href="https://dennissnellenberg.com/work/the-damai" class="row">
-                  <div class="flex-col">
-                     <div class="tile-image">
-                        <div class="overlay overlay-image lazy" style="background-color: #E0D9D1; background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/media/pages/work/the-damai/b511d32d21-1710452224/thumbnail-thedamai-v2.jpg"></div>                     </div>
-                  </div>
-                  <div class="flex-col">
-                     <h4><span>The Damai</span></h4>
-                     <div class="stripe"></div>
-                  </div>
-                  <div class="flex-col">
-                     <p>Design & Development</p>
-                  </div>
-                  <div class="flex-col">
-                     <p>2024</p>
-                  </div>
-               </a>
-            </div>
-         </li>
-                  <li class="design development interaction visible">
-            <div class="single-tile-wrap">
-               <a href="https://dennissnellenberg.com/work/fabric" class="row">
-                  <div class="flex-col">
-                     <div class="tile-image">
-                        <div class="overlay overlay-image lazy" style="background-color: #48494A; background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/media/pages/work/fabric/ac07564a5f-1688453092/thumbnail-fabric-darkgray.jpg"></div>                     </div>
-                  </div>
-                  <div class="flex-col">
-                     <h4><span>FABRIC™</span></h4>
-                     <div class="stripe"></div>
-                  </div>
-                  <div class="flex-col">
-                     <p>Design & Development</p>
-                  </div>
-                  <div class="flex-col">
-                     <p>2023</p>
-                  </div>
-               </a>
-            </div>
-         </li>
-                  <li class="design development interaction visible">
-            <div class="single-tile-wrap">
-               <a href="https://dennissnellenberg.com/work/aanstekelijk" class="row">
-                  <div class="flex-col">
-                     <div class="tile-image">
-                        <div class="overlay overlay-image lazy" style="background-color: #101010; background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/media/pages/work/aanstekelijk/441187fb44-1687423090/thumbnail-aanstekelijk.jpg"></div>                     </div>
-                  </div>
-                  <div class="flex-col">
-                     <h4><span>Aanstekelijk</span></h4>
-                     <div class="stripe"></div>
-                  </div>
-                  <div class="flex-col">
-                     <p>Design & Development</p>
-                  </div>
-                  <div class="flex-col">
-                     <p>2023</p>
-                  </div>
-               </a>
-            </div>
-         </li>
-               </ul>
-   </div>
-</section>
-<section class="section center-grid-btn center-grid-btn-home" data-scroll-section>
-   <div class="container">    
-      <div class="grid-after-btn">
-         <div class="btn btn-normal">
-            <a href="https://dennissnellenberg.com/work" class="btn-click magnetic" data-strength="25" data-strength-text="15">
-               <div class="btn-fill"></div>
-               <span class="btn-text">
-                  <span class="btn-text-inner change">More work<div class="count-nr">11</div></span>
-               </span>
-            </a>
-         </div>
-      </div>
-   </div>
-</section>
-<section class="section horizontal-items" data-scroll-section>
-   <div class="container">    
-      <div class="row row-1" data-scroll data-scroll-speed="-1" data-scroll-direction="horizontal">
-         <div class="flex-col">
-            <div class="horizontal-single-item">
-               <div class="overlay lazy" style="background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/assets/img/home-item-1.jpg"></div>
-            </div>
-         </div>
-         <div class="flex-col">
-            <div class="horizontal-single-item">
-               <div class="overlay playpauze"><video class="overlay lazy" src="https://dennissnellenberg.com/assets/img/home-item-2.mp4" loop muted playsinline></video></div>
-            </div>
-         </div>
-         <div class="flex-col">
-            <div class="horizontal-single-item">
-               <div class="overlay lazy" style="background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/assets/img/home-item-3.jpg"></div>
-            </div>
-         </div>
-         <div class="flex-col">
-            <div class="horizontal-single-item">
-               <div class="overlay playpauze"><video class="overlay lazy" src="https://dennissnellenberg.com/assets/img/home-item-4.mp4" loop muted playsinline></video></div>
-            </div>
-         </div>
-      </div>
-      <div class="row row-2" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
-         <div class="flex-col">
-            <div class="horizontal-single-item">
-               <div class="overlay playpauze"><video class="overlay lazy" src="https://dennissnellenberg.com/assets/img/home-item-5.mp4" loop muted playsinline></video></div>
-            </div>
-         </div>
-         <div class="flex-col">
-            <div class="horizontal-single-item">
-               <div class="overlay lazy" style="background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/assets/img/home-item-6.jpg"></div>
-            </div>
-         </div>
-         <div class="flex-col">
-            <div class="horizontal-single-item">
-               <div class="overlay playpauze"><video class="overlay lazy" src="https://dennissnellenberg.com/assets/img/home-item-7.mp4" loop muted playsinline></video></div>
-            </div>
-         </div>
-         <div class="flex-col">
-            <div class="horizontal-single-item">
-               <div class="overlay lazy" style="background-position: center center; background-repeat: no-repeat; background-size: cover;" data-bg="https://dennissnellenberg.com/assets/img/home-item-8.jpg"></div>
-            </div>
-         </div>
-      </div>
-   </div>
-</section>
-                                <div class="footer-rounded-div" data-scroll-section>
-                    <div class="rounded-div-wrap">
-                        <div class="rounded-div"></div>
-                    </div>
-                </div>
-                <div class="footer-wrap footer-footer-wrap theme-dark" data-scroll-section>
-                    <footer class="section footer" data-scroll data-scroll-speed="-4" data-scroll-position="bottom">
-                        <div class="container medium">
-                            <div class="row">
-                                <div class="flex-col">
-                                    <div class="arrow"><?xml version="1.0" encoding="UTF-8"?>
-<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>arrow-up-right</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard" transform="translate(-1019.000000, -279.000000)" stroke="#FFFFFF" stroke-width="1.5">
-            <g id="arrow-up-right" transform="translate(1026.000000, 286.000000) rotate(90.000000) translate(-1026.000000, -286.000000) translate(1020.000000, 280.000000)">
-                <polyline id="Path" points="2.76923077 0 12 0 12 9.23076923"></polyline>
-                <line x1="12" y1="0" x2="0" y2="12" id="Path"></line>
-            </g>
-        </g>
-    </g>
-</svg></div>
-                                    <h2><span><div class="profile-picture"></div> Let’s work  </span><span>together</span></h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="flex-col">
-                                    <div class="stripe"></div>
-                                    <div class="btn-fixed">
-                                        <div class="btn btn-round" data-scroll data-scroll-speed="-1" data-scroll-direction="horizontal" data-scroll-position="bottom" data-scroll-offset="-50%, 0">
-                                            <a href="https://dennissnellenberg.com/contact" class="btn-click magnetic " data-strength="100" data-strength-text="50">
-                                                <div class="btn-fill"></div>
-                                                <span class="btn-text">
-                                                    <span class="btn-text-inner">Get in touch</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="flex-col">
-                                    <div class="btn btn-normal">
-                                        <a href="mailto:niko@nikofinanciar.com" class="btn-click magnetic" data-strength="25" data-strength-text="15">
-                                        <div class="btn-fill"></div>
-                                        <span class="btn-text">
-                                            <span class="btn-text-inner change">niko@nikofinanciar.com</span>
-                                        </span>
-                                        </a>
-                                    </div>
-                                    <div class="btn btn-normal">
-                                        <a href="tel:+40765436735" class="btn-click magnetic" data-strength="25" data-strength-text="15">
-                                        <div class="btn-fill"></div>
-                                        <span class="btn-text">
-                                            <span class="btn-text-inner change">+40765436735</span>
-                                        </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container no-padding">
-                            <div class="row bottom-footer">
-                                <div class="flex-col">
-                                    <div class="credits">
-                                        <h5>Version</h5>
-                                        <p>2022 © Edition</p>
-                                    </div>
-                                    <div class="time">
-                                        <h5>Local time</h5>
-                                        <p><span id="timeSpan">09:41 PM CET</span></p>
-                                    </div>
-                                </div>
-                                <div class="flex-col">
-                                    <div class="socials">
-                                        <h5>Socials</h5>
-                                        <ul>
-                                            <li class="btn btn-link btn-link-external">
-                                                <a href="https://www.awwwards.com/dennissnellenberg/" target="_blank" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                                                    <span class="btn-text">
-                                                        <span class="btn-text-inner">Awwwards</span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="btn btn-link btn-link-external">
-                                                <a href="https://www.instagram.com/codebydennis/" target="_blank" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                                                    <span class="btn-text">
-                                                        <span class="btn-text-inner">Instagram</span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="btn btn-link btn-link-external">
-                                                <a href="https://twitter.com/codebydennis" target="_blank" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                                                    <span class="btn-text">
-                                                        <span class="btn-text-inner">Twitter</span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="btn btn-link btn-link-external">
-                                                <a href="https://www.linkedin.com/in/dennissnellenberg/" target="_blank" class="btn-click magnetic" data-strength="20" data-strength-text="10">
-                                                    <span class="btn-text">
-                                                        <span class="btn-text-inner">LinkedIn</span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <div class="stripe"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </footer>
-                    <div class="overlay overlay-gradient"></div>
-                </div>
-                            </div>
-        </main>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script> -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/@barba/core@2.9.7"></script> -->
-        <script src="https://cdn.jsdelivr.net/npm/@barba/core@2.10.3"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.6.1/dist/lazyload.min.js"></script>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+        });
         
-        <script src="https://dennissnellenberg.com/assets/js/locomotive-scroll.min.js"></script>        <script defer src="https://dennissnellenberg.com/assets/js/index-new.js"></script>    </body>
+        // --- Page Navigation Logic ---
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const headerLinks = document.querySelectorAll('header .nav-link:not([data-target="#contact"])');
+        
+        const setActiveLink = (targetId) => {
+             headerLinks.forEach(link => {
+                link.classList.remove('active-link');
+                if(link.dataset.target === targetId) link.classList.add('active-link');
+            });
+        };
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.dataset.target;
+                if (targetId && document.getElementById(targetId)) {
+                     pages.forEach(page => page.classList.remove('active'));
+                     document.getElementById(targetId).classList.add('active');
+                     window.scrollTo(0, 0);
+                     setActiveLink(targetId);
+                     if(document.getElementById('mobile-menu').classList.contains('menu-open')) {
+                         document.getElementById('mobile-menu-btn').click();
+                     }
+                }
+            });
+        });
+
+        // --- Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        // --- Mobile Menu ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('-translate-y-full');
+            mobileMenu.classList.toggle('menu-open');
+        });
+        
+        // --- Gemini API Integration ---
+
+        const modal = document.getElementById('gemini-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalFooter = document.getElementById('modal-footer');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        const apiKey = ""; // Per instructions, leave this empty.
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        // Function to display text with a typing effect
+        function typeEffect(element, text) {
+            element.innerHTML = "";
+            let i = 0;
+            function typing() {
+                if (i < text.length) {
+                    let char = text.charAt(i);
+                    if (char === '\n') {
+                        element.innerHTML += '<br>';
+                    } else {
+                        element.innerHTML += char;
+                    }
+                    i++;
+                    setTimeout(typing, 10);
+                } else {
+                     element.querySelector('.typing-cursor')?.remove();
+                }
+            }
+            element.innerHTML = '<div class="typing-cursor"></div>';
+            typing();
+        }
+
+        // Generic function to call Gemini API with exponential backoff
+        async function callGemini(payload, maxRetries = 3) {
+            let attempt = 0;
+            while (attempt < maxRetries) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        return candidate.content.parts[0].text;
+                    } else {
+                        throw new Error("Invalid response structure from API.");
+                    }
+                } catch (error) {
+                    console.error(`Attempt ${attempt + 1} failed:`, error);
+                    attempt++;
+                    if (attempt >= maxRetries) {
+                        return "Sorry, I'm having trouble connecting to the AI. Please try again later.";
+                    }
+                    const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
+                    await new Promise(res => setTimeout(res, delay));
+                }
+            }
+        }
+        
+        function showModal(title) {
+            modalTitle.textContent = title;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            modalBody.innerHTML = '';
+            modalFooter.innerHTML = '';
+        }
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+
+        // 1. AI Twin Feature
+        document.getElementById('ai-twin-btn').addEventListener('click', () => {
+            showModal('Chat with my AI Twin');
+            modalBody.innerHTML = `<p class="text-gray-600">Hello! I'm Niko's AI Twin. I've been trained on his professional background and philosophy. Ask me anything about his skills in trading, business architecture, or programming.</p>`;
+            modalFooter.innerHTML = `
+                <div class="flex gap-4">
+                    <input id="ai-twin-input" type="text" placeholder="e.g., 'What is your trading philosophy?'" class="flex-grow bg-gray-100 border-2 border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:border-[#16a34a] transition-colors">
+                    <button id="ai-twin-submit" class="bg-[#16a34a] text-white font-bold py-3 px-5 rounded-lg interactive hover:bg-[#15803d] transition-colors">Send</button>
+                </div>
+            `;
+            
+            document.getElementById('ai-twin-submit').addEventListener('click', async () => {
+                const input = document.getElementById('ai-twin-input');
+                const userQuery = input.value;
+                if (!userQuery.trim()) return;
+
+                const responseArea = document.createElement('div');
+                responseArea.className = 'mt-4 bg-gray-100 p-4 rounded-lg';
+                modalBody.appendChild(responseArea);
+                typeEffect(responseArea, "Thinking...");
+                input.value = '';
+
+                const systemPrompt = "You are an AI Twin for Niko Papurica, a professional Trader, Business Architect, and Programmer. Your persona is professional, knowledgeable, and concise. Your goal is to answer questions based on his profile. Key points about Niko: He operates at the intersection of finance, business, and technology. As a trader, he analyzes markets to find opportunities. As a business architect, he helps companies grow and optimize. As a programmer, he builds digital tools and solutions. He believes in a multi-disciplinary approach to problem-solving. Keep your answers to a few sentences.";
+                
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
+                };
+
+                const responseText = await callGemini(payload);
+                typeEffect(responseArea, responseText);
+            });
+        });
+
+        // 2. Code Explainer Feature
+        document.getElementById('code-explainer-btn').addEventListener('click', async () => {
+            showModal('✨ AI Code Explainer');
+            modalBody.innerHTML = '<p>Loading analysis...</p>';
+            typeEffect(modalBody, "Analyzing code...");
+
+            const code = document.getElementById('code-snippet').textContent;
+            const userQuery = `Explain the following Python code snippet, line by line, in simple terms:\n\n\`\`\`python\n${code}\n\`\`\``;
+            
+            const payload = { contents: [{ parts: [{ text: userQuery }] }] };
+            const responseText = await callGemini(payload);
+            typeEffect(modalBody, responseText.replace(/```python|```/g, '')); // Clean up markdown
+        });
+
+        // 3. Market Trend Analyzer Feature
+        document.getElementById('market-analyzer-btn').addEventListener('click', async () => {
+            const input = document.getElementById('market-input').value;
+            if (!input.trim()) {
+                alert('Please enter a stock ticker or market sector.');
+                return;
+            }
+            showModal(`✨ Market Analysis for: ${input}`);
+            typeEffect(modalBody, "Fetching real-time market data and generating analysis...");
+
+            const userQuery = `Provide a brief, current market analysis for "${input}". Include recent news, general sentiment (positive, negative, neutral), and key trends. Keep it concise and easy for a non-expert to understand.`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }],
+            };
+
+            const responseText = await callGemini(payload);
+            typeEffect(modalBody, responseText);
+        });
+
+        // 4. Business Idea Stress Test Feature
+        document.getElementById('business-idea-btn').addEventListener('click', async () => {
+            const idea = document.getElementById('business-idea-input').value;
+            if (!idea.trim()) {
+                alert('Please describe your business idea.');
+                return;
+            }
+            showModal('✨ Business Idea Stress Test');
+            typeEffect(modalBody, "Applying business architecture principles to stress test your idea...");
+
+            const systemPrompt = "You are an expert Business Architect. When a user provides a business idea, your task is to 'stress test' it. Do not be overly negative, but be realistic. Provide a bulleted list of 3-5 potential challenges, key questions the founder should answer, and one strategic recommendation. Format the response clearly with headings.";
+            const userQuery = `Here is my business idea: ${idea}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            const responseText = await callGemini(payload);
+            typeEffect(modalBody, responseText);
+        });
+    });
+    </script>
+</body>
 </html>
+
+
