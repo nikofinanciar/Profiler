@@ -291,7 +291,7 @@
             }, stepTime);
         }
 
-        // --- Main Data Fetching and Processing Logic ---
+        // --- Main Data Fetching and Processing Logic (CORRECTED) ---
         async function initializeTradingDashboard() {
             const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRjF0O7KHhyxE4BuD5nqRYBSIX5y-0MtvCF0sS8h1W9MRBXWNE7u5h4KOZoBwIDkTfhsKSY73BL-cOz/pub?output=csv";
             
@@ -308,7 +308,7 @@
                 if (parsedData.length === 0) throw new Error("No valid data rows found after parsing.");
 
                 updateTickCounter(parsedData);
-                updateMonthlyOverview(parsedData); // Changed from weekly to monthly
+                updateMonthlyOverview(parsedData);
                 renderWeeklyPerformanceChart(parsedData);
 
             } catch (error) {
@@ -319,29 +319,41 @@
 
         function parseRow(rowString) {
             const columns = rowString.split(",");
-            if (columns.length < 20) return null;
+            if (columns.length < 10) return null;
 
             const dateStr = columns[2]?.replace(/"/g, '').trim();
             const date = parseDate(dateStr);
 
             if (!date) return null;
+            
+            const parsePnl = (val) => {
+                if (typeof val !== 'string') return NaN;
+                const cleaned = val.replace(/["$,]/g, '').trim();
+                if (cleaned.startsWith('(') && cleaned.endsWith(')')) {
+                    return -parseFloat(cleaned.substring(1, cleaned.length - 1));
+                }
+                return parseFloat(cleaned);
+            };
+
+            const pnlValue = parsePnl(columns[9]); // Column J is index 9
+            const tickValue = parseFloat(columns[4]); // Column E is index 4
 
             return {
                 date: date,
                 trade: columns[3]?.replace(/"/g, '').trim() || 'N/A',
-                ticks: parseFloat(columns[4]),
-                pnl: parseFloat(columns[19])
+                ticks: tickValue,
+                pnl: pnlValue
             };
         }
 
         function parseDate(dateStr) {
             if (!dateStr || typeof dateStr !== 'string') return null;
-            const parts = dateStr.split('/');
-            if (parts.length !== 3) return null;
+            const parts = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+            if (!parts) return null;
             
-            const day = parseInt(parts[0], 10);
-            const month = parseInt(parts[1], 10) - 1;
-            let year = parseInt(parts[2], 10);
+            const day = parseInt(parts[1], 10);
+            const month = parseInt(parts[2], 10) - 1;
+            let year = parseInt(parts[3], 10);
             
             if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
             if (year < 100) year += 2000;
@@ -360,10 +372,6 @@
                 tickTotalEl.dataset.target = totalTicks;
                 const initialFormatted = totalTicks >= 0 ? '+0' : '0';
                 tickTotalEl.innerText = initialFormatted;
-
-                if (document.readyState === 'complete') {
-                    animateNumberCounter();
-                }
             }
         }
         
@@ -378,44 +386,51 @@
 
             const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getUTCDate();
             const monthlyData = {};
-            for (let d = 1; d <= daysInMonth; d++) {
-                monthlyData[d] = null;
-            }
-
-            let monthlySum = 0;
 
             data.forEach(row => {
                 if (row.date.getUTCMonth() === currentMonth && row.date.getUTCFullYear() === currentYear) {
                     const day = row.date.getUTCDate();
-                    if (!isNaN(row.pnl)) {
+                    if (row.pnl !== null && !isNaN(row.pnl)) {
                         monthlyData[day] = (monthlyData[day] || 0) + row.pnl;
-                        monthlySum += row.pnl;
                     }
                 }
             });
 
-            container.innerHTML = Object.keys(monthlyData).map(day => {
+            let calendarHtml = '';
+            for (let day = 1; day <= daysInMonth; day++) {
                 const result = monthlyData[day];
-                let color = "text-gray-500";
+                
+                let bgColor = "bg-gray-50";
+                let textColor = "text-gray-800";
+                let resultTextColor = "text-gray-400";
                 let display = "-";
-                if (result !== null) {
-                    color = result >= 0 ? "text-green-600" : "text-red-600";
-                    display = result >= 0 ? `+${result.toFixed(2)}` : result.toFixed(2);
+
+                if (result !== undefined && result !== null) {
+                    if (result > 0) {
+                        bgColor = "bg-green-100"; textColor = "text-green-800"; resultTextColor = "text-green-600"; display = "W";
+                    } else if (result < 0) {
+                        bgColor = "bg-red-100"; textColor = "text-red-800"; resultTextColor = "text-red-600"; display = "L";
+                    } else {
+                        bgColor = "bg-gray-200"; textColor = "text-gray-700"; resultTextColor = "text-gray-600"; display = "B/E";
+                    }
                 }
-                return `
-                    <div class="bg-gray-50 p-2 rounded-lg border">
-                        <div class="font-semibold text-gray-800">${day}</div>
-                        <div class="${color} font-semibold">${display}</div>
+
+                calendarHtml += `
+                    <div class="${bgColor} p-2 rounded-lg border border-gray-200 flex flex-col justify-between h-20">
+                        <div class="font-bold ${textColor}">${day}</div>
+                        <div class="${resultTextColor} font-extrabold text-xl">${display}</div>
                     </div>
                 `;
-            }).join("");
+            }
+            container.innerHTML = calendarHtml;
 
-            let totalColor = monthlySum >= 0 ? "text-green-600" : "text-red-600";
-            let totalDisplay = monthlySum >= 0 ? `+${monthlySum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : monthlySum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            const monthlySum = Object.values(monthlyData).reduce((sum, pnl) => sum + (pnl || 0), 0);
+            const totalColor = monthlySum >= 0 ? "text-green-600" : "text-red-600";
+            const totalSign = monthlySum > 0 ? "+" : "";
+            const totalDisplay = `${totalSign}${monthlySum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             
             totalContainer.innerHTML = `<div class="${totalColor}">Total This Month: ${totalDisplay}</div>`;
         }
-
 
         function renderWeeklyPerformanceChart(data) {
             const ctx = document.getElementById('weeklyPerformanceChart')?.getContext('2d');
