@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikofinanciar - Trader, Business Architect, Programmer</title>
-    <!-- NEW Favicon -->
+    <title>Nikofinanciar - Digital Content & Financial Expertise</title>
     <link rel="icon" href="data:image/svg+xml,<svg viewBox='0 0 115 80' xmlns='http://www.w3.org/2000/svg'><g fill='none'><path d='M10 70 V 10 L 50 70 V 10' stroke='%23166534' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/><path d='M55 10 H 105' stroke='%23166534' stroke-width='12' stroke-linecap='round'/><path d='M55 40 H 95' stroke='%23166534' stroke-width='12' stroke-linecap='round'/><g stroke-width='4' stroke-linecap='round'><line x1='75' y1='5' x2='75' y2='75' stroke='%2322c55e'/><rect x='67' y='20' width='16' height='40' fill='%2322c55e' stroke='none'/></g></g></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +57,8 @@
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
         }
         .hero-bg {
-            background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2944&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+             /* Updated background image for a digital/social media vibe */
+            background-image: url('https://images.unsplash.com/photo-1542435503-9d18728d867c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
             background-position: center;
         }
@@ -91,7 +91,6 @@
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 header-bg">
         <div class="container mx-auto flex justify-between items-center p-4 md:p-6">
             <a href="index.html" class="flex items-center gap-3 group">
@@ -108,14 +107,13 @@
                 </svg>
             </a>
             <nav class="hidden md:flex space-x-8">
-                <a href="index.html" class="text-accent font-bold">Home</a>
-                <a href="trading.html" class="text-gray-800 hover:text-accent transition-colors">Trading</a>
-                <a href="programming.html" class="text-gray-800 hover:text-accent transition-colors">Programming</a>
-                <a href="business-architecture.html" class="text-gray-800 hover:text-accent transition-colors">Business</a>
+                <a href="#home" class="text-accent font-bold">Home</a>
+                <a href="#channels" class="text-gray-800 hover:text-accent transition-colors">Channels</a>
+                <a href="#about" class="text-gray-800 hover:text-accent transition-colors">Business Info</a>
                 <a href="#contact" class="text-gray-800 hover:text-accent transition-colors">Contact</a>
             </nav>
             <a href="#contact" class="hidden md:inline-block bg-accent text-white font-bold py-3 px-6 rounded-lg glow-button">
-                Contact Me
+                Partner With Me
             </a>
             <button id="mobile-menu-btn" class="md:hidden z-50 text-gray-800">
                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -123,38 +121,34 @@
         </div>
     </header>
     
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform -translate-x-full transition-transform duration-500 ease-in-out flex items-center justify-center md:hidden">
         <nav class="flex flex-col items-center space-y-10">
-            <a href="index.html" class="nav-link text-3xl font-bold text-accent">Home</a>
-            <a href="trading.html" class="nav-link text-3xl font-bold text-gray-800">Trading</a>
-            <a href="programming.html" class="nav-link text-3xl font-bold text-gray-800">Programming</a>
-            <a href="business-architecture.html" class="nav-link text-3xl font-bold text-gray-800">Business</a>
+            <a href="#home" class="nav-link text-3xl font-bold text-accent">Home</a>
+            <a href="#channels" class="nav-link text-3xl font-bold text-gray-800">Channels</a>
+            <a href="#about" class="nav-link text-3xl font-bold text-gray-800">Business Info</a>
             <a href="#contact" class="nav-link text-3xl font-bold text-gray-800">Contact</a>
         </nav>
     </div>
 
     <main>
-        <!-- Hero Section -->
         <section id="home" class="h-screen min-h-[800px] flex items-center justify-center text-center relative hero-bg">
             <div class="z-10 relative px-4 flex flex-col items-center">
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-4 text-gray-900 reveal">
                     Nikofinanciar
                 </h1>
                 <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mb-8 reveal" style="transition-delay: 0.2s;">
-                    A multi-disciplinary expert in <span class="text-accent font-bold">Trading</span>, 
-                    <span class="text-accent font-bold">Business Architecture</span>, and 
-                    <span class="text-accent font-bold">Programming</span>.
+                    The digital hub for <span class="text-accent font-bold">Financial Insights</span>, 
+                    <span class="text-accent font-bold">Trading Strategies</span>, and 
+                    <span class="text-accent font-bold">Digital Innovation</span>.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 mb-10 reveal" style="transition-delay: 0.4s;">
-                    <a href="#services" class="bg-accent text-white font-bold py-4 px-8 rounded-lg glow-button">
-                        Explore My Services
+                    <a href="#channels" class="bg-accent text-white font-bold py-4 px-8 rounded-lg glow-button">
+                        See My Channels
                     </a>
                     <a href="#contact" class="secondary-button font-bold py-4 px-8 rounded-lg">
-                        Get In Touch
+                        Business Inquiries
                     </a>
                 </div>
-                <!-- Social Icons -->
                 <div class="flex space-x-6 reveal" style="transition-delay: 0.6s;">
                     <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-500 hover:text-accent transition-colors">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -169,101 +163,115 @@
             </div>
         </section>
 
-        <!-- Services Section -->
-        <section id="services" class="py-20 md:py-32 bg-gray-50">
+        <section id="channels" class="py-20 md:py-32 bg-gray-50">
             <div class="container mx-auto px-6 md:px-8">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">My Areas of Expertise</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">My Digital Footprint</h2>
                     <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-                        I offer a unique blend of skills to solve complex challenges and drive innovation.
+                        Follow my journey, insights, and content across all major platforms.
                     </p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Programming Card -->
-                    <a href="programming.html" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg">
+                    <a href="https://www.tiktok.com/@nikolasfinancial" target="_blank" rel="noopener noreferrer" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg">
                         <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"/></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Programming</h3>
-                        <p class="text-gray-600">Building robust applications, custom algorithms, and full-stack digital solutions to bring innovative ideas to life.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">TikTok: Quick Insights</h3>
+                        <p class="text-gray-600">Daily quick-fire videos on trading, finance hacks, and the intersection of tech and money. **@NikolasFinancial**.</p>
                     </a>
-                    <!-- Trading Card -->
-                    <a href="trading.html" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg" style="transition-delay: 0.2s;">
+                    <a href="https://www.instagram.com/nikofinanciar/" target="_blank" rel="noopener noreferrer" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg" style="transition-delay: 0.2s;">
                          <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919C8.356 2.175 8.741 2.163 12 2.163m0-2.163C8.74.001 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Trading</h3>
-                        <p class="text-gray-600">In-depth market analysis, quantitative strategies, and risk management to navigate and capitalize on financial market dynamics.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Instagram: Daily Life & Updates</h3>
+                        <p class="text-gray-600">Visual content, behind-the-scenes glimpses of development and trading life, and community engagement. **@Nikofinanciar**.</p>
                     </a>
-                    <!-- Business Architecture Card -->
-                    <a href="business-architecture.html" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg" style="transition-delay: 0.4s;">
+                    <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg" style="transition-delay: 0.4s;">
                         <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m-1 4h1m5-4h1m-1 4h1" /></svg>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Business Architecture</h3>
-                        <p class="text-gray-600">Designing strategic blueprints for growth, optimizing business processes, and aligning technology with corporate objectives.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">LinkedIn: Professional Deep Dives</h3>
+                        <p class="text-gray-600">In-depth articles, whitepapers, and professional commentary on finance, business architecture, and technology trends. **Niko Papurica**.</p>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="py-20 md:py-32">
             <div class="container mx-auto px-6 md:px-8">
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="reveal flex justify-center">
-                        <img src="photo1.jpg" alt="Niko Papurica" class="rounded-full shadow-2xl w-80 h-80 md:w-96 md:h-96 object-cover">
+                        <div class="bg-accent/10 rounded-full w-80 h-80 md:w-96 md:h-96 flex items-center justify-center shadow-2xl">
+                             <!-- REVOLUT PRO IMAGE (using provided background image set for optimal scaling) -->
+                             <div class="w-full h-full" style="
+                                background-repeat: no-repeat; 
+                                background-position: center; 
+                                background-size: 50%; /* Set logo size relative to container */
+                                --rui-image-url: url('https://assets.revolut.com/assets/revolut-app-icons/Retail.png'); 
+                                background-image: image-set(
+                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail@2x.webp') 2x, 
+                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail@2x.png') 2x, 
+                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail@3x.webp') 3x, 
+                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail@3x.png') 3x, 
+                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail.png') 1x
+                                );
+                            ">
+                            </div>
+                        </div>
                     </div>
                     <div class="reveal" style="transition-delay: 0.2s;">
-                        <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-gray-900">About Me</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-gray-900">Official Business & Revolut Pro Details</h2>
                         <div class="text-lg text-gray-600 space-y-4">
-                            <p>My name is Niko Papurica. I operate at the intersection of finance, business strategy, and technology, believing that the greatest value is created when these fields converge.</p>
-                            <p>Whether it's navigating the complexities of the market, architecting a plan for sustainable business growth, or building the digital tools to execute that vision, my approach is always data-driven, strategic, and relentlessly focused on results.</p>
+                            <p>This website serves as the official business presence for my digital content, consulting, and trading analysis services across social media platforms.</p>
+                            <p>My primary business is creating educational and analytical financial content (Fin-Ed/Fin-Tech), combined with offering strategic consulting services to businesses and individuals leveraging my unique blend of programming, trading, and business architecture expertise.</p>
+                            
+                            <h3 class="text-2xl font-bold pt-4 text-gray-800">Revolut Pro Account Information:</h3>
+                            <ul class="list-disc list-inside space-y-2 pl-4">
+                                <li><strong>Revolut Pro Username:</strong> <span class="text-accent font-semibold">@a_papurica</span></li>
+                                <li><strong>Associated Email:</strong> <span class="text-accent font-semibold">alexp17598@gmail.com</span></li>
+                                <!-- BUSINESS TYPE CHANGED TO SOCIAL MEDIA -->
+                                <li><strong>Business Type:</strong> <span class="text-accent font-semibold">Social Media</span></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Experience Section -->
-        <section id="experience" class="py-20 md:py-32 bg-gray-50">
+        <section id="impact" class="py-20 md:py-32 bg-gray-50">
             <div class="container mx-auto px-6 md:px-8">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">Professional Experience</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">Community Impact & Key Focus</h2>
                     <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-                        A timeline of my journey through the worlds of finance and technology.
+                        Highlighting the value I deliver through my digital platforms.
                     </p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
-                     <!-- Quantitative Trader -->
                     <div class="card-bg rounded-2xl p-8 text-center reveal shadow-lg">
                         <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Quantitative Trader</h3>
-                        <p class="text-gray-600">Developed and deployed automated trading algorithms based on statistical analysis. Managed a diversified portfolio across multiple asset classes, focusing on rigorous risk control.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Automated Strategies</h3>
+                        <p class="text-gray-600">I share content and strategies on developing and testing **algorithmic trading** systems using Python, blending code with market theory.</p>
                     </div>
-                    <!-- Lead Developer -->
                     <div class="card-bg rounded-2xl p-8 text-center reveal shadow-lg" style="transition-delay: 0.2s;">
                          <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Lead Developer & Architect</h3>
-                        <p class="text-gray-600">Led teams in designing and building scalable, high-performance software solutions. Architected complex systems and championed best practices in full-stack development.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Fin-Tech Tutorials</h3>
+                        <p class="text-gray-600">My channels provide tutorials and discussions on full-stack development, cloud solutions, and how they apply to **financial technologies**.</p>
                     </div>
-                    <!-- Business Consultant -->
                     <div class="card-bg rounded-2xl p-8 text-center reveal shadow-lg" style="transition-delay: 0.4s;">
                         <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Business Strategy Consultant</h3>
-                        <p class="text-gray-600">Advised startups and established companies on market entry, process optimization, and digital transformation, creating actionable strategies to drive revenue and efficiency.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Strategic Consulting</h3>
+                        <p class="text-gray-600">Through private consulting, I help businesses and creators define their **digital strategy** and optimize their operational architecture for scale.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ Section -->
         <section id="faq" class="py-20 md:py-32">
             <div class="container mx-auto px-6 md:px-8">
                 <div class="text-center mb-16">
@@ -272,70 +280,58 @@
                 <div class="max-w-4xl mx-auto space-y-4 reveal">
                     <div class="card-bg rounded-lg overflow-hidden shadow-lg">
                         <button class="w-full flex justify-between items-center text-left p-6 faq-toggle">
-                            <span class="text-xl font-semibold text-gray-800">What services do you offer?</span>
+                            <span class="text-xl font-semibold text-gray-800">What is the primary focus of your social media business?</span>
                             <svg class="w-6 h-6 transition-transform faq-icon text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
                         <div class="faq-answer text-gray-600">
-                            <p class="p-6 pt-0">I specialize in quantitative trading, custom software development, and business architecture consulting. I help clients navigate financial markets, build powerful digital tools, and design strategies for sustainable growth.</p>
+                            <p class="p-6 pt-0">The core business is **Financial Education and Fin-Tech Content Creation**, monetized through platform partnerships, brand sponsorships, and specialized consulting services in trading and business architecture.</p>
                         </div>
                     </div>
                      <div class="card-bg rounded-lg overflow-hidden shadow-lg">
                         <button class="w-full flex justify-between items-center text-left p-6 faq-toggle">
-                            <span class="text-xl font-semibold text-gray-800">What technologies do you specialize in?</span>
+                            <span class="text-xl font-semibold text-gray-800">Where can I see your trading results/data?</span>
                             <svg class="w-6 h-6 transition-transform faq-icon text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
                         <div class="faq-answer text-gray-600">
-                            <p class="p-6 pt-0">My expertise is in full-stack development, primarily using JavaScript (Node.js, React) and Python for data analysis and algorithmic trading. I am proficient in database management, cloud infrastructure (AWS, Google Cloud), and building scalable APIs.</p>
+                            <p class="p-6 pt-0">I share performance and proof for my public strategies. The performance data is logged live in a public Google Sheet. You can view the full history and daily proof in the <a href="trading-calendar.html" class="text-accent underline">Trading Calendar</a> link provided in my social bios.</p>
                         </div>
                     </div>
                     <div class="card-bg rounded-lg overflow-hidden shadow-lg">
                         <button class="w-full flex justify-between items-center text-left p-6 faq-toggle">
-                            <span class="text-xl font-semibold text-gray-800">What is your investment philosophy?</span>
+                            <span class="text-xl font-semibold text-gray-800">How do I contact you for business and collaborations?</span>
                             <svg class="w-6 h-6 transition-transform faq-icon text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
                         <div class="faq-answer text-gray-600">
-                             <p class="p-6 pt-0">My trading approach is quantitative and data-driven. I focus on identifying statistical arbitrage opportunities and developing strategies with a clear, testable edge. Risk management is paramount, and I employ strict protocols to protect capital.</p>
-                        </div>
-                    </div>
-                    <div class="card-bg rounded-lg overflow-hidden shadow-lg">
-                        <button class="w-full flex justify-between items-center text-left p-6 faq-toggle">
-                            <span class="text-xl font-semibold text-gray-800">How is the trading data verified?</span>
-                            <svg class="w-6 h-6 transition-transform faq-icon text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        <div class="faq-answer text-gray-600">
-                             <p class="p-6 pt-0">The performance data is pulled live from a public Google Sheet where I log every trade. You can view the full history and daily proof in the <a href="trading-calendar.html" class="text-accent underline">Trading Calendar</a>.</p>
+                            <p class="p-6 pt-0">For all professional and collaboration inquiries, please use the contact form below or email me directly at: <span class="text-accent font-semibold">alexp17598@gmail.com</span>.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="py-20 md:py-32 bg-gray-50">
             <div class="container mx-auto px-6 md:px-8 max-w-4xl">
                  <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">Let's Build Something Together</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">Partner With Nikofinanciar</h2>
                     <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-                        Have a project, an idea, or an opportunity you'd like to discuss? Reach out.
+                        For sponsorships, consulting, or media inquiries, reach out below.
                     </p>
                 </div>
                 <div class="card-bg rounded-2xl p-8 md:p-12 reveal shadow-lg">
                     <form action="https://formspree.io/f/xovkvwlg" method="POST" class="space-y-6">
                         <div class="grid sm:grid-cols-2 gap-6">
                             <input type="text" name="name" placeholder="Your Name" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
-                            <input type="email" name="email" placeholder="Your Email Address" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                            <input type="email" name="email" placeholder="Your Email Address (Required for business)" required value="alexp17598@gmail.com" class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
                         </div>
-                        <textarea name="message" placeholder="Your Message" rows="5" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"></textarea>
+                        <textarea name="message" placeholder="Describe your collaboration idea or inquiry" rows="5" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"></textarea>
                         <button type="submit" class="w-full bg-accent text-white font-bold py-4 px-6 rounded-lg glow-button text-lg">
-                            Send Message
+                            Send Business Inquiry
                         </button>
                     </form>
                 </div>
@@ -343,10 +339,9 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="border-t border-gray-200">
         <div class="container mx-auto px-6 md:px-8 py-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-            <p class="text-gray-500 mb-4 md:mb-0">&copy; 2025 Nikofinanciar. All Rights Reserved.</p>
+            <p class="text-gray-500 mb-4 md:mb-0">&copy; 2025 Nikofinanciar Digital. All Rights Reserved.</p>
             <div class="flex space-x-6">
                 <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-500 hover:text-accent transition-colors">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -397,6 +392,17 @@
                 const answer = button.nextElementSibling;
                 const icon = button.querySelector('.faq-icon');
 
+                // Close all others first (optional, but good UX)
+                document.querySelectorAll('.faq-toggle').forEach(otherButton => {
+                    if (otherButton !== button) {
+                        const otherAnswer = otherButton.nextElementSibling;
+                        const otherIcon = otherButton.querySelector('.faq-icon');
+                        otherAnswer.style.maxHeight = null;
+                        otherIcon.classList.remove('rotate-180');
+                    }
+                });
+
+
                 if (answer.style.maxHeight) {
                     answer.style.maxHeight = null;
                     icon.classList.remove('rotate-180');
@@ -410,4 +416,3 @@
     </script>
 </body>
 </html>
-
