@@ -1,418 +1,1134 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikofinanciar - Digital Content & Financial Expertise</title>
-    <link rel="icon" href="data:image/svg+xml,<svg viewBox='0 0 115 80' xmlns='http://www.w3.org/2000/svg'><g fill='none'><path d='M10 70 V 10 L 50 70 V 10' stroke='%23166534' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/><path d='M55 10 H 105' stroke='%23166534' stroke-width='12' stroke-linecap='round'/><path d='M55 40 H 95' stroke='%23166534' stroke-width='12' stroke-linecap='round'/><g stroke-width='4' stroke-linecap='round'><line x1='75' y1='5' x2='75' y2='75' stroke='%2322c55e'/><rect x='67' y='20' width='16' height='40' fill='%2322c55e' stroke='none'/></g></g></svg>">
+    <title>Nikofinanciar | Trading, Development & Management Solutions</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --color-accent: #22c55e; /* Green */
-            --color-accent-dark: #166534; /* Dark Green for logo text */
-            --color-accent-glow: rgba(34, 197, 94, 0.7);
-        }
+        /* Custom font import and base styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #ffffff;
-            color: #1f2937; /* Dark Gray for text */
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A; /* Deep Dark Background */
+            color: #FAFAFA;
+            overflow-x: hidden;
         }
-        .text-accent { color: var(--color-accent); }
-        .bg-accent { background-color: var(--color-accent); }
-        .border-accent { border-color: var(--color-accent); }
-        .glow-button {
-            transition: all 0.3s ease;
-            box-shadow: 0 0 5px var(--color-accent-glow), 0 0 10px var(--color-accent-glow);
+
+        /* Accent Color Variable */
+        :root {
+            --color-accent: #06B6D4; /* Tailwind cyan-500 */
         }
-        .glow-button:hover {
-            box-shadow: 0 0 15px var(--color-accent-glow), 0 0 30px var(--color-accent-glow);
-            transform: scale(1.05);
-        }
-        .secondary-button {
-            background-color: #f3f4f6; /* Light Gray BG */
-            border: 1px solid #d1d5db; /* Gray Border */
-            color: #1f2937;
-            transition: all 0.3s ease;
-        }
-        .secondary-button:hover {
-             background-color: #e5e7eb;
-             transform: scale(1.05);
-        }
-        .header-bg {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .card-bg {
-            background-color: #ffffff;
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
-        }
-        .card-bg:hover {
-            border-color: var(--color-accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
-        }
-        .hero-bg {
-             /* Updated background image for a digital/social media vibe */
-            background-image: url('https://images.unsplash.com/photo-1542435503-9d18728d867c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            background-size: cover;
-            background-position: center;
-        }
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, #ffffff 85%);
-        }
-        .reveal {
+
+        /* Custom Scrollbar for a sleek look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: #18181B; }
+
+        /* Animation Classes */
+        .fade-in-up {
             opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s, transform 0.8s;
-            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .reveal.visible {
+        .fade-in-up.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
-        .faq-icon { transition: transform 0.3s ease; }
-        
-        .expertise-icon-container {
-            transition: transform 0.3s ease-in-out;
+
+        /* Button Hover Effect */
+        .btn-accent {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
         }
-        .card-bg:hover .expertise-icon-container {
-            transform: scale(1.15);
+        .btn-accent:hover {
+            box-shadow: 0 0 20px 0 rgba(6, 182, 212, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Card Hover Effect */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #1f2937; /* Initial border color */
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
+            border-color: var(--color-accent); /* Highlight border on hover */
+        }
+
+        /* Pricing Card Emphasis */
+        .pricing-card-best {
+            border: 3px solid var(--color-accent);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+            background-color: #111111; /* Slightly darker to stand out */
+        }
+
+        /* Service Selector Icon Animation */
+        .service-selector {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+        }
+        .service-selector:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.2);
+            background-color: #1f2937;
+        }
+
+        /* Social Icon Styling for Pop */
+        .social-icon-wrapper {
+            transition: all 0.3s ease;
+        }
+        .social-icon-wrapper:hover {
+            transform: scale(1.1);
+            color: var(--color-accent) !important;
+        }
+
+        /* Modal Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: none; /* Controlled by JS */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background-color: #111827; /* Dark background for modal */
+            color: #FAFAFA;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            width: 450px;
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease-out;
+            position: relative; /* Needed for positioning inside flex container */
+        }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+        }
+
+        /* Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'background-dark': '#0A0A0A',
+                        'card-dark': '#18181B',
+                        'accent-cyan': '#06B6D4',
+                    }
+                }
+            }
+        }
+
+        /* Hide all views by default, show based on JS routing */
+        .main-view {
+            display: none;
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="bg-background-dark min-h-screen">
 
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 header-bg">
-        <div class="container mx-auto flex justify-between items-center p-4 md:p-6">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <svg class="h-14 w-auto" viewBox="0 0 115 80" xmlns="http://www.w3.org/2000/svg">
-                    <g fill="none">
-                        <path d="M10 70 V 10 L 50 70 V 10" stroke="var(--color-accent-dark)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M55 10 H 105" stroke="var(--color-accent-dark)" stroke-width="12" stroke-linecap="round"/>
-                        <path d="M55 40 H 95" stroke="var(--color-accent-dark)" stroke-width="12" stroke-linecap="round"/>
-                        <g stroke-width="4" stroke-linecap="round">
-                            <line x1="75" y1="5" x2="75" y2="75" stroke="var(--color-accent)"/>
-                            <rect x="67" y="20" width="16" height="40" fill="var(--color-accent)" stroke="none"/>
-                        </g>
-                    </g>
-                </svg>
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-sm shadow-xl shadow-black/10">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#view=home" class="text-2xl font-extrabold text-white tracking-widest uppercase router-link">
+                Nikofinanciar<span class="text-accent-cyan">.</span>
             </a>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#home" class="text-accent font-bold">Home</a>
-                <a href="#channels" class="text-gray-800 hover:text-accent transition-colors">Channels</a>
-                <a href="#about" class="text-gray-800 hover:text-accent transition-colors">Business Info</a>
-                <a href="#contact" class="text-gray-800 hover:text-accent transition-colors">Contact</a>
-            </nav>
-            <a href="#contact" class="hidden md:inline-block bg-accent text-white font-bold py-3 px-6 rounded-lg glow-button">
-                Partner With Me
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#view=home" class="hover:text-accent-cyan transition duration-300 router-link">Home</a>
+                <a href="#view=trading" class="hover:text-accent-cyan transition duration-300 router-link">Trading</a>
+                <a href="#view=dev" class="hover:text-accent-cyan transition duration-300 router-link">Programming & WebDev</a>
+                <a href="#view=biz" class="hover:text-accent-cyan transition duration-300 router-link">Business Management</a>
+            </div>
+            <!-- Updated Link to Global Pricing -->
+            <a href="#view=home&section=global-pricing" class="hidden md:block bg-accent-cyan text-background-dark px-4 py-2 rounded-lg font-semibold text-sm btn-accent smooth-scroll router-link">
+                Join Community
             </a>
-            <button id="mobile-menu-btn" class="md:hidden z-50 text-gray-800">
-                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <button id="menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2 bg-background-dark transition-all duration-300 ease-in-out">
+            <a href="#view=home" class="block py-2 text-sm text-white hover:text-accent-cyan router-link">Home</a>
+            <a href="#view=trading" class="block py-2 text-sm text-white hover:text-accent-cyan router-link">Trading</a>
+            <a href="#view=dev" class="block py-2 text-sm text-white hover:text-accent-cyan router-link">Programming & WebDev</a>
+            <a href="#view=biz" class="block py-2 text-sm text-white hover:text-accent-cyan router-link">Business Management</a>
+            <!-- Updated Link to Global Pricing -->
+            <a href="#view=home&section=global-pricing" class="block text-center mt-4 bg-accent-cyan text-background-dark px-4 py-2 rounded-lg font-semibold text-sm btn-accent router-link smooth-scroll">
+                Join Community
+            </a>
         </div>
     </header>
-    
-    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform -translate-x-full transition-transform duration-500 ease-in-out flex items-center justify-center md:hidden">
-        <nav class="flex flex-col items-center space-y-10">
-            <a href="#home" class="nav-link text-3xl font-bold text-accent">Home</a>
-            <a href="#channels" class="nav-link text-3xl font-bold text-gray-800">Channels</a>
-            <a href="#about" class="nav-link text-3xl font-bold text-gray-800">Business Info</a>
-            <a href="#contact" class="nav-link text-3xl font-bold text-gray-800">Contact</a>
-        </nav>
-    </div>
 
-    <main>
-        <section id="home" class="h-screen min-h-[800px] flex items-center justify-center text-center relative hero-bg">
-            <div class="z-10 relative px-4 flex flex-col items-center">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-4 text-gray-900 reveal">
-                    Nikofinanciar
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mb-8 reveal" style="transition-delay: 0.2s;">
-                    The digital hub for <span class="text-accent font-bold">Financial Insights</span>, 
-                    <span class="text-accent font-bold">Trading Strategies</span>, and 
-                    <span class="text-accent font-bold">Digital Innovation</span>.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 mb-10 reveal" style="transition-delay: 0.4s;">
-                    <a href="#channels" class="bg-accent text-white font-bold py-4 px-8 rounded-lg glow-button">
-                        See My Channels
-                    </a>
-                    <a href="#contact" class="secondary-button font-bold py-4 px-8 rounded-lg">
-                        Business Inquiries
-                    </a>
-                </div>
-                <div class="flex space-x-6 reveal" style="transition-delay: 0.6s;">
-                    <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-500 hover:text-accent transition-colors">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    </a>
-                    <a href="https://www.instagram.com/nikofinanciar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-500 hover:text-accent transition-colors">
-                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919C8.356 2.175 8.741 2.163 12 2.163m0-2.163C8.74.001 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
-                    </a>
-                    <a href="https://www.tiktok.com/@nikolasfinancial" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="text-gray-500 hover:text-accent transition-colors">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"/></svg>
-                    </a>
-                </div>
-            </div>
-        </section>
+    <main id="app-content">
 
-        <section id="channels" class="py-20 md:py-32 bg-gray-50">
-            <div class="container mx-auto px-6 md:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">My Digital Footprint</h2>
-                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-                        Follow my journey, insights, and content across all major platforms.
+        <!-- ========================================================= -->
+        <!-- 0. HOME VIEW (New Landing Page) -->
+        <!-- ========================================================= -->
+        <div id="home-view" class="main-view">
+            <!-- 0.1 Home Hero / Main Pitch -->
+            <section id="home-hero" class="py-20 md:py-32 text-center max-w-7xl mx-auto px-4 fade-in-up">
+                <div class="space-y-6">
+                    <p class="text-accent-cyan uppercase font-bold text-sm tracking-widest fade-in-up is-visible">
+                        Nikofinanciar - Master Your Markets, Master Your Business
                     </p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <a href="https://www.tiktok.com/@nikolasfinancial" target="_blank" rel="noopener noreferrer" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg">
-                        <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">TikTok: Quick Insights</h3>
-                        <p class="text-gray-600">Daily quick-fire videos on trading, finance hacks, and the intersection of tech and money. **@NikolasFinancial**.</p>
-                    </a>
-                    <a href="https://www.instagram.com/nikofinanciar/" target="_blank" rel="noopener noreferrer" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg" style="transition-delay: 0.2s;">
-                         <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919C8.356 2.175 8.741 2.163 12 2.163m0-2.163C8.74.001 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Instagram: Daily Life & Updates</h3>
-                        <p class="text-gray-600">Visual content, behind-the-scenes glimpses of development and trading life, and community engagement. **@Nikofinanciar**.</p>
-                    </a>
-                    <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" class="card-bg rounded-2xl p-8 text-center reveal block shadow-lg" style="transition-delay: 0.4s;">
-                        <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">LinkedIn: Professional Deep Dives</h3>
-                        <p class="text-gray-600">In-depth articles, whitepapers, and professional commentary on finance, business architecture, and technology trends. **Niko Papurica**.</p>
+                    <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tighter text-white fade-in-up is-visible" style="transition-delay: 0.1s;">
+                        Multi-Faceted <br class="hidden md:inline">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-500">
+                            Strategy for Modern Success.
+                        </span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto pt-4 fade-in-up is-visible" style="transition-delay: 0.2s;">
+                        I provide expert guidance in futures trading, custom digital development, and scalable business operations. Choose your path below.
+                    </p>
+                    <a href="#view=home&section=about" class="inline-block border border-white/20 text-white px-8 py-3 rounded-xl font-bold text-lg hover:bg-white/10 transition duration-300 btn-accent smooth-scroll fade-in-up is-visible" style="transition-delay: 0.3s;">
+                        Get to Know Niko
                     </a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="about" class="py-20 md:py-32">
-            <div class="container mx-auto px-6 md:px-8">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div class="reveal flex justify-center">
-                        <div class="bg-accent/10 rounded-full w-80 h-80 md:w-96 md:h-96 flex items-center justify-center shadow-2xl">
-                             <!-- REVOLUT PRO IMAGE (using provided background image set for optimal scaling) -->
-                             <div class="w-full h-full" style="
-                                background-repeat: no-repeat; 
-                                background-position: center; 
-                                background-size: 50%; /* Set logo size relative to container */
-                                --rui-image-url: url('https://assets.revolut.com/assets/revolut-app-icons/Retail.png'); 
-                                background-image: image-set(
-                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail@2x.webp') 2x, 
-                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail@2x.png') 2x, 
-                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail@3x.webp') 3x, 
-                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail@3x.png') 3x, 
-                                    url('https://assets.revolut.com/assets/revolut-app-icons/Retail.png') 1x
-                                );
-                            ">
+            <!-- 0.2 Service Selection Icons (Animated) -->
+            <section id="service-selection" class="py-20 bg-card-dark border-t border-b border-white/5">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-10 fade-in-up">
+                        Select Your Area of Focus
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        
+                        <!-- Icon 1: Trading -->
+                        <a href="#view=trading" class="service-selector p-8 rounded-xl bg-card-dark border-2 border-white/10 fade-in-up" style="transition-delay: 0.2s;">
+                            <span class="text-6xl text-accent-cyan block mb-4">
+                                <!-- Chart Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                            </span>
+                            <h3 class="text-xl font-bold text-white mb-1">Trading</h3>
+                            <p class="text-sm text-gray-400">Futures trading community, live analysis & profit tracking.</p>
+                        </a>
+
+                        <!-- Icon 2: Programming & WebDev -->
+                        <a href="#view=dev" class="service-selector p-8 rounded-xl bg-card-dark border-2 border-white/10 fade-in-up" style="transition-delay: 0.3s;">
+                            <span class="text-6xl text-accent-cyan block mb-4">
+                                <!-- Code Icon SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </span>
+                            <h3 class="text-xl font-bold text-white mb-1">Programming & WebDev</h3>
+                            <p class="text-sm text-gray-400">Custom websites, systems automation, and digital management.</p>
+                        </a>
+
+                        <!-- Icon 3: Business Management (UPDATED ICON) -->
+                        <a href="#view=biz" class="service-selector p-8 rounded-xl bg-card-dark border-2 border-white/10 fade-in-up" style="transition-delay: 0.4s;">
+                            <span class="text-6xl text-accent-cyan block mb-4">
+                                <!-- Bar Chart SVG for strategy/growth -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13L11 3.055z" stroke-width="0" fill="currentColor"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18V6" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 18V10" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 18V14" />
+                                    <rect x="7" y="5" width="10" height="13" rx="1" stroke="none" fill="currentColor" opacity="0.1"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                                </svg>
+                            </span>
+                            <h3 class="text-xl font-bold text-white mb-1">Business Management</h3>
+                            <p class="text-sm text-gray-400">Financial planning, operational strategy, and growth consultation.</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 0.3 About Me & Contact -->
+            <section id="about" class="py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <header class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
+                            A Little Bit About Me (Niko)
+                        </h2>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
+                            Bridging the gap between financial intelligence and digital execution.
+                        </p>
+                    </header>
+
+                    <div class="bg-card-dark p-8 rounded-xl border border-white/10 shadow-2xl fade-in-up" style="transition-delay: 0.3s;">
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            My journey began in the fast-paced world of **futures trading**, where discipline and systematic analysis are paramount. I quickly realized that success in any venture—from trading to running a company—relies on three pillars: **clear strategy, efficient operations, and robust digital tools.**
+                        </p>
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            That insight led me to expand my expertise into **programming and business management**. Now, I leverage my unique skill set to not only guide traders to profitability but also to help businesses automate their way to scale and optimize their core financial models. I am here to provide you with the same tools, systems, and mindset that drive my own success.
+                        </p>
+                        <div class="text-center pt-4">
+                            <!-- Button changed to open the modal -->
+                            <a href="#" id="contact-modal-open" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
+                                Contact Me Directly
+                            </a>
+                            
+                            <!-- NEW: Social Media Links on Home Page (Styled) -->
+                            <div class="flex justify-center space-x-6 pt-8">
+                                <!-- YouTube -->
+                                <a href="#" target="_blank" class="text-gray-400 hover:text-red-600 social-icon-wrapper" aria-label="YouTube">
+                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.001 2.001C6.48 2.001 2 6.48 2 12.001c0 5.518 4.48 9.998 10.001 9.998 5.518 0 9.997-4.48 9.997-9.998 0-5.521-4.48-10-9.997-10zm-3.04 14.974V7.027l6.08 4.974-6.08 4.974z" fill-rule="evenodd"/></svg>
+                                </a>
+                                <!-- Instagram -->
+                                <a href="#" target="_blank" class="text-gray-400 hover:text-pink-500 social-icon-wrapper" aria-label="Instagram">
+                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A5.6 5.6 0 004 7.6v8.8c0 3.1 2.5 5.6 5.6 5.6h8.8c3.1 0 5.6-2.5 5.6-5.6V7.6c0-3.1-2.5-5.6-5.6-5.6H7.6zm9.2.7a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-5.4 3a6 6 0 100 12 6 6 0 000-12zm0 2a4 4 0 110 8 4 4 0 010-8z" fill-rule="evenodd"/></svg>
+                                </a>
+                                <!-- TikTok -->
+                                <a href="#" target="_blank" class="text-gray-400 social-icon-wrapper hover:text-accent-cyan" aria-label="TikTok">
+                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1010 10 10 10 0 00-10-10zm0 18a8 8 0 118-8 8 8 0 01-8 8zm4.4-10.4a.4.4 0 00-.4.4v2.5a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-2.5a.4.4 0 00-.4-.4h-3.6zm-5.6 0a.4.4 0 00-.4.4v6a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-6a.4.4 0 00-.4-.4h-3.6zM7.2 9.2a.4.4 0 00-.4.4v4a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-4a.4.4 0 00-.4-.4h-3.6z"/></svg>
+                                </a>
+                                <!-- Twitter/X -->
+                                <a href="#" target="_blank" class="text-gray-400 social-icon-wrapper hover:text-accent-cyan" aria-label="Twitter/X">
+                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.002H22l-8.627 9.873L21.393 23H14.498l-5.404-6.495L5.01 23H2.02l8.8-10.04L2.008 1h7.707l4.996 6.136L18.901 1.002zM15.22 20.898h2.646L6.502 3.123H3.593L15.22 20.898z" fill-rule="evenodd"/></svg>
+                                </a>
+                                <!-- LinkedIn -->
+                                <a href="#" target="_blank" class="text-gray-400 hover:text-blue-500 social-icon-wrapper" aria-label="LinkedIn">
+                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3V8h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.366-4-3.235-4 0v5.604h-3V8h3v1.745s1.294-1.936 3.75-1.936c3.08 0 5.25 2.053 5.25 6.223v5.068z" fill-rule="evenodd"/></svg>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="reveal" style="transition-delay: 0.2s;">
-                        <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-gray-900">Official Business & Revolut Pro Details</h2>
-                        <div class="text-lg text-gray-600 space-y-4">
-                            <p>This website serves as the official business presence for my digital content, consulting, and trading analysis services across social media platforms.</p>
-                            <p>My primary business is creating educational and analytical financial content (Fin-Ed/Fin-Tech), combined with offering strategic consulting services to businesses and individuals leveraging my unique blend of programming, trading, and business architecture expertise.</p>
-                            
-                            <h3 class="text-2xl font-bold pt-4 text-gray-800">Revolut Pro Account Information:</h3>
-                            <ul class="list-disc list-inside space-y-2 pl-4">
-                                <li><strong>Revolut Pro Username:</strong> <span class="text-accent font-semibold">@a_papurica</span></li>
-                                <li><strong>Associated Email:</strong> <span class="text-accent font-semibold">alexp17598@gmail.com</span></li>
-                                <!-- BUSINESS TYPE CHANGED TO SOCIAL MEDIA -->
-                                <li><strong>Business Type:</strong> <span class="text-accent font-semibold">Social Media</span></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </section>
-        
-        <section id="impact" class="py-20 md:py-32 bg-gray-50">
-            <div class="container mx-auto px-6 md:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">Community Impact & Key Focus</h2>
-                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-                        Highlighting the value I deliver through my digital platforms.
-                    </p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="card-bg rounded-2xl p-8 text-center reveal shadow-lg">
-                        <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Automated Strategies</h3>
-                        <p class="text-gray-600">I share content and strategies on developing and testing **algorithmic trading** systems using Python, blending code with market theory.</p>
-                    </div>
-                    <div class="card-bg rounded-2xl p-8 text-center reveal shadow-lg" style="transition-delay: 0.2s;">
-                         <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Fin-Tech Tutorials</h3>
-                        <p class="text-gray-600">My channels provide tutorials and discussions on full-stack development, cloud solutions, and how they apply to **financial technologies**.</p>
-                    </div>
-                    <div class="card-bg rounded-2xl p-8 text-center reveal shadow-lg" style="transition-delay: 0.4s;">
-                        <div class="mx-auto bg-accent/10 rounded-full w-20 h-20 flex items-center justify-center mb-6 expertise-icon-container">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Strategic Consulting</h3>
-                        <p class="text-gray-600">Through private consulting, I help businesses and creators define their **digital strategy** and optimize their operational architecture for scale.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <section id="faq" class="py-20 md:py-32">
-            <div class="container mx-auto px-6 md:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">Frequently Asked Questions</h2>
-                </div>
-                <div class="max-w-4xl mx-auto space-y-4 reveal">
-                    <div class="card-bg rounded-lg overflow-hidden shadow-lg">
-                        <button class="w-full flex justify-between items-center text-left p-6 faq-toggle">
-                            <span class="text-xl font-semibold text-gray-800">What is the primary focus of your social media business?</span>
-                            <svg class="w-6 h-6 transition-transform faq-icon text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        <div class="faq-answer text-gray-600">
-                            <p class="p-6 pt-0">The core business is **Financial Education and Fin-Tech Content Creation**, monetized through platform partnerships, brand sponsorships, and specialized consulting services in trading and business architecture.</p>
-                        </div>
-                    </div>
-                     <div class="card-bg rounded-lg overflow-hidden shadow-lg">
-                        <button class="w-full flex justify-between items-center text-left p-6 faq-toggle">
-                            <span class="text-xl font-semibold text-gray-800">Where can I see your trading results/data?</span>
-                            <svg class="w-6 h-6 transition-transform faq-icon text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        <div class="faq-answer text-gray-600">
-                            <p class="p-6 pt-0">I share performance and proof for my public strategies. The performance data is logged live in a public Google Sheet. You can view the full history and daily proof in the <a href="trading-calendar.html" class="text-accent underline">Trading Calendar</a> link provided in my social bios.</p>
-                        </div>
-                    </div>
-                    <div class="card-bg rounded-lg overflow-hidden shadow-lg">
-                        <button class="w-full flex justify-between items-center text-left p-6 faq-toggle">
-                            <span class="text-xl font-semibold text-gray-800">How do I contact you for business and collaborations?</span>
-                            <svg class="w-6 h-6 transition-transform faq-icon text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        <div class="faq-answer text-gray-600">
-                            <p class="p-6 pt-0">For all professional and collaboration inquiries, please use the contact form below or email me directly at: <span class="text-accent font-semibold">alexp17598@gmail.com</span>.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- ========================================================= -->
+        <!-- 1. TRADING VIEW (Modified to start with Dashboard) -->
+        <!-- ========================================================= -->
+        <div id="trading-view" class="main-view">
+            <section class="py-10 md:py-20 text-center max-w-7xl mx-auto px-4">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white fade-in-up">
+                    <span class="text-accent-cyan">Trading</span> Community & Analytics
+                </h1>
+                <p class="text-gray-400 text-lg max-w-3xl mx-auto mt-4 fade-in-up" style="transition-delay: 0.1s;">
+                    The essential tools, live trades, and mentorship required to turn ambition into consistent profit.
+                </p>
+            </section>
+            
+            <!-- 1.2 Dashboard Feature Mockup (Live Profits & Calendar) -->
+            <section id="trading-dashboard" class="py-20 bg-card-dark border-t border-b border-white/5">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <header class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
+                            Your Personal Trading Dashboard
+                        </h2>
+                        <p class="text-gray-400 text-lg max-w-3xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
+                            Track profits, ticks, and performance against a calendar view of your trades, connected to Notion.
+                        </p>
+                    </header>
 
-        <section id="contact" class="py-20 md:py-32 bg-gray-50">
-            <div class="container mx-auto px-6 md:px-8 max-w-4xl">
-                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-gray-900 reveal">Partner With Nikofinanciar</h2>
-                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-                        For sponsorships, consulting, or media inquiries, reach out below.
-                    </p>
-                </div>
-                <div class="card-bg rounded-2xl p-8 md:p-12 reveal shadow-lg">
-                    <form action="https://formspree.io/f/xovkvwlg" method="POST" class="space-y-6">
-                        <div class="grid sm:grid-cols-2 gap-6">
-                            <input type="text" name="name" placeholder="Your Name" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
-                            <input type="email" name="email" placeholder="Your Email Address (Required for business)" required value="alexp17598@gmail.com" class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                    <div class="bg-[#1C1C1E] p-6 md:p-10 rounded-2xl shadow-2xl shadow-cyan-900/20 fade-in-up" style="transition-delay: 0.3s;">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <!-- Left: Live Chart Mockup -->
+                            <div class="lg:col-span-2 space-y-4">
+                                <h3 class="text-xl font-bold text-accent-cyan">Live P&L Performance</h3>
+                                <div class="h-64 md:h-96 bg-[#28282A] rounded-xl flex items-center justify-center text-gray-500 border border-white/10">
+                                    <p class="text-center text-sm md:text-base">
+                                        [CHART MOCKUP HERE] Placeholder for a live Chart.js or D3.js candlestick/line chart.
+                                        <br>
+                                        In a real implementation, this would pull **live profit/loss and tick data** from your brokerage API or parsed data from Notion.
+                                    </p>
+                                </div>
+                                <div class="flex justify-between text-white font-semibold pt-2">
+                                    <span class="text-green-400">Total Profit (YTD): +$18,450</span>
+                                    <span class="text-gray-400">Win Rate: 62%</span>
+                                </div>
+                            </div>
+
+                            <!-- Right: Trade Calendar and Ticks Mockup -->
+                            <div class="lg:col-span-1 space-y-6">
+                                <div class="bg-[#28282A] p-4 rounded-xl border border-white/10">
+                                    <h3 class="font-bold text-white mb-3 flex items-center">
+                                        Trade Calendar
+                                        <span class="ml-2 text-xs text-accent-cyan">(Notion Sync Mock)</span>
+                                    </h3>
+                                    <div class="grid grid-cols-7 text-center gap-1 text-xs">
+                                        <!-- Day Headers -->
+                                        <span class="text-gray-500">M</span><span class="text-gray-500">T</span><span class="text-gray-500">W</span><span class="text-gray-500">T</span><span class="text-gray-500">F</span><span class="text-gray-500">S</span><span class="text-gray-500">S</span>
+                                        <!-- Days (Green/Red dots indicate trades) -->
+                                        <div class="p-1 rounded bg-gray-700/50">26</div><div class="p-1 rounded bg-gray-700/50">27</div><div class="p-1 rounded bg-gray-700/50">28</div><div class="p-1 rounded bg-gray-700/50">29</div>
+                                        <div class="p-1 rounded bg-red-800/50 border border-red-500">30</div><div class="p-1 rounded">1</div><div class="p-1 rounded">2</div>
+                                        <div class="p-1 rounded bg-green-800/50 border border-green-500">3</div><div class="p-1 rounded bg-green-800/50 border border-green-500">4</div><div class="p-1 rounded bg-red-800/50 border border-red-500">5</div><div class="p-1 rounded bg-green-800/50 border border-green-500">6</div><div class="p-1 rounded bg-green-800/50 border border-green-500">7</div><div class="p-1 rounded">8</div><div class="p-1 rounded">9</div>
+                                        <div class="p-1 rounded bg-green-800/50 border border-green-500">10</div><div class="p-1 rounded bg-green-800/50 border border-green-500">11</div><div class="p-1 rounded bg-green-800/50 border border-green-500">12</div><div class="p-1 rounded bg-red-800/50 border border-red-500">13</div><div class="p-1 rounded bg-green-800/50 border border-green-500">14</div><div class="p-1 rounded">15</div><div class="p-1 rounded">16</div>
+                                    </div>
+                                </div>
+                                <div class="bg-[#28282A] p-4 rounded-xl border border-white/10">
+                                    <h3 class="font-bold text-white mb-3">Live Profit Ticks</h3>
+                                    <ul class="space-y-2 text-sm">
+                                        <li class="flex justify-between text-green-400"><span>+12 Ticks</span> <span class="text-xs text-gray-400">NQ 10:30 AM</span></li>
+                                        <li class="flex justify-between text-red-400"><span>-4 Ticks</span> <span class="text-xs text-gray-400">ES 9:35 AM</span></li>
+                                        <li class="flex justify-between text-green-400"><span>+20 Ticks</span> <span class="text-xs text-gray-400">NQ 9:30 AM</span></li>
+                                        <li class="flex justify-between text-green-400"><span>+8 Ticks</span> <span class="text-xs text-gray-400">MES 9:15 AM</span></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <textarea name="message" placeholder="Describe your collaboration idea or inquiry" rows="5" required class="w-full bg-gray-100 border-gray-300 rounded-lg py-4 px-6 text-gray-900 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"></textarea>
-                        <button type="submit" class="w-full bg-accent text-white font-bold py-4 px-6 rounded-lg glow-button text-lg">
-                            Send Business Inquiry
-                        </button>
-                    </form>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 1.2.5 Prop Firm Tracker (NEW SECTION) -->
+            <section id="prop-tracker" class="py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <header class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
+                            Prop Firm Challenge Tracker
+                        </h2>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
+                            Monitor your progress toward funding with a custom-synced Notion template dashboard.
+                        </p>
+                    </header>
+                    <div class="bg-[#1C1C1E] p-6 md:p-8 rounded-2xl shadow-2xl fade-in-up" style="transition-delay: 0.3s;">
+                        <h3 class="text-xl font-bold text-accent-cyan mb-4">Account: $50,000 Challenge</h3>
+                        <div class="space-y-6">
+                            <!-- Target Progress -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Profit Target ($3000)</span>
+                                    <span>$2,100 / $3,000 (70%)</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-green-500 h-3 rounded-full" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <!-- Max Drawdown -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Max Drawdown Remaining ($2500)</span>
+                                    <span>$1,950 Remaining (78%)</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <!-- Use a high value for healthy drawdown remaining, green/yellow/red gradient here would be ideal -->
+                                    <div class="bg-yellow-500 h-3 rounded-full" style="width: 78%"></div>
+                                </div>
+                            </div>
+                            <!-- Daily Loss Limit -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Daily Loss Limit Used</span>
+                                    <span>$0 Used / $1000 (0%)</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-green-500 h-3 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4 text-center">
+                            *Data displayed is a mock representation. Real connection requires Notion API integration to fetch specific metrics.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1.3 Features Section (Trading) -->
+            <section id="features" class="py-20 bg-card-dark border-t border-b border-white/5">
+                <!-- ... existing features content ... -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <header class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
+                            The Nikofinanciar Edge
+                        </h2>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
+                            Everything you need to trade with confidence and confluence, built into one seamless community.
+                        </p>
+                    </header>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Feature Card 1 -->
+                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.2s;">
+                            <span class="text-accent-cyan text-4xl mb-4 inline-block">🎯</span>
+                            <h3 class="text-xl font-bold mb-2">Daily Live Trades</h3>
+                            <p class="text-gray-400 text-sm">Follow our expert team as we execute our proprietary strategies in real-time, calling out entries and exits.</p>
+                        </div>
+
+                        <!-- Feature Card 2 -->
+                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.3s;">
+                            <span class="text-accent-cyan text-4xl mb-4 inline-block">📈</span>
+                            <h3 class="text-xl font-bold mb-2">Pre & Post Market Analysis</h3>
+                            <p class="text-gray-400 text-sm">We dissect market sentiment and economic news daily, ensuring you always know the key levels and targets.</p>
+                        </div>
+
+                        <!-- Feature Card 3 -->
+                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.4s;">
+                            <span class="text-accent-cyan text-4xl mb-4 inline-block">🔒</span>
+                            <h3 class="text-xl font-bold mb-2">Risk Management Mastery</h3>
+                            <p class="text-gray-400 text-sm">Learn the cornerstone of trading success. Develop robust risk strategies to protect your capital and maintain discipline.</p>
+                        </div>
+
+                        <!-- Feature Card 4 -->
+                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.5s;">
+                            <span class="text-accent-cyan text-4xl mb-4 inline-block">🎓</span>
+                            <h3 class="text-xl font-bold mb-2">Exclusive Training Hub</h3>
+                            <p class="text-gray-400 text-sm">Access deep dives into advanced concepts, proprietary setups, and market psychology sessions.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1.4 Products (NEW SECTION for Ebooks) -->
+            <section id="products" class="py-20 border-t border-b border-white/5">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <header class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
+                            Digital Products & Ebooks
+                        </h2>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
+                            Accelerate your learning with detailed guides on strategy, psychology, and automation.
+                        </p>
+                    </header>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.2s;">
+                            <span class="text-7xl mb-4 block">📚</span>
+                            <h3 class="text-xl font-bold mb-2">The Futures Mindset</h3>
+                            <p class="text-gray-400 text-sm mb-4">A comprehensive guide to managing trading psychology and discipline.</p>
+                            <a href="#" class="text-sm text-accent-cyan hover:text-cyan-300 font-semibold">View Details ($29)</a>
+                        </div>
+                         <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.3s;">
+                            <span class="text-7xl mb-4 block">🤖</span>
+                            <h3 class="text-xl font-bold mb-2">Notion Trade Journal Template</h3>
+                            <p class="text-gray-400 text-sm mb-4">The exact template we use to track metrics, P&L, and manage risk.</p>
+                            <a href="#" class="text-sm text-accent-cyan hover:text-cyan-300 font-semibold">View Details ($49)</a>
+                        </div>
+                         <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.4s;">
+                            <span class="text-7xl mb-4 block">📈</span>
+                            <h3 class="text-xl font-bold mb-2">Advanced Confluence Guide</h3>
+                            <p class="text-gray-400 text-sm mb-4">Detailed setups and rules for high-probability market entries.</p>
+                            <a href="#" class="text-sm text-accent-cyan hover:text-cyan-300 font-semibold">View Details ($39)</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1.6 Testimonials -->
+            <section id="testimonials" class="py-20 border-b border-white/5">
+                <!-- ... existing testimonials content ... -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <header class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
+                            Real Results. Real Traders.
+                        </h2>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
+                            Hear from members who achieved consistency and funding with our guidance.
+                        </p>
+                    </header>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Testimonial 1 -->
+                        <div class="feature-card p-6 rounded-xl bg-card-dark border-accent-cyan/10 fade-in-up" style="transition-delay: 0.2s;">
+                            <blockquote class="text-gray-300 italic">
+                                "The best trading group I've ever joined. The risk management principles alone were worth the price. I passed my first prop challenge within a month!"
+                            </blockquote>
+                            <footer class="mt-4 pt-4 border-t border-white/10 flex items-center">
+                                <div class="bg-accent-cyan/20 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-accent-cyan mr-3">A</div>
+                                <div>
+                                    <p class="font-semibold text-white">Alex T.</p>
+                                    <p class="text-xs text-gray-500">Premium Member</p>
+                                </div>
+                            </footer>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="feature-card p-6 rounded-xl bg-card-dark border-accent-cyan/10 fade-in-up" style="transition-delay: 0.3s;">
+                            <blockquote class="text-gray-300 italic">
+                                "The live market analysis is a game-changer. It's not just signals; it's deep-dive education on market structure and psychology. Truly transformative."
+                            </blockquote>
+                            <footer class="mt-4 pt-4 border-t border-white/10 flex items-center">
+                                <div class="bg-accent-cyan/20 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-accent-cyan mr-3">S</div>
+                                <div>
+                                    <p class="font-semibold text-white">Sarah M.</p>
+                                    <p class="text-xs text-gray-500">Funded Trader</p>
+                                </div>
+                            </footer>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="feature-card p-6 rounded-xl bg-card-dark border-accent-cyan/10 fade-in-up" style="transition-delay: 0.4s;">
+                            <blockquote class="text-gray-300 italic">
+                                "I went from struggling to consistently profitable. The mentorship and supportive community are unmatched. Highly recommend Nikofinanciar to anyone serious."
+                            </blockquote>
+                            <footer class="mt-4 pt-4 border-t border-white/10 flex items-center">
+                                <div class="bg-accent-cyan/20 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-accent-cyan mr-3">J</div>
+                                <div>
+                                    <p class="font-semibold text-white">John P.</p>
+                                    <p class="text-xs text-gray-500">Lifetime Elite</p>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- 1.7 FAQ (Trading) -->
+            <section id="faq" class="py-20">
+                <!-- ... existing FAQ content ... -->
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <header class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
+                            Frequently Asked Questions
+                        </h2>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
+                            Quick answers to the most common questions about our trading membership.
+                        </p>
+                    </header>
+
+                    <div class="space-y-4 fade-in-up" style="transition-delay: 0.2s;">
+                        <!-- FAQ Item 1 -->
+                        <div class="accordion-item bg-card-dark p-4 rounded-xl border border-white/10">
+                            <button class="accordion-header w-full flex justify-between items-center text-left text-white font-semibold focus:outline-none py-2">
+                                Do you provide trading signals?
+                                <span class="accordion-icon transform transition-transform duration-300 text-accent-cyan text-2xl">+</span>
+                            </button>
+                            <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                                <p class="pt-2 text-gray-400 text-sm border-t border-white/10 mt-2">
+                                    Yes, we provide our exact entry and exit points for our expert trades within the private Discord. However, our primary focus is teaching you the *why* behind every trade so you can eventually become self-sufficient.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="accordion-item bg-card-dark p-4 rounded-xl border border-white/10">
+                            <button class="accordion-header w-full flex justify-between items-center text-left text-white font-semibold focus:outline-none py-2">
+                                What trading strategy do you teach?
+                                <span class="accordion-icon transform transition-transform duration-300 text-accent-cyan text-2xl">+</span>
+                            </button>
+                            <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                                <p class="pt-2 text-gray-400 text-sm border-t border-white/10 mt-2">
+                                    We utilize a refined, proprietary blend of institutional trading concepts (similar to ICT) combined with pure price action and market flow analysis. This approach is highly adaptable across various futures tickers.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="accordion-item bg-card-dark p-4 rounded-xl border border-white/10">
+                            <button class="accordion-header w-full flex justify-between items-center text-left text-white font-semibold focus:outline-none py-2">
+                                Can I get a refund if I cancel my membership?
+                                <span class="accordion-icon transform transition-transform duration-300 text-accent-cyan text-2xl">+</span>
+                            </button>
+                            <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                                <p class="pt-2 text-gray-400 text-sm border-t border-white/10 mt-2">
+                                    Due to the immediate access to proprietary educational content, all membership fees are generally non-refundable. Please review our full terms of service before subscribing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ========================================================= -->
+        <!-- 2. PROGRAMMING & WEB DEV VIEW -->
+        <!-- ========================================================= -->
+        <div id="dev-view" class="main-view py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="text-center mb-16">
+                    <p class="text-accent-cyan uppercase font-bold text-sm tracking-widest fade-in-up">
+                        Digital Solutions & Management
+                    </p>
+                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-white mt-4 fade-in-up" style="transition-delay: 0.1s;">
+                        Code-Driven Growth for Your Business
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto pt-4 fade-in-up" style="transition-delay: 0.2s;">
+                        We build custom websites, manage digital infrastructure, and automate workflows so you can focus on core operations.
+                    </p>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.3s;">
+                        <span class="text-accent-cyan text-4xl mb-4 inline-block">💻</span>
+                        <h3 class="text-2xl font-bold mb-3">Custom Web Development</h3>
+                        <p class="text-gray-400">From high-conversion landing pages (like this one!) to complex full-stack applications, we handle design, coding, and deployment.</p>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.4s;">
+                        <span class="text-accent-cyan text-4xl mb-4 inline-block">⚙️</span>
+                        <h3 class="text-2xl font-bold mb-3">System Automation</h3>
+                        <p class="text-gray-400">Automate repetitive tasks like data entry, CRM updates, and lead nurturing using powerful scripts and no-code tools (Zapier, custom APIs).</p>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.5s;">
+                        <span class="text-accent-cyan text-4xl mb-4 inline-block">🌐</span>
+                        <h3 class="text-2xl font-bold mb-3">Website Management</h3>
+                        <p class="text-gray-400">Secure hosting, continuous updates, performance optimization, and SEO maintenance to ensure your digital presence is always running smoothly.</p>
+                    </div>
+                </div>
+
+                <!-- NEW: Projects Section -->
+                <section id="dev-projects" class="mt-20">
+                    <header class="text-center mb-12">
+                        <h2 class="text-3xl font-extrabold text-white mb-4 fade-in-up">Recent Projects</h2>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
+                            A selection of recent work in web applications and systems automation.
+                        </p>
+                    </header>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="feature-card p-6 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.2s;">
+                            <h4 class="text-xl font-bold text-white mb-2">Algorithmic Trading Dashboard</h4>
+                            <p class="text-gray-400 mb-4 text-sm">A real-time P&L tracker built with React and D3.js, pulling data from a custom REST API.</p>
+                            <a href="https://github.com/nikofinanciar/project1" target="_blank" class="text-accent-cyan hover:text-cyan-300 text-sm font-medium flex items-center">
+                                View on GitHub
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
+                        <div class="feature-card p-6 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.3s;">
+                            <h4 class="text-xl font-bold text-white mb-2">CRM to Mail Automation Script</h4>
+                            <p class="text-gray-400 mb-4 text-sm">Python script utilizing Zapier webhooks to sync new leads and trigger a personalized email sequence.</p>
+                            <a href="https://github.com/nikofinanciar/project2" target="_blank" class="text-accent-cyan hover:text-cyan-300 text-sm font-medium flex items-center">
+                                View on GitHub
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="text-center mt-16 fade-in-up" style="transition-delay: 0.6s;">
+                    <!-- UPDATED: Free Consultation Pitch -->
+                    <h3 class="text-2xl font-bold text-white mb-4">Start with a FREE Project Consultation</h3>
+                    <p class="text-gray-400 mb-6">Send a message now to schedule a Zoom call and discuss your digital needs at no cost.</p>
+                    <a href="#" id="contact-modal-open-dev" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
+                        Schedule Free Zoom Call
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ========================================================= -->
+        <!-- 3. BUSINESS MANAGEMENT VIEW -->
+        <!-- ========================================================= -->
+        <div id="biz-view" class="main-view py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="text-center mb-16">
+                    <p class="text-accent-cyan uppercase font-bold text-sm tracking-widest fade-in-up">
+                        Strategic Guidance
+                    </p>
+                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-white mt-4 fade-in-up" style="transition-delay: 0.1s;">
+                        Optimize Operations & Scale Profit
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto pt-4 fade-in-up" style="transition-delay: 0.2s;">
+                        Unlock maximum efficiency and identify new revenue streams through expert operational and financial consulting.
+                    </p>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.3s;">
+                        <span class="text-accent-cyan text-4xl mb-4 inline-block">💰</span>
+                        <h3 class="text-2xl font-bold mb-3">Financial Planning</h3>
+                        <p class="text-gray-400">Budgeting, forecasting, cash flow analysis, and capital allocation strategies designed for sustained growth and resilience.</p>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.4s;">
+                        <span class="text-accent-cyan text-4xl mb-4 inline-block">📋</span>
+                        <h3 class="text-2xl font-bold mb-3">Operational Efficiency</h3>
+                        <p class="text-gray-400">Streamline internal processes, implement lean methodologies, and optimize supply chains for reduced costs and better output.</p>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.5s;">
+                        <span class="text-accent-cyan text-4xl mb-4 inline-block">🚀</span>
+                        <h3 class="text-2xl font-bold mb-3">Growth Strategy</h3>
+                        <p class="text-gray-400">Market entry strategies, competitor analysis, and product positioning to capture new opportunities and ensure long-term market dominance.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16 fade-in-up" style="transition-delay: 0.6s;">
+                    <!-- UPDATED: Free Consultation Pitch -->
+                    <h3 class="text-2xl font-bold text-white mb-4">Start with a FREE Strategy Consultation</h3>
+                    <p class="text-gray-400 mb-6">Send a message now to schedule a Zoom call and discuss your business goals at no cost.</p>
+                    <a href="#" id="contact-modal-open-biz" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
+                        Schedule Free Strategy Session
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- GLOBAL PRICING (New Section, visible on all pages below content) -->
+        <!-- ========================================================= -->
+        <section id="global-pricing" class="py-20 bg-card-dark border-t border-white/5">
+            <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <header class="mb-12">
+                    <h2 class="text-4xl font-extrabold text-white mb-3 fade-in-up">
+                        Join the Nikofinanciar Community
+                    </h2>
+                    <p class="text-gray-400 text-lg fade-in-up" style="transition-delay: 0.1s;">
+                        Your gateway to expert guidance in trading, development, and business strategy.
+                    </p>
+                </header>
+
+                <!-- Single Pricing Card -->
+                <div class="pricing-card pricing-card-best feature-card p-8 rounded-2xl bg-[#111111] text-center fade-in-up" style="transition-delay: 0.3s;">
+                    <h3 class="text-3xl font-bold text-white mb-2">Growth Partner Program</h3>
+                    <p class="text-gray-300 mb-6">Access all premium tools and community channels.</p>
+                    
+                    <p class="text-2xl font-bold text-green-400 mb-2">
+                        FIRST MONTH IS ON ME.
+                    </p>
+                    <p class="text-6xl font-extrabold text-white mb-2">
+                        $0<span class="text-xl text-gray-500 font-medium">/1st mo</span>
+                    </p>
+                    <p class="text-3xl font-extrabold text-white mb-8">
+                        $5<span class="text-lg text-gray-500 font-medium">/mo thereafter</span>
+                    </p>
+
+                    <a href="#" class="block bg-accent-cyan text-background-dark px-6 py-4 rounded-lg font-bold text-lg btn-accent shadow-lg shadow-cyan-500/50 transition duration-300">
+                        Start Your Free Month Now!
+                    </a>
+                    
+                    <p class="text-sm text-gray-400 italic mt-6">
+                        "The price will grow with my portfolio—your success is mine."
+                    </p>
+                    
+                    <ul class="text-left mt-6 space-y-2 text-gray-300 inline-block">
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Private Discord Access</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Live Trade Analysis & Signals</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>All Digital Resources</li>
+                    </ul>
                 </div>
             </div>
         </section>
+        <!-- ========================================================= -->
+
     </main>
 
-    <footer class="border-t border-gray-200">
-        <div class="container mx-auto px-6 md:px-8 py-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-            <p class="text-gray-500 mb-4 md:mb-0">&copy; 2025 Nikofinanciar Digital. All Rights Reserved.</p>
-            <div class="flex space-x-6">
-                <a href="https://www.linkedin.com/in/nikofinanciar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-gray-500 hover:text-accent transition-colors">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/nikofinanciar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-500 hover:text-accent transition-colors">
-                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919C8.356 2.175 8.741 2.163 12 2.163m0-2.163C8.74.001 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
-                </a>
-                 <a href="https://www.tiktok.com/@nikolasfinancial" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="text-gray-500 hover:text-accent transition-colors">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"/></svg>
-                </a>
+    <!-- Footer (UPDATED with 2025, Gew. and German Legal Links) -->
+    <footer class="py-12 bg-card-dark border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h4 class="text-2xl font-extrabold text-white tracking-widest uppercase">
+                Nikofinanciar<span class="text-accent-cyan">.</span>
+            </h4>
+            <p class="text-gray-500 text-xs mt-6 max-w-3xl mx-auto">
+                <span class="font-bold text-red-400">HAFTUNGSAUSSCHLUSS (Trading):</span> Der Handel mit Futures und Optionen birgt erhebliche Verlustrisiken und ist nicht für jeden Anleger geeignet. Die von Nikofinanciar bereitgestellten Informationen und Schulungen dienen ausschließlich Bildungszwecken und stellen keine Finanzberatung dar.
+            </p>
+            
+            <!-- NEW: Legal Links for Germany -->
+            <div class="mt-4 flex justify-center space-x-4 text-sm font-medium text-gray-400">
+                <a href="#" class="hover:text-accent-cyan transition duration-300">Impressum</a>
+                <span class="text-gray-600">|</span>
+                <a href="#" class="hover:text-accent-cyan transition duration-300">Datenschutz</a>
             </div>
+
+            <p class="text-gray-600 text-sm mt-4">
+                &copy; 2025 Nikofinanciar Gew. All Rights Reserved.
+            </p>
         </div>
     </footer>
 
+    <!-- ========================================================= -->
+    <!-- CONTACT MODAL WINDOW -->
+    <!-- ========================================================= -->
+    <div id="contact-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex justify-between items-start mb-6 border-b border-white/10 pb-3">
+                <h3 class="text-2xl font-bold text-accent-cyan">Get In Touch</h3>
+                <button id="modal-close-button" class="text-gray-400 hover:text-white transition duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Phone Number -->
+                <div class="flex items-center space-x-4">
+                    <span class="text-accent-cyan flex-shrink-0 text-xl">📞</span>
+                    <div>
+                        <p class="text-sm text-gray-400">Phone Number</p>
+                        <a href="tel:+40765436735" class="text-white font-semibold hover:text-accent-cyan transition duration-200">+40 765 436 735</a>
+                    </div>
+                </div>
+
+                <!-- Email Address -->
+                <div class="flex items-center space-x-4">
+                    <span class="text-accent-cyan flex-shrink-0 text-xl">📧</span>
+                    <div>
+                        <p class="text-sm text-gray-400">Email Address</p>
+                        <a href="mailto:contact@nikofinanciar.com" class="text-white font-semibold hover:text-accent-cyan transition duration-200">contact@nikofinanciar.com</a>
+                    </div>
+                </div>
+
+                <!-- Social Media Links (Styled) -->
+                <div class="pt-4 border-t border-white/10">
+                    <p class="text-sm text-gray-400 mb-4 text-center">Follow My Journey</p>
+                    <div class="flex justify-center space-x-6">
+                        <!-- YouTube -->
+                        <a href="#" target="_blank" class="text-gray-400 hover:text-red-600 social-icon-wrapper" aria-label="YouTube">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.001 2.001C6.48 2.001 2 6.48 2 12.001c0 5.518 4.48 9.998 10.001 9.998 5.518 0 9.997-4.48 9.997-9.998 0-5.521-4.48-10-9.997-10zm-3.04 14.974V7.027l6.08 4.974-6.08 4.974z" fill-rule="evenodd"/></svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="#" target="_blank" class="text-gray-400 hover:text-pink-500 social-icon-wrapper" aria-label="Instagram">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A5.6 5.6 0 004 7.6v8.8c0 3.1 2.5 5.6 5.6 5.6h8.8c3.1 0 5.6-2.5 5.6-5.6V7.6c0-3.1-2.5-5.6-5.6-5.6H7.6zm9.2.7a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-5.4 3a6 6 0 100 12 6 6 0 000-12zm0 2a4 4 0 110 8 4 4 0 010-8z" fill-rule="evenodd"/></svg>
+                        </a>
+                        <!-- TikTok -->
+                        <a href="#" target="_blank" class="text-gray-400 social-icon-wrapper hover:text-accent-cyan" aria-label="TikTok">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1010 10 10 10 0 00-10-10zm0 18a8 8 0 118-8 8 8 0 01-8 8zm4.4-10.4a.4.4 0 00-.4.4v2.5a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-2.5a.4.4 0 00-.4-.4h-3.6zm-5.6 0a.4.4 0 00-.4.4v6a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-6a.4.4 0 00-.4-.4h-3.6zM7.2 9.2a.4.4 0 00-.4.4v4a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-4a.4.4 0 00-.4-.4h-3.6z"/></svg>
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="#" target="_blank" class="text-gray-400 social-icon-wrapper hover:text-accent-cyan" aria-label="Twitter/X">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.002H22l-8.627 9.873L21.393 23H14.498l-5.404-6.495L5.01 23H2.02l8.8-10.04L2.008 1h7.707l4.996 6.136L18.901 1.002zM15.22 20.898h2.646L6.502 3.123H3.593L15.22 20.898z" fill-rule="evenodd"/></svg>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="#" target="_blank" class="text-gray-400 hover:text-blue-500 social-icon-wrapper" aria-label="LinkedIn">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3V8h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.366-4-3.235-4 0v5.604h-3V8h3v1.745s1.294-1.936 3.75-1.936c3.08 0 5.25 2.053 5.25 6.223v5.068z" fill-rule="evenodd"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========================================================= -->
+
+    <!-- JavaScript for Routing, Interactivity, and Animations -->
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        // --- Scroll Reveal Animation ---
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        // --- 1. Core Functions (Must be defined first to prevent ReferenceErrors) ---
+        const views = {
+            'home': document.getElementById('home-view'),
+            'trading': document.getElementById('trading-view'),
+            'dev': document.getElementById('dev-view'),
+            'biz': document.getElementById('biz-view')
+        };
+        const defaultViewId = 'home';
+
+        // 1.1 Smooth Scroll utility (Defined as const, so must be first)
+        const smoothScrollTo = (targetId) => {
+             const targetElement = document.querySelector(targetId);
+             if (targetElement) {
+                // Calculate offset for sticky header
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        };
+
+        // 1.2 Animation Initializer (Defined as function declaration, but keeping near the top is safest)
+        let observer = null;
+        function initAnimations() {
+            // Disconnect old observer if it exists
+            if (observer) {
+                observer.disconnect();
+            }
+
+            // Reset visibility class for all elements
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                el.classList.remove('is-visible');
+            });
+
+            const animateElements = document.querySelectorAll('.fade-in-up');
+
+            observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    // Only animate if the view containing the element is visible
+                    const parentView = entry.target.closest('.main-view');
+                    // Special check: Only animate if the element is inside a visible main-view OR is the global-pricing section
+                    const isGlobal = entry.target.closest('#global-pricing');
+
+                    if (entry.isIntersecting && (isGlobal || (parentView && parentView.style.display !== 'none'))) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+
+        // 1.3 Routing Logic (Now calls defined functions)
+        function handleRouting() {
+            // Get the current hash from the URL
+            const hash = window.location.hash.slice(1);
+            const params = new URLSearchParams(hash);
+            let viewId = params.get('view') || defaultViewId;
+
+            // Ensure viewId is valid, otherwise default
+            if (!views[viewId]) {
+                viewId = defaultViewId;
+            }
+
+            // Hide all views and show the active one
+            Object.keys(views).forEach(key => {
+                if (views[key]) {
+                    views[key].style.display = (key === viewId) ? 'block' : 'none';
                 }
             });
-        }, { threshold: 0.1 });
-        
-        revealElements.forEach(el => revealObserver.observe(el));
-        
-        // --- Mobile Menu ---
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileNavLinks = mobileMenu.querySelectorAll('.nav-link');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('-translate-x-full');
-        });
-        
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('-translate-x-full');
+            // Handle section scrolling (if a specific section is specified)
+            const section = params.get('section');
+            if (section) {
+                // Use a slight delay to ensure the view is visible before scrolling
+                setTimeout(() => {
+                    smoothScrollTo(`#${section}`);
+                }, 100);
+            } else {
+                 // Scroll to the top of the new view when switching pages
+                 window.scrollTo(0, 0);
+            }
+
+            // Re-apply animations for the new view content and global elements
+            initAnimations();
+        }
+
+
+        // --- 2. Event Attachments (Triggering Routing) ---
+        window.addEventListener('hashchange', handleRouting);
+        window.addEventListener('load', handleRouting);
+
+
+        // --- 3. DOM Ready Logic (All remaining listeners) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Mobile Menu Toggle
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
-        });
 
-        // --- FAQ Accordion ---
-        document.querySelectorAll('.faq-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                const icon = button.querySelector('.faq-icon');
+            // Smooth Scroll & Router Link Logic
+            document.querySelectorAll('a.router-link, a.service-selector, a.smooth-scroll:not([href^="#view"])').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    // Close mobile menu on click
+                    if (!mobileMenu.classList.contains('hidden')) {
+                         mobileMenu.classList.add('hidden');
+                    }
+                    
+                    const href = this.getAttribute('href');
 
-                // Close all others first (optional, but good UX)
-                document.querySelectorAll('.faq-toggle').forEach(otherButton => {
-                    if (otherButton !== button) {
-                        const otherAnswer = otherButton.nextElementSibling;
-                        const otherIcon = otherButton.querySelector('.faq-icon');
-                        otherAnswer.style.maxHeight = null;
-                        otherIcon.classList.remove('rotate-180');
+                    if (href.startsWith('#view=')) {
+                        // Let the router handle navigation for view changes
+                        // We only prevent default scrolling if it's explicitly linking to a section on the same page view
+                        if (href.includes('&section=') || this.classList.contains('smooth-scroll')) {
+                            e.preventDefault();
+                            window.location.hash = href.slice(1);
+                        }
+                        // Otherwise, standard hash change handles it
+                    } else if (href.startsWith('#')) {
+                        // Handle pure section scrolling on the current page
+                         e.preventDefault();
+                         smoothScrollTo(href);
+                    }
+                });
+            });
+
+            // --- 3.1 FAQ Accordion Logic (Only affects visible Trading FAQ) ---
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.accordion-icon');
+
+                header.addEventListener('click', () => {
+                    // Check if the current view is the trading view
+                    if(views.trading.style.display !== 'block') return;
+
+                    const isExpanded = content.classList.contains('is-open');
+
+                    // Close all other open items
+                    document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                        const otherContent = otherItem.querySelector('.accordion-content');
+                        const otherIcon = otherItem.querySelector('.accordion-icon');
+
+                        if (otherContent !== content && otherContent.classList.contains('is-open')) {
+                            otherContent.classList.remove('is-open');
+                            otherContent.style.maxHeight = '0';
+                            otherIcon.textContent = '+';
+                            otherIcon.classList.remove('rotate-45');
+                        }
+                    });
+
+                    // Toggle current item
+                    if (isExpanded) {
+                        content.classList.remove('is-open');
+                        content.style.maxHeight = '0';
+                        icon.textContent = '+';
+                        icon.classList.remove('rotate-45');
+                    } else {
+                        content.classList.add('is-open');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.textContent = '–';
+                        icon.classList.add('rotate-45');
+                    }
+                });
+            });
+
+
+            // --- 3.2 Contact Modal Control ---
+            const modal = document.getElementById('contact-modal');
+            const modalCloseButton = document.getElementById('modal-close-button');
+            
+            // Collect all buttons that open the modal
+            const contactButtons = document.querySelectorAll('#contact-modal-open, #contact-modal-open-dev, #contact-modal-open-biz');
+
+            function openModal() {
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+
+            function closeModal() {
+                modal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+
+            // Event Listeners for opening the modal
+            contactButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            });
+
+            // Event Listeners for closing the modal
+            if (modalCloseButton) {
+                modalCloseButton.addEventListener('click', closeModal);
+            }
+
+            // Close when clicking outside the modal content
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal();
                     }
                 });
 
-
-                if (answer.style.maxHeight) {
-                    answer.style.maxHeight = null;
-                    icon.classList.remove('rotate-180');
-                } else {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    icon.classList.add('rotate-180');
-                }
-            });
+                // Close with ESC key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('open')) {
+                        closeModal();
+                    }
+                });
+            }
         });
-    });
     </script>
 </body>
 </html>
