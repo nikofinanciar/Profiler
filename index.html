@@ -80,10 +80,17 @@
         /* Social Icon Styling for Pop */
         .social-icon-wrapper {
             transition: all 0.3s ease;
+            filter: grayscale(100%); /* Makes PNGs initially grey */
+            opacity: 0.8; /* Slight opacity adjustment */
         }
         .social-icon-wrapper:hover {
             transform: scale(1.1);
-            color: var(--color-accent) !important;
+            filter: grayscale(0%); /* Restores original color on hover */
+            opacity: 1;
+        }
+        .social-icon-wrapper img {
+            width: 100%;
+            height: 100%;
         }
 
         /* Modal Styling */
@@ -146,7 +153,9 @@
     <header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-sm shadow-xl shadow-black/10">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <a href="#view=home" class="text-2xl font-extrabold text-white tracking-widest uppercase router-link">
-                Nikofinanciar<span class="text-accent-cyan">.</span>
+                <!-- LOGO: New PNG Image and text adjusted for closer spacing (mr-0.5, -mb-0) -->
+                <img src="https://cdn-icons-png.flaticon.com/128/6065/6065747.png" alt="Nikofinanciar Logo" class="w-10 h-10 inline-block align-middle mr-0.5 -mb-0" onerror="this.src='https://placehold.co/40x40/06B6D4/FFF?text=Niko'" />
+                <span class="inline-block align-middle">ikofinanciar</span>
             </a>
             <div class="hidden md:flex space-x-8 text-sm font-medium">
                 <a href="#view=home" class="hover:text-accent-cyan transition duration-300 router-link">Home</a>
@@ -196,13 +205,41 @@
                     <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto pt-4 fade-in-up is-visible" style="transition-delay: 0.2s;">
                         I provide expert guidance in futures trading, custom digital development, and scalable business operations. Choose your path below.
                     </p>
-                    <a href="#view=home&section=about" class="inline-block border border-white/20 text-white px-8 py-3 rounded-xl font-bold text-lg hover:bg-white/10 transition duration-300 btn-accent smooth-scroll fade-in-up is-visible" style="transition-delay: 0.3s;">
-                        Get to Know Niko
-                    </a>
+                    
+                    <div class="inline-flex flex-col items-center pt-4 fade-in-up is-visible" style="transition-delay: 0.3s;">
+                         <a href="#view=home&section=about" class="inline-block border border-white/20 text-white px-8 py-3 rounded-xl font-bold text-lg hover:bg-white/10 transition duration-300 btn-accent smooth-scroll">
+                            Get to Know Niko
+                        </a>
+                        <!-- START: New Socials Block in Hero Zone -->
+                        <div class="flex justify-center space-x-4 pt-4">
+                            <!-- YouTube -->
+                            <a href="https://www.youtube.com/@Nikofinanciar" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="YouTube">
+                                <img src="https://cdn-icons-png.flaticon.com/128/174/174883.png" alt="YouTube" onerror="this.src='https://placehold.co/128x128/222/FFF?text=YT'" />
+                            </a>
+                            <!-- Instagram -->
+                            <a href="https://www.instagram.com/nikofinanciar/" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="Instagram">
+                                <img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png" alt="Instagram" onerror="this.src='https://placehold.co/128x128/222/FFF?text=IG'" />
+                            </a>
+                            <!-- TikTok -->
+                            <a href="https://www.tiktok.com/@nikofinanciar" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="TikTok">
+                                <img src="https://cdn-icons-png.flaticon.com/128/2504/2504942.png" alt="TikTok" onerror="this.src='https://placehold.co/128x128/222/FFF?text=TK'" />
+                            </a>
+                            <!-- Twitter/X -->
+                            <a href="#" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="Twitter/X">
+                                <img src="https://cdn-icons-png.flaticon.com/128/5968/5968830.png" alt="X / Twitter" onerror="this.src='https://placehold.co/128x128/222/FFF?text=X'" />
+                            </a>
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/in/nikofinanciar/" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="LinkedIn">
+                                <img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn" onerror="this.src='https://placehold.co/128x128/222/FFF?text=LI'" />
+                            </a>
+                        </div>
+                        <!-- END: New Socials Block in Hero Zone -->
+                    </div>
+
                 </div>
             </section>
 
-            <!-- 0.2 Service Selection Icons (Animated) -->
+            <!-- 0.2 Service Selection Icons (Animated) - CLEANED: Only one copy of this section remains -->
             <section id="service-selection" class="py-20 bg-card-dark border-t border-b border-white/5">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-10 fade-in-up">
@@ -237,16 +274,9 @@
                         <!-- Icon 3: Business Management (UPDATED ICON) -->
                         <a href="#view=biz" class="service-selector p-8 rounded-xl bg-card-dark border-2 border-white/10 fade-in-up" style="transition-delay: 0.4s;">
                             <span class="text-6xl text-accent-cyan block mb-4">
-                                <!-- Bar Chart SVG for strategy/growth -->
+                                <!-- Folder/File SVG for Management/Organization -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13L11 3.055z" stroke-width="0" fill="currentColor"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18V6" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 18V10" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 18V14" />
-                                    <rect x="7" y="5" width="10" height="13" rx="1" stroke="none" fill="currentColor" opacity="0.1"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                                 </svg>
                             </span>
                             <h3 class="text-xl font-bold text-white mb-1">Business Management</h3>
@@ -256,7 +286,7 @@
                 </div>
             </section>
 
-            <!-- 0.3 About Me & Contact -->
+            <!-- 0.3 About Me & Contact - CLEANED: Only one copy of this section remains -->
             <section id="about" class="py-20">
                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <header class="text-center mb-12">
@@ -281,27 +311,27 @@
                                 Contact Me Directly
                             </a>
                             
-                            <!-- NEW: Social Media Links on Home Page (Styled) -->
+                            <!-- Social Media Links on Home Page (These are the ones under the About Me section, which are also linked) -->
                             <div class="flex justify-center space-x-6 pt-8">
                                 <!-- YouTube -->
-                                <a href="#" target="_blank" class="text-gray-400 hover:text-red-600 social-icon-wrapper" aria-label="YouTube">
-                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.001 2.001C6.48 2.001 2 6.48 2 12.001c0 5.518 4.48 9.998 10.001 9.998 5.518 0 9.997-4.48 9.997-9.998 0-5.521-4.48-10-9.997-10zm-3.04 14.974V7.027l6.08 4.974-6.08 4.974z" fill-rule="evenodd"/></svg>
+                                <a href="https://www.youtube.com/@Nikofinanciar" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="YouTube">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/174/174883.png" alt="YouTube" onerror="this.src='https://placehold.co/128x128/222/FFF?text=YT'" />
                                 </a>
                                 <!-- Instagram -->
-                                <a href="#" target="_blank" class="text-gray-400 hover:text-pink-500 social-icon-wrapper" aria-label="Instagram">
-                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A5.6 5.6 0 004 7.6v8.8c0 3.1 2.5 5.6 5.6 5.6h8.8c3.1 0 5.6-2.5 5.6-5.6V7.6c0-3.1-2.5-5.6-5.6-5.6H7.6zm9.2.7a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-5.4 3a6 6 0 100 12 6 6 0 000-12zm0 2a4 4 0 110 8 4 4 0 010-8z" fill-rule="evenodd"/></svg>
+                                <a href="https://www.instagram.com/nikofinanciar/" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="Instagram">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png" alt="Instagram" onerror="this.src='https://placehold.co/128x128/222/FFF?text=IG'" />
                                 </a>
                                 <!-- TikTok -->
-                                <a href="#" target="_blank" class="text-gray-400 social-icon-wrapper hover:text-accent-cyan" aria-label="TikTok">
-                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1010 10 10 10 0 00-10-10zm0 18a8 8 0 118-8 8 8 0 01-8 8zm4.4-10.4a.4.4 0 00-.4.4v2.5a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-2.5a.4.4 0 00-.4-.4h-3.6zm-5.6 0a.4.4 0 00-.4.4v6a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-6a.4.4 0 00-.4-.4h-3.6zM7.2 9.2a.4.4 0 00-.4.4v4a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-4a.4.4 0 00-.4-.4h-3.6z"/></svg>
+                                <a href="https://www.tiktok.com/@nikofinanciar" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="TikTok">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/2504/2504942.png" alt="TikTok" onerror="this.src='https://placehold.co/128x128/222/FFF?text=TK'" />
                                 </a>
                                 <!-- Twitter/X -->
-                                <a href="#" target="_blank" class="text-gray-400 social-icon-wrapper hover:text-accent-cyan" aria-label="Twitter/X">
-                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.002H22l-8.627 9.873L21.393 23H14.498l-5.404-6.495L5.01 23H2.02l8.8-10.04L2.008 1h7.707l4.996 6.136L18.901 1.002zM15.22 20.898h2.646L6.502 3.123H3.593L15.22 20.898z" fill-rule="evenodd"/></svg>
+                                <a href="#" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="Twitter/X">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/5968/5968830.png" alt="X / Twitter" onerror="this.src='https://placehold.co/128x128/222/FFF?text=X'" />
                                 </a>
                                 <!-- LinkedIn -->
-                                <a href="#" target="_blank" class="text-gray-400 hover:text-blue-500 social-icon-wrapper" aria-label="LinkedIn">
-                                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3V8h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.366-4-3.235-4 0v5.604h-3V8h3v1.745s1.294-1.936 3.75-1.936c3.08 0 5.25 2.053 5.25 6.223v5.068z" fill-rule="evenodd"/></svg>
+                                <a href="https://www.linkedin.com/in/nikofinanciar/" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="LinkedIn">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn" onerror="this.src='https://placehold.co/128x128/222/FFF?text=LI'" />
                                 </a>
                             </div>
                         </div>
@@ -309,6 +339,7 @@
                 </div>
             </section>
         </div>
+
 
         <!-- ========================================================= -->
         <!-- 1. TRADING VIEW (Modified to start with Dashboard) -->
@@ -781,33 +812,32 @@
                     </p>
                 </header>
 
-                <!-- Single Pricing Card -->
+                <!-- Single Pricing Card - UPDATED FOR FREE BETA -->
                 <div class="pricing-card pricing-card-best feature-card p-8 rounded-2xl bg-[#111111] text-center fade-in-up" style="transition-delay: 0.3s;">
-                    <h3 class="text-3xl font-bold text-white mb-2">Growth Partner Program</h3>
-                    <p class="text-gray-300 mb-6">Access all premium tools and community channels.</p>
+                    <h3 class="text-3xl font-bold text-white mb-2">Early Access: Become a "Financial"</h3>
+                    <p class="text-gray-300 mb-6 font-semibold text-lg text-green-400">
+                        COMMUNITY IS CURRENTLY FREE (IN CONSTRUCTION)
+                    </p>
                     
-                    <p class="text-2xl font-bold text-green-400 mb-2">
-                        FIRST MONTH IS ON ME.
-                    </p>
                     <p class="text-6xl font-extrabold text-white mb-2">
-                        $0<span class="text-xl text-gray-500 font-medium">/1st mo</span>
+                        $0<span class="text-xl text-gray-500 font-medium">/for now</span>
                     </p>
-                    <p class="text-3xl font-extrabold text-white mb-8">
-                        $5<span class="text-lg text-gray-500 font-medium">/mo thereafter</span>
+                    <p class="text-lg font-bold text-red-400 mb-8">
+                        The group will cost after launch. Join now for free access!
                     </p>
 
                     <a href="#" class="block bg-accent-cyan text-background-dark px-6 py-4 rounded-lg font-bold text-lg btn-accent shadow-lg shadow-cyan-500/50 transition duration-300">
-                        Start Your Free Month Now!
+                        Join Discord & Become a "Financial"
                     </a>
                     
                     <p class="text-sm text-gray-400 italic mt-6">
-                        "The price will grow with my portfolio—your success is mine."
+                        Early members will receive a **super promotion** when the paid model is introduced.
                     </p>
                     
                     <ul class="text-left mt-6 space-y-2 text-gray-300 inline-block">
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Private Discord Access</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Live Trade Analysis & Signals</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>All Digital Resources</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Private Discord Access (Full Features)</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Live Trade Analysis & Signals (Beta)</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Shape the Community Direction</li>
                     </ul>
                 </div>
             </div>
@@ -820,7 +850,9 @@
     <footer class="py-12 bg-card-dark border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h4 class="text-2xl font-extrabold text-white tracking-widest uppercase">
-                Nikofinanciar<span class="text-accent-cyan">.</span>
+                 <!-- LOGO: New PNG Image and text adjusted for closer spacing (mr-0.5, -mb-0) -->
+                <img src="https://cdn-icons-png.flaticon.com/128/6065/6065747.png" alt="Nikofinanciar Logo" class="w-6 h-6 inline-block align-middle mr-0.5 -mb-0" onerror="this.src='https://placehold.co/40x40/06B6D4/FFF?text=Niko'" />
+                <span class="inline-block align-middle">ikofinanciar</span>
             </h4>
             <p class="text-gray-500 text-xs mt-6 max-w-3xl mx-auto">
                 <span class="font-bold text-red-400">HAFTUNGSAUSSCHLUSS (Trading):</span> Der Handel mit Futures und Optionen birgt erhebliche Verlustrisiken und ist nicht für jeden Anleger geeignet. Die von Nikofinanciar bereitgestellten Informationen und Schulungen dienen ausschließlich Bildungszwecken und stellen keine Finanzberatung dar.
@@ -870,29 +902,29 @@
                     </div>
                 </div>
 
-                <!-- Social Media Links (Styled) -->
+                <!-- Social Media Links (Using all PNG URLs) -->
                 <div class="pt-4 border-t border-white/10">
                     <p class="text-sm text-gray-400 mb-4 text-center">Follow My Journey</p>
                     <div class="flex justify-center space-x-6">
                         <!-- YouTube -->
-                        <a href="#" target="_blank" class="text-gray-400 hover:text-red-600 social-icon-wrapper" aria-label="YouTube">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.001 2.001C6.48 2.001 2 6.48 2 12.001c0 5.518 4.48 9.998 10.001 9.998 5.518 0 9.997-4.48 9.997-9.998 0-5.521-4.48-10-9.997-10zm-3.04 14.974V7.027l6.08 4.974-6.08 4.974z" fill-rule="evenodd"/></svg>
+                        <a href="https://www.youtube.com/@Nikofinanciar" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="YouTube">
+                            <img src="https://cdn-icons-png.flaticon.com/128/174/174883.png" alt="YouTube" onerror="this.src='https://placehold.co/128x128/222/FFF?text=YT'" />
                         </a>
                         <!-- Instagram -->
-                        <a href="#" target="_blank" class="text-gray-400 hover:text-pink-500 social-icon-wrapper" aria-label="Instagram">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A5.6 5.6 0 004 7.6v8.8c0 3.1 2.5 5.6 5.6 5.6h8.8c3.1 0 5.6-2.5 5.6-5.6V7.6c0-3.1-2.5-5.6-5.6-5.6H7.6zm9.2.7a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-5.4 3a6 6 0 100 12 6 6 0 000-12zm0 2a4 4 0 110 8 4 4 0 010-8z" fill-rule="evenodd"/></svg>
+                        <a href="https://www.instagram.com/nikofinanciar/" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png" alt="Instagram" onerror="this.src='https://placehold.co/128x128/222/FFF?text=IG'" />
                         </a>
                         <!-- TikTok -->
-                        <a href="#" target="_blank" class="text-gray-400 social-icon-wrapper hover:text-accent-cyan" aria-label="TikTok">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1010 10 10 10 0 00-10-10zm0 18a8 8 0 118-8 8 8 0 01-8 8zm4.4-10.4a.4.4 0 00-.4.4v2.5a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-2.5a.4.4 0 00-.4-.4h-3.6zm-5.6 0a.4.4 0 00-.4.4v6a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-6a.4.4 0 00-.4-.4h-3.6zM7.2 9.2a.4.4 0 00-.4.4v4a.4.4 0 00.4.4h3.6a.4.4 0 00.4-.4v-4a.4.4 0 00-.4-.4h-3.6z"/></svg>
+                        <a href="https://www.tiktok.com/@nikofinanciar" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="TikTok">
+                            <img src="https://cdn-icons-png.flaticon.com/128/2504/2504942.png" alt="TikTok" onerror="this.src='https://placehold.co/128x128/222/FFF?text=TK'" />
                         </a>
                         <!-- Twitter/X -->
-                        <a href="#" target="_blank" class="text-gray-400 social-icon-wrapper hover:text-accent-cyan" aria-label="Twitter/X">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.002H22l-8.627 9.873L21.393 23H14.498l-5.404-6.495L5.01 23H2.02l8.8-10.04L2.008 1h7.707l4.996 6.136L18.901 1.002zM15.22 20.898h2.646L6.502 3.123H3.593L15.22 20.898z" fill-rule="evenodd"/></svg>
+                        <a href="#" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="Twitter/X">
+                            <img src="https://cdn-icons-png.flaticon.com/128/5968/5968830.png" alt="X / Twitter" onerror="this.src='https://placehold.co/128x128/222/FFF?text=X'" />
                         </a>
                         <!-- LinkedIn -->
-                        <a href="#" target="_blank" class="text-gray-400 hover:text-blue-500 social-icon-wrapper" aria-label="LinkedIn">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3V8h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.366-4-3.235-4 0v5.604h-3V8h3v1.745s1.294-1.936 3.75-1.936c3.08 0 5.25 2.053 5.25 6.223v5.068z" fill-rule="evenodd"/></svg>
+                        <a href="https://www.linkedin.com/in/nikofinanciar/" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="LinkedIn">
+                            <img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn" onerror="this.src='https://placehold.co/128x128/222/FFF?text=LI'" />
                         </a>
                     </div>
                 </div>
