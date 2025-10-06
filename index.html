@@ -6,6 +6,24 @@
     <title>Nikofinanciar | Trading, Development & Management Solutions</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 
+        ================================================== 
+        GOOGLE ANALYTICS 4 (GA4) INTEGRATION BLOCK 
+        ================================================== 
+        
+        Measurement ID: G-67Z913Z6VC
+    -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-67Z913Z6VC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-67Z913Z6VC'); 
+    </script>
+    <!-- END GOOGLE ANALYTICS BLOCK -->
+    
     <style>
         /* Custom font import and base styles */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -25,6 +43,27 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 10px; }
         ::-webkit-scrollbar-track { background: #18181B; }
+
+        /* KEYFRAMES FOR LOGO ANIMATION (Tuning Ball) */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Applying the spin animation to the logo image */
+        .logo-tuning {
+            animation: spin 8s linear infinite; /* 8 seconds duration, continuous spin */
+            transform-origin: center;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* LOGO FLOATING STATE (REMOVED: Now handled by simple opacity/visibility) */
+        
+        /* Hiding the original logo container during animation to avoid duplicates */
+        .logo-container.is-hiding {
+            opacity: 0;
+            pointer-events: none;
+        }
 
         /* Animation Classes */
         .fade-in-up {
@@ -93,7 +132,7 @@
             height: 100%;
         }
 
-        /* Modal Styling */
+        /* --- CONTACT MODAL (SMALL, DARK) --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -101,7 +140,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
-            display: none; /* Controlled by JS */
+            display: none; 
             align-items: center;
             justify-content: center;
             z-index: 1000;
@@ -113,7 +152,7 @@
             opacity: 1;
         }
         .modal-content {
-            background-color: #111827; /* Dark background for modal */
+            background-color: #111827; 
             color: #FAFAFA;
             padding: 2.5rem;
             border-radius: 1rem;
@@ -122,11 +161,71 @@
             box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4);
             transform: translateY(-20px);
             transition: transform 0.3s ease-out;
-            position: relative; /* Needed for positioning inside flex container */
+            position: relative;
         }
         .modal-overlay.open .modal-content {
             transform: translateY(0);
         }
+
+        /* --- ABOUT MODAL (CINEMATIC, WHITE, CONTOURED) --- */
+        /* Simplified modal expansion without complex logo movement */
+        #about-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1010; 
+            display: none;
+            background-color: rgba(0, 0, 0, 0.85); /* Dark overlay */
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-out; /* Fade in overlay */
+        }
+        #about-modal.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        #about-modal-content {
+            background-color: #FAFAFA; /* White background */
+            color: #0A0A0A; /* Black text */
+            padding: 2.5rem;
+            border-radius: 1.5rem; /* Contoured look */
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh; /* Prevents modal from filling the entire height */
+            overflow-y: auto; /* Allows scrolling inside if content is long */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            
+            /* Cinematic Scaling properties (Simplified: always opens from center) */
+            transform-origin: center center; 
+            transform: scale(0.1);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.32, 1.275); /* Bounce effect transition */
+            opacity: 0;
+            
+            /* Logo space is no longer required as logo does not land here */
+        }
+
+        #about-modal.open #about-modal-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Style adjustments for content inside the white modal */
+        #about-modal .text-white, #about-modal .text-gray-400 {
+            color: #0A0A0A !important;
+        }
+        #about-modal .text-gray-300 {
+            color: #374151 !important; /* Darker grey for body text */
+        }
+        #about-modal .bg-card-dark {
+            background-color: #F3F4F6 !important; /* Light background for the content box */
+            border-color: #D1D5DB !important;
+            box-shadow: none;
+        }
+
 
         /* Tailwind Configuration */
         tailwind.config = {
@@ -149,12 +248,15 @@
 </head>
 <body class="bg-background-dark min-h-screen">
 
+    <!-- FLOATING LOGO ELEMENT (REMOVED: No longer needed for travel animation) -->
+
+
     <!-- Navigation Bar -->
     <header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-sm shadow-xl shadow-black/10">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#view=home" class="text-2xl font-extrabold text-white tracking-widest uppercase router-link">
-                <!-- LOGO: New PNG Image and text adjusted for closer spacing (mr-0.5, -mb-0) -->
-                <img src="https://cdn-icons-png.flaticon.com/128/6065/6065747.png" alt="Nikofinanciar Logo" class="w-10 h-10 inline-block align-middle mr-0.5 -mb-0" onerror="this.src='https://placehold.co/40x40/06B6D4/FFF?text=Niko'" />
+            <!-- LOGO: Added click handler to open the new modal -->
+            <a href="#" id="logo-link" class="text-2xl font-extrabold text-white tracking-widest uppercase router-link logo-container">
+                <img src="https://cdn-icons-png.flaticon.com/128/6065/6065747.png" alt="Nikofinanciar Logo" id="nav-logo" class="w-10 h-10 inline-block align-middle mr-0 -mb-0 logo-tuning" onerror="this.src='https://placehold.co/40x40/06B6D4/FFF?text=Niko'" />
                 <span class="inline-block align-middle">ikofinanciar</span>
             </a>
             <div class="hidden md:flex space-x-8 text-sm font-medium">
@@ -207,7 +309,8 @@
                     </p>
                     
                     <div class="inline-flex flex-col items-center pt-4 fade-in-up is-visible" style="transition-delay: 0.3s;">
-                         <a href="#view=home&section=about" class="inline-block border border-white/20 text-white px-8 py-3 rounded-xl font-bold text-lg hover:bg-white/10 transition duration-300 btn-accent smooth-scroll">
+                         <!-- Button now opens the new about modal -->
+                         <a href="#" id="about-modal-open-btn" class="inline-block border border-white/20 text-white px-8 py-3 rounded-xl font-bold text-lg hover:bg-white/10 transition duration-300 btn-accent smooth-scroll">
                             Get to Know Niko
                         </a>
                         <!-- START: New Socials Block in Hero Zone -->
@@ -285,59 +388,8 @@
                     </div>
                 </div>
             </section>
-
-            <!-- 0.3 About Me & Contact - CLEANED: Only one copy of this section remains -->
-            <section id="about" class="py-20">
-                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <header class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
-                            A Little Bit About Me (Niko)
-                        </h2>
-                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
-                            Bridging the gap between financial intelligence and digital execution.
-                        </p>
-                    </header>
-
-                    <div class="bg-card-dark p-8 rounded-xl border border-white/10 shadow-2xl fade-in-up" style="transition-delay: 0.3s;">
-                        <p class="text-gray-300 leading-relaxed mb-6">
-                            My journey began in the fast-paced world of **futures trading**, where discipline and systematic analysis are paramount. I quickly realized that success in any venture—from trading to running a company—relies on three pillars: **clear strategy, efficient operations, and robust digital tools.**
-                        </p>
-                        <p class="text-gray-300 leading-relaxed mb-6">
-                            That insight led me to expand my expertise into **programming and business management**. Now, I leverage my unique skill set to not only guide traders to profitability but also to help businesses automate their way to scale and optimize their core financial models. I am here to provide you with the same tools, systems, and mindset that drive my own success.
-                        </p>
-                        <div class="text-center pt-4">
-                            <!-- Button changed to open the modal -->
-                            <a href="#" id="contact-modal-open" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
-                                Contact Me Directly
-                            </a>
-                            
-                            <!-- Social Media Links on Home Page (These are the ones under the About Me section, which are also linked) -->
-                            <div class="flex justify-center space-x-6 pt-8">
-                                <!-- YouTube -->
-                                <a href="https://www.youtube.com/@Nikofinanciar" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="YouTube">
-                                    <img src="https://cdn-icons-png.flaticon.com/128/174/174883.png" alt="YouTube" onerror="this.src='https://placehold.co/128x128/222/FFF?text=YT'" />
-                                </a>
-                                <!-- Instagram -->
-                                <a href="https://www.instagram.com/nikofinanciar/" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="Instagram">
-                                    <img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png" alt="Instagram" onerror="this.src='https://placehold.co/128x128/222/FFF?text=IG'" />
-                                </a>
-                                <!-- TikTok -->
-                                <a href="https://www.tiktok.com/@nikofinanciar" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="TikTok">
-                                    <img src="https://cdn-icons-png.flaticon.com/128/2504/2504942.png" alt="TikTok" onerror="this.src='https://placehold.co/128x128/222/FFF?text=TK'" />
-                                </a>
-                                <!-- Twitter/X -->
-                                <a href="#" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="Twitter/X">
-                                    <img src="https://cdn-icons-png.flaticon.com/128/5968/5968830.png" alt="X / Twitter" onerror="this.src='https://placehold.co/128x128/222/FFF?text=X'" />
-                                </a>
-                                <!-- LinkedIn -->
-                                <a href="https://www.linkedin.com/in/nikofinanciar/" target="_blank" class="w-7 h-7 social-icon-wrapper" aria-label="LinkedIn">
-                                    <img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn" onerror="this.src='https://placehold.co/128x128/222/FFF?text=LI'" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            
+            <!-- Removed original #about section to be replaced by the modal -->
         </div>
 
 
@@ -438,7 +490,7 @@
                                     <span>$2,100 / $3,000 (70%)</span>
                                 </div>
                                 <div class="w-full bg-gray-700 rounded-full h-3">
-                                    <div class="bg-green-500 h-3 rounded-full" style="width: 70%"></div>
+                                    <div id="profit-target-bar" class="bg-green-500 h-3 rounded-full" style="width: 70%"></div>
                                 </div>
                             </div>
                             <!-- Max Drawdown -->
@@ -704,6 +756,7 @@
                         <span class="text-accent-cyan text-4xl mb-4 inline-block">🌐</span>
                         <h3 class="text-2xl font-bold mb-3">Website Management</h3>
                         <p class="text-gray-400">Secure hosting, continuous updates, performance optimization, and SEO maintenance to ensure your digital presence is always running smoothly.</p>
+                    </p>
                     </div>
                 </div>
 
@@ -739,7 +792,7 @@
                     <!-- UPDATED: Free Consultation Pitch -->
                     <h3 class="text-2xl font-bold text-white mb-4">Start with a FREE Project Consultation</h3>
                     <p class="text-gray-400 mb-6">Send a message now to schedule a Zoom call and discuss your digital needs at no cost.</p>
-                    <a href="#" id="contact-modal-open-dev" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
+                    <a href="https://calendly.com/nikofinanciar/consult" target="_blank" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
                         Schedule Free Zoom Call
                     </a>
                 </div>
@@ -791,7 +844,7 @@
                     <!-- UPDATED: Free Consultation Pitch -->
                     <h3 class="text-2xl font-bold text-white mb-4">Start with a FREE Strategy Consultation</h3>
                     <p class="text-gray-400 mb-6">Send a message now to schedule a Zoom call and discuss your business goals at no cost.</p>
-                    <a href="#" id="contact-modal-open-biz" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
+                    <a href="https://calendly.com/nikofinanciar/consult" target="_blank" id="contact-modal-open-biz" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
                         Schedule Free Strategy Session
                     </a>
                 </div>
@@ -850,8 +903,8 @@
     <footer class="py-12 bg-card-dark border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h4 class="text-2xl font-extrabold text-white tracking-widest uppercase">
-                 <!-- LOGO: New PNG Image and text adjusted for closer spacing (mr-0.5, -mb-0) -->
-                <img src="https://cdn-icons-png.flaticon.com/128/6065/6065747.png" alt="Nikofinanciar Logo" class="w-6 h-6 inline-block align-middle mr-0.5 -mb-0" onerror="this.src='https://placehold.co/40x40/06B6D4/FFF?text=Niko'" />
+                 <!-- LOGO: Closer Spacing (mr-0), Added Tuning Class -->
+                <img src="https://cdn-icons-png.flaticon.com/128/6065/6065747.png" alt="Nikofinanciar Logo" class="w-6 h-6 inline-block align-middle mr-0 -mb-0 logo-tuning" onerror="this.src='https://placehold.co/40x40/06B6D4/FFF?text=Niko'" />
                 <span class="inline-block align-middle">ikofinanciar</span>
             </h4>
             <p class="text-gray-500 text-xs mt-6 max-w-3xl mx-auto">
@@ -870,6 +923,69 @@
             </p>
         </div>
     </footer>
+
+    <!-- ========================================================= -->
+    <!-- FULL SCREEN ABOUT ME MODAL (THE WHITE PAGE - CONTOURED) -->
+    <!-- ========================================================= -->
+    <section id="about-modal">
+        <!-- The modal content wrapper is centered by the parent section, and its transform-origin is set by JS -->
+        <div id="about-modal-content" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
+            
+            <!-- Close Button -->
+            <button onclick="closeAboutModal()" class="absolute top-4 right-4 text-black hover:text-red-600 transition duration-200 p-2 text-4xl" aria-label="Close About Me">
+                &times;
+            </button>
+
+            <header class="text-center mb-12 pt-8">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-2 text-black">
+                    A Little Bit About Me (Niko)
+                </h2>
+                <p class="text-lg max-w-2xl mx-auto text-gray-700">
+                    Bridging the gap between financial intelligence and digital execution.
+                </p>
+            </header>
+
+            <div class="bg-card-dark p-8 rounded-xl border shadow-2xl">
+                <p class="leading-relaxed mb-6 text-gray-300">
+                    My journey began in the fast-paced world of **futures trading**, where discipline and systematic analysis are paramount. I quickly realized that success in any venture—from trading to running a company—relies on three pillars: **clear strategy, efficient operations, and robust digital tools.**
+                </p>
+                <p class="leading-relaxed mb-6 text-gray-300">
+                    That insight led me to expand my expertise into **programming and business management**. Now, I leverage my unique skill set to not only guide traders to profitability but also to help businesses automate their way to scale and optimize their core financial models. I am here to provide you with the same tools, systems, and mindset that drive my own success.
+                </p>
+                <div class="text-center pt-4">
+                    <a href="#" onclick="openContactModal(); closeAboutModal();" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
+                        Contact Me Directly
+                    </a>
+                    
+                    <!-- Social Media Links on About Page -->
+                    <div class="flex justify-center space-x-6 pt-8">
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/@Nikofinanciar" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="YouTube">
+                            <img src="https://cdn-icons-png.flaticon.com/128/174/174883.png" alt="YouTube" onerror="this.src='https://placehold.co/128x128/222/FFF?text=YT'" />
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/nikofinanciar/" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png" alt="Instagram" onerror="this.src='https://placehold.co/128x128/222/FFF?text=IG'" />
+                        </a>
+                        <!-- TikTok -->
+                        <a href="https://www.tiktok.com/@nikofinanciar" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="TikTok">
+                            <img src="https://cdn-icons-png.flaticon.com/128/2504/2504942.png" alt="TikTok" onerror="this.src='https://placehold.co/128x128/222/FFF?text=TK'" />
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="#" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="Twitter/X">
+                            <img src="https://cdn-icons-png.flaticon.com/128/5968/5968830.png" alt="X / Twitter" onerror="this.src='https://placehold.co/128x128/222/FFF?text=X'" />
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/nikofinanciar/" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="LinkedIn">
+                            <img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn" onerror="this.src='https://placehold.co/128x128/222/FFF?text=LI'" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========================================================= -->
+
 
     <!-- ========================================================= -->
     <!-- CONTACT MODAL WINDOW -->
@@ -901,6 +1017,19 @@
                         <a href="mailto:contact@nikofinanciar.com" class="text-white font-semibold hover:text-accent-cyan transition duration-200">contact@nikofinanciar.com</a>
                     </div>
                 </div>
+
+                <!-- Scheduling Link -->
+                <div class="flex items-center space-x-4 pt-4 border-t border-white/10">
+                    <span class="text-accent-cyan flex-shrink-0 text-xl">📅</span>
+                    <div>
+                        <p class="text-sm text-gray-400">Book Your Free Consultation</p>
+                        <a href="https://calendly.com/nikofinanciar/consult" target="_blank" class="text-white font-semibold hover:text-accent-cyan transition duration-200">
+                            Schedule Appointment Now
+                        </a>
+                        <p class="text-xs text-gray-500 mt-1">You will be redirected to an external scheduling page.</p>
+                    </div>
+                </div>
+
 
                 <!-- Social Media Links (Using all PNG URLs) -->
                 <div class="pt-4 border-t border-white/10">
@@ -943,31 +1072,31 @@
             'biz': document.getElementById('biz-view')
         };
         const defaultViewId = 'home';
+        
+        const logoContainer = document.querySelector('.logo-container');
+        const navLogo = document.getElementById('nav-logo');
+        const aboutModal = document.getElementById('about-modal');
+        const aboutModalContent = document.getElementById('about-modal-content');
+        const contactModal = document.getElementById('contact-modal');
 
-        // 1.1 Smooth Scroll utility (Defined as const, so must be first)
+
+        // 1.1 Smooth Scroll utility
         const smoothScrollTo = (targetId) => {
              const targetElement = document.querySelector(targetId);
              if (targetElement) {
-                // Calculate offset for sticky header
                 const headerHeight = document.querySelector('header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
-
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
             }
         };
-
-        // 1.2 Animation Initializer (Defined as function declaration, but keeping near the top is safest)
+        
+        // 1.2 Animation Initializer
         let observer = null;
         function initAnimations() {
-            // Disconnect old observer if it exists
-            if (observer) {
-                observer.disconnect();
-            }
-
-            // Reset visibility class for all elements
+            if (observer) observer.disconnect();
             document.querySelectorAll('.fade-in-up').forEach(el => {
                 el.classList.remove('is-visible');
             });
@@ -976,9 +1105,7 @@
 
             observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
-                    // Only animate if the view containing the element is visible
                     const parentView = entry.target.closest('.main-view');
-                    // Special check: Only animate if the element is inside a visible main-view OR is the global-pricing section
                     const isGlobal = entry.target.closest('#global-pricing');
 
                     if (entry.isIntersecting && (isGlobal || (parentView && parentView.style.display !== 'none'))) {
@@ -997,41 +1124,78 @@
         }
 
 
-        // 1.3 Routing Logic (Now calls defined functions)
+        // 1.3 Routing Logic
         function handleRouting() {
-            // Get the current hash from the URL
             const hash = window.location.hash.slice(1);
             const params = new URLSearchParams(hash);
             let viewId = params.get('view') || defaultViewId;
 
-            // Ensure viewId is valid, otherwise default
             if (!views[viewId]) {
                 viewId = defaultViewId;
             }
 
-            // Hide all views and show the active one
             Object.keys(views).forEach(key => {
                 if (views[key]) {
                     views[key].style.display = (key === viewId) ? 'block' : 'none';
                 }
             });
 
-            // Handle section scrolling (if a specific section is specified)
             const section = params.get('section');
             if (section) {
-                // Use a slight delay to ensure the view is visible before scrolling
                 setTimeout(() => {
                     smoothScrollTo(`#${section}`);
                 }, 100);
             } else {
-                 // Scroll to the top of the new view when switching pages
                  window.scrollTo(0, 0);
             }
 
-            // Re-apply animations for the new view content and global elements
             initAnimations();
         }
 
+
+        // --- 1.4 Special Modal Functions (Simplified) ---
+
+        function openAboutModal() {
+            // Simple fade in and scale up from center
+            aboutModal.style.display = 'flex';
+            
+            // Hide the logo container immediately for clean transition
+            logoContainer.classList.add('is-hiding');
+            
+            // Use requestAnimationFrame to ensure display:flex is registered before transition
+            requestAnimationFrame(() => {
+                aboutModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        function closeAboutModal() {
+            if (aboutModal) {
+                aboutModal.classList.remove('open');
+                
+                // Use a timeout to hide the modal and restore logo only after the transition completes
+                setTimeout(() => {
+                    aboutModal.style.display = 'none';
+                    logoContainer.classList.remove('is-hiding');
+                }, 600); 
+            }
+            document.body.style.overflow = '';
+        }
+
+        function openContactModal() {
+            if (contactModal) {
+                contactModal.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        }
+
+        function closeContactModal() {
+            if (contactModal) {
+                contactModal.classList.remove('open');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        }
+        
 
         // --- 2. Event Attachments (Triggering Routing) ---
         window.addEventListener('hashchange', handleRouting);
@@ -1042,6 +1206,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             const menuButton = document.getElementById('menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const logoLink = document.getElementById('logo-link');
+            const aboutModalOpenBtn = document.getElementById('about-modal-open-btn');
+            const contactModalCloseButton = document.getElementById('modal-close-button');
+            const contactModalOpenButtons = document.querySelectorAll('#contact-modal-open, #contact-modal-open-dev, #contact-modal-open-biz');
+
 
             // Mobile Menu Toggle
             menuButton.addEventListener('click', () => {
@@ -1049,7 +1218,7 @@
             });
 
             // Smooth Scroll & Router Link Logic
-            document.querySelectorAll('a.router-link, a.service-selector, a.smooth-scroll:not([href^="#view"])').forEach(anchor => {
+            document.querySelectorAll('a.router-link, a.service-selector, a.smooth-scroll').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     // Close mobile menu on click
                     if (!mobileMenu.classList.contains('hidden')) {
@@ -1060,33 +1229,33 @@
 
                     if (href.startsWith('#view=')) {
                         // Let the router handle navigation for view changes
-                        // We only prevent default scrolling if it's explicitly linking to a section on the same page view
                         if (href.includes('&section=') || this.classList.contains('smooth-scroll')) {
                             e.preventDefault();
                             window.location.hash = href.slice(1);
                         }
-                        // Otherwise, standard hash change handles it
                     } else if (href.startsWith('#')) {
                         // Handle pure section scrolling on the current page
                          e.preventDefault();
-                         smoothScrollTo(href);
+                         
+                         // Check if href is not just '#' (to prevent SyntaxError)
+                         if (href.length > 1) { 
+                             smoothScrollTo(href);
+                         }
                     }
                 });
             });
 
-            // --- 3.1 FAQ Accordion Logic (Only affects visible Trading FAQ) ---
+            // --- 3.1 FAQ Accordion Logic ---
             document.querySelectorAll('.accordion-item').forEach(item => {
                 const header = item.querySelector('.accordion-header');
                 const content = item.querySelector('.accordion-content');
                 const icon = item.querySelector('.accordion-icon');
 
                 header.addEventListener('click', () => {
-                    // Check if the current view is the trading view
-                    if(views.trading.style.display !== 'block') return;
+                    if(views.trading.style.display !== 'block') return; // Only operate on the active view
 
                     const isExpanded = content.classList.contains('is-open');
 
-                    // Close all other open items
                     document.querySelectorAll('.accordion-item').forEach(otherItem => {
                         const otherContent = otherItem.querySelector('.accordion-content');
                         const otherIcon = otherItem.querySelector('.accordion-icon');
@@ -1099,7 +1268,6 @@
                         }
                     });
 
-                    // Toggle current item
                     if (isExpanded) {
                         content.classList.remove('is-open');
                         content.style.maxHeight = '0';
@@ -1115,48 +1283,62 @@
             });
 
 
-            // --- 3.2 Contact Modal Control ---
-            const modal = document.getElementById('contact-modal');
-            const modalCloseButton = document.getElementById('modal-close-button');
-            
-            // Collect all buttons that open the modal
-            const contactButtons = document.querySelectorAll('#contact-modal-open, #contact-modal-open-dev, #contact-modal-open-biz');
-
-            function openModal() {
-                modal.classList.add('open');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            }
-
-            function closeModal() {
-                modal.classList.remove('open');
-                document.body.style.overflow = ''; // Restore scrolling
-            }
-
-            // Event Listeners for opening the modal
-            contactButtons.forEach(button => {
+            // --- 3.2 Contact Modal Control (Normal Modal) ---
+            contactModalOpenButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
                     e.preventDefault();
-                    openModal();
+                    openContactModal();
                 });
             });
 
-            // Event Listeners for closing the modal
-            if (modalCloseButton) {
-                modalCloseButton.addEventListener('click', closeModal);
+
+            if (contactModalCloseButton) {
+                contactModalCloseButton.addEventListener('click', closeContactModal);
             }
 
-            // Close when clicking outside the modal content
-            if (modal) {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        closeModal();
+            if (contactModal) {
+                contactModal.addEventListener('click', (e) => {
+                    if (e.target === contactModal) {
+                        closeContactModal();
                     }
                 });
+            }
 
-                // Close with ESC key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && modal.classList.contains('open')) {
-                        closeModal();
+
+            // --- 3.3 ABOUT MODAL CONTROL (New Cinematic Modal) ---
+            if (logoLink) {
+                 logoLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (!aboutModal.classList.contains('open')) {
+                        openAboutModal();
+                    }
+                });
+            }
+
+            if (aboutModalOpenBtn) {
+                 aboutModalOpenBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openAboutModal();
+                });
+            }
+
+            // Close with ESC key (for both modals)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (aboutModal.classList.contains('open')) {
+                         closeAboutModal();
+                    } else if (contactModal.classList.contains('open')) {
+                         closeContactModal();
+                    }
+                }
+            });
+
+            // Close about-modal when clicking the dark overlay (not the content)
+            if (aboutModal) {
+                aboutModal.addEventListener('click', (e) => {
+                    // Check if the click occurred directly on the backdrop/section element
+                    if (e.target === aboutModal) {
+                        closeAboutModal();
                     }
                 });
             }
