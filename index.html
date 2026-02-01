@@ -1,531 +1,297 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Menu, X, Cpu, TrendingUp, ShieldCheck, 
-  MessageSquare, Users, Instagram, 
-  Twitter, Youtube, ArrowRight, Activity,
-  CheckCircle, Zap, Globe, BarChart3,
-  Quote, ExternalLink, Sparkles, ChevronDown, ChevronUp, Clock,
-  Layers, Wallet, Brain, Layout, Code, Monitor
-} from 'lucide-react';
-
-// Theme Configuration
-const COLORS = {
-  bg: '#020202',
-  card: '#0A0A0A',
-  sage: '#87A96B', 
-  terracotta: '#B2635E', 
-  gold: '#B89B66', 
-  border: 'rgba(255,255,255,0.08)'
-};
-
-// --- ANIMATED BACKGROUND COMPONENTS ---
-
-const FloatingSystems = () => (
-  <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-    {/* Floating Orb 1 */}
-    <div className="absolute top-[10%] left-[15%] w-64 h-64 bg-[#B89B66]/5 blur-[100px] rounded-full animate-pulse"></div>
-    {/* Floating Orb 2 */}
-    <div className="absolute bottom-[20%] right-[10%] w-96 h-96 bg-[#87A96B]/5 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-    
-    {/* Animated Grid Lines */}
-    <div className="absolute inset-0 opacity-[0.03]" 
-         style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '80px 80px' }}>
-    </div>
-
-    {/* Moving Geometric Accents */}
-    <div className="absolute top-1/4 right-1/4 w-px h-32 bg-gradient-to-b from-transparent via-[#B89B66]/20 to-transparent animate-bounce" style={{ animationDuration: '4s' }}></div>
-    <div className="absolute bottom-1/3 left-1/4 w-px h-48 bg-gradient-to-b from-transparent via-[#87A96B]/20 to-transparent animate-bounce" style={{ animationDuration: '6s' }}></div>
-    
-    {/* Scanning Line Effect */}
-    <div className="absolute inset-0 w-full h-1 bg-gradient-to-r from-transparent via-white/5 to-transparent top-0 animate-[scan_8s_linear_infinite]"></div>
-  </div>
-);
-
-// Custom Logo Component
-const Logo = ({ className = "w-10 h-10", color = "#B89B66" }) => (
-  <svg viewBox="0 0 400 300" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M60 220V80H115L155 160V80H200V220H150L110 140V220H60Z" fill="white" />
-    <path d="M220 80H320V120H265V150H310V185H265V220H220V80Z" fill={color} />
-    <path d="M30 230L120 180L180 210L260 110L320 140L360 40" stroke={color} strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M340 45L360 40L355 60" stroke={color} strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const App = () => {
-  const [activePage, setActivePage] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const renderPage = () => {
-    switch (activePage) {
-      case 'home': return <Home setActivePage={setActivePage} />;
-      case 'ai-lab': return <AILab />;
-      case 'trading': return <TradingFloor />;
-      case 'club': return <DisciplineClub />;
-      case 'social': return <SocialHub />;
-      default: return <Home setActivePage={setActivePage} />;
-    }
-  };
-
-  return (
-    <div className="min-h-screen text-white font-sans bg-[#020202] selection:bg-[#B89B66]/30 overflow-x-hidden">
-      <style>{`
-        @keyframes scan {
-          0% { transform: translateY(-100vh); }
-          100% { transform: translateY(200vh); }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NikoFinanciar | Systems Over Emotions</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & Babel for browser-side JSX translation -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020202;
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
         }
-      `}</style>
-      
-      <FloatingSystems />
 
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 border-b ${scrolled ? 'bg-black/90 backdrop-blur-xl py-4 border-white/10' : 'bg-transparent py-8 border-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActivePage('home')}>
-            <Logo className="w-10 h-8 group-hover:scale-110 transition-transform" />
-            <span className="text-xl font-black tracking-tighter uppercase italic">NikoFinanciar</span>
-          </div>
-          
-          <div className="hidden md:flex space-x-10 items-center text-[10px] font-black tracking-[0.3em] uppercase">
-            {['Home', 'AI Lab', 'Trading', 'Club', 'Social'].map((page) => (
-              <button
-                key={page}
-                onClick={() => setActivePage(page.toLowerCase().replace(' ', '-'))}
-                className={`transition-all hover:text-[#B89B66] ${
-                  activePage === page.toLowerCase().replace(' ', '-') ? 'text-[#B89B66]' : 'text-zinc-500'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-            <button 
-              onClick={() => setActivePage('ai-lab')}
-              className="bg-white text-black px-6 py-2 rounded-sm font-black uppercase tracking-widest hover:bg-[#B89B66] transition-all"
-            >
-              Hire AI
-            </button>
-          </div>
+        @keyframes scan {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(200vh); }
+        }
 
-          <div className="md:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 bg-zinc-900 rounded-sm">
-              {isMenuOpen ? <X size={20}/> : <Menu size={20}/>}
-            </button>
-          </div>
-        </div>
-      </nav>
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black pt-32 px-10 md:hidden animate-in fade-in duration-300">
-          <div className="flex flex-col space-y-6">
-            {['Home', 'AI Lab', 'Trading', 'Club', 'Social'].map((page) => (
-              <button
-                key={page}
-                onClick={() => { setActivePage(page.toLowerCase().replace(' ', '-')); setIsMenuOpen(false); }}
-                className="text-4xl font-black italic uppercase text-left border-b border-white/5 pb-4"
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+        .animate-scan {
+            animation: scan 8s linear infinite;
+        }
 
-      <main className="relative z-10">
-        {renderPage()}
-      </main>
+        .animate-loading {
+            animation: loading 2s ease-in-out infinite;
+        }
 
-      <footer className="py-20 border-t border-white/5 bg-black text-center relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-8">
-          <Logo className="w-12 h-10 opacity-20" />
-          <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-[0.4em]">Systems Over Emotions — Precision Engineered 2026</p>
-        </div>
-      </footer>
-    </div>
-  );
-};
+        .backdrop-blur-xl {
+            backdrop-filter: blur(24px);
+        }
+        
+        .selection-gold::selection {
+            background: rgba(184, 155, 102, 0.3);
+        }
+    </style>
+</head>
+<body class="selection-gold">
+    <div id="root"></div>
 
-/* --- SHARED COMPONENTS --- */
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-const InterestingMenu = () => {
-  const [openIndex, setOpenIndex] = useState(null);
-  const insights = [
-    { 
-      title: "The Nursing-to-Systems Thesis", 
-      content: "In nursing, 'maybe' is a liability. I spent my career in environments where protocol and precision were life-and-death. I realized the same discipline required to save a life is the discipline required to master a market or build a flawless AI system." 
-    },
-    { 
-      title: "Complexity is the Enemy", 
-      content: "Most software users fail because of the onboarding hurdle. Our AI Tutorial Helper is designed to bridge that gap, automating user execution layers in real-time." 
-    },
-    { 
-      title: "Transparency Protocol", 
-      content: "Mentorship under Swush isn't about following signals—it's about documenting the process. My trading floor is a transparency hub, not a group. We value proof over promises." 
-    }
-  ];
+        // --- THEME COLORS ---
+        const COLORS = {
+            bg: '#020202',
+            sage: '#87A96B', 
+            terracotta: '#B2635E', 
+            gold: '#B89B66'
+        };
 
-  return (
-    <div className="max-w-2xl mx-auto mt-32 border-t border-white/5 pt-12">
-      <h3 className="text-xs font-black uppercase tracking-[0.5em] text-[#B89B66] mb-8 italic">Interesting</h3>
-      <div className="space-y-4">
-        {insights.map((insight, idx) => (
-          <div key={idx} className="border border-white/5 bg-zinc-900/10">
-            <button 
-              onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-              className="w-full px-8 py-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors"
-            >
-              <span className="text-[10px] font-black uppercase tracking-widest">{insight.title}</span>
-              {openIndex === idx ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </button>
-            {openIndex === idx && (
-              <div className="px-8 pb-8 text-zinc-500 text-sm leading-relaxed animate-in fade-in slide-in-from-top-2 duration-300">
-                {insight.content}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+        // --- ICON HELPER ---
+        const Icon = ({ name, size = 24, className = "" }) => {
+            const iconRef = useRef(null);
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
+        };
 
-const Countdown = () => {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  useEffect(() => {
-    const target = new Date("August 1, 2026 00:00:00").getTime();
-    const interval = setInterval(() => {
-      const distance = target - new Date().getTime();
-      if (distance < 0) return clearInterval(interval);
-      setTimeLeft({
-        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((distance % (1000 * 60)) / 1000)
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+        // --- LOGO COMPONENT ---
+        const Logo = ({ className = "w-10 h-10", color = "#B89B66" }) => (
+            <svg viewBox="0 0 400 300" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M60 220V80H115L155 160V80H200V220H150L110 140V220H60Z" fill="white" />
+                <path d="M220 80H320V120H265V150H310V185H265V220H220V80Z" fill={color} />
+                <path d="M30 230L120 180L180 210L260 110L320 140L360 40" stroke={color} strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M340 45L360 40L355 60" stroke={color} strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        );
 
-  return (
-    <div className="flex gap-6 justify-center">
-      {[
-        { v: timeLeft.days, l: 'DAYS' },
-        { v: timeLeft.hours, l: 'HRS' },
-        { v: timeLeft.minutes, l: 'MIN' },
-        { v: timeLeft.seconds, l: 'SEC' }
-      ].map((item, i) => (
-        <div key={i} className="text-center">
-          <div className="text-4xl font-black italic tracking-tighter leading-none">{String(item.v).padStart(2, '0')}</div>
-          <div className="text-[8px] font-bold text-zinc-600 tracking-widest mt-1">{item.l}</div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-/* --- PAGE COMPONENTS --- */
-
-const Home = ({ setActivePage }) => (
-  <div className="animate-in fade-in duration-1000 py-32 text-center px-6">
-    <section className="max-w-5xl mx-auto mb-40">
-      <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-[#B89B66]/20 bg-[#B89B66]/5 text-[#B89B66] text-[10px] font-black uppercase tracking-[0.4em] mb-12">
-        <Zap size={14} /> Engineering Efficiency
-      </div>
-      <h1 className="text-6xl md:text-[130px] font-black tracking-tighter mb-10 leading-[0.8] italic uppercase animate-in slide-in-from-bottom-4">
-        Mastering <br />
-        <span className="text-[#B89B66]">Markets.</span>
-      </h1>
-      <p className="text-xl md:text-3xl text-zinc-400 mb-14 max-w-3xl mx-auto font-light leading-relaxed">
-        Leveraging high-stakes healthcare discipline to build the future of AI automation and financial psychology.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-        <button onClick={() => setActivePage('ai-lab')} className="bg-white text-black px-12 py-5 font-black uppercase tracking-widest text-xs hover:bg-[#B89B66] transition-all">
-          Explore AI Solutions
-        </button>
-        <button onClick={() => setActivePage('trading')} className="border border-white/10 px-12 py-5 font-black uppercase tracking-widest text-xs hover:bg-white/5 transition-all">
-          View Live Trading
-        </button>
-      </div>
-    </section>
-
-    {/* Brand Story */}
-    <section className="py-40 border-y border-white/5 bg-[#050505] relative overflow-hidden">
-      <div className="absolute top-0 right-0 p-32 opacity-5 pointer-events-none">
-        <Logo className="w-96 h-96" />
-      </div>
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
-        <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12">The Narrative</h2>
-        <p className="text-2xl md:text-4xl font-light leading-relaxed italic text-zinc-300">
-          "In nursing, there is no room for 'maybe.' My early career was built on protocol and precision. I founded <span className="text-white font-bold not-italic">Nikofinanciar</span> because the discipline required to save a life is the same discipline required to master a market."
-        </p>
-        <div className="mt-12 text-[#B89B66] font-black uppercase tracking-widest text-xs italic">
-          — Systems over Emotions
-        </div>
-      </div>
-    </section>
-
-    {/* The Three Pillars */}
-    <section className="py-40">
-       <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-1 bg-white/5 border border-white/5 rounded-sm overflow-hidden">
-             {[
-               { icon: <Cpu className="text-[#B89B66]" />, title: "AI Automation", desc: "Custom-built call assistants and software execution tools." },
-               { icon: <TrendingUp className="text-[#87A96B]" />, title: "Market Analysis", desc: "Transparent, data-driven trading based on order flow." },
-               { icon: <Brain className="text-[#B89B66]" />, title: "Discipline Hub", desc: "A community for peak psychological performance." }
-             ].map((pillar, i) => (
-               <div key={i} className="bg-black p-16 text-left hover:bg-zinc-900 transition-all group">
-                  <div className="mb-10 group-hover:scale-110 transition-transform">{pillar.icon}</div>
-                  <h4 className="text-2xl font-black italic uppercase mb-4 tracking-tighter">{pillar.title}</h4>
-                  <p className="text-zinc-500 text-sm leading-relaxed">{pillar.desc}</p>
-               </div>
-             ))}
-          </div>
-       </div>
-    </section>
-
-    {/* Website Building Section */}
-    <section className="py-40 border-t border-white/5">
-       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center text-left">
-          <div className="relative group">
-             <div className="absolute inset-0 bg-[#B89B66]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-             <div className="relative p-12 bg-zinc-900/30 border border-white/5 rounded-sm overflow-hidden">
-                <div className="flex gap-4 mb-8">
-                   <div className="w-3 h-3 rounded-full bg-zinc-700"></div>
-                   <div className="w-3 h-3 rounded-full bg-zinc-700"></div>
-                   <div className="w-3 h-3 rounded-full bg-zinc-700"></div>
+        // --- BACKGROUND ---
+        const FloatingSystems = () => (
+            <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-[10%] left-[15%] w-64 h-64 bg-[#B89B66]/5 blur-[100px] rounded-full"></div>
+                <div className="absolute bottom-[20%] right-[10%] w-96 h-96 bg-[#87A96B]/5 blur-[120px] rounded-full"></div>
+                <div className="absolute inset-0 opacity-[0.03]" 
+                     style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '80px 80px' }}>
                 </div>
-                <div className="space-y-4">
-                   <div className="h-4 bg-zinc-800 w-3/4 rounded animate-pulse"></div>
-                   <div className="h-4 bg-zinc-800 w-1/2 rounded animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                   <div className="h-24 bg-[#B89B66]/10 rounded border border-[#B89B66]/20 mt-10"></div>
-                </div>
-             </div>
-          </div>
-          <div>
-             <span className="text-[#B89B66] font-black tracking-[0.4em] uppercase text-[10px] mb-6 block">Digital Architecture</span>
-             <h2 className="text-5xl font-black italic uppercase tracking-tighter mb-8 leading-tight">Engineering High-Performance Hubs.</h2>
-             <p className="text-zinc-400 text-lg leading-relaxed mb-10 italic">
-                We build fast, high-conversion websites that serve as the neural center for complex businesses. Focused on clarity, performance, and seamless user pathways.
-             </p>
-             <div className="grid grid-cols-2 gap-6">
-                {[
-                  { icon: <Monitor size={18}/>, label: "Responsive" },
-                  { icon: <Code size={18}/>, label: "Optimized" },
-                  { icon: <Layout size={18}/>, label: "UX-Focused" },
-                  { icon: <Globe size={18}/>, label: "SEO-Ready" }
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-zinc-500">
-                     <span className="text-[#B89B66]">{item.icon}</span> {item.label}
-                  </div>
-                ))}
-             </div>
-          </div>
-       </div>
-    </section>
-
-    {/* Spotlight: Tutorial Helper */}
-    <section className="py-40 bg-zinc-900/10 border-t border-white/5">
-       <div className="max-w-4xl mx-auto px-6">
-          <div className="p-16 border border-[#B89B66]/20 relative overflow-hidden group bg-black/40 backdrop-blur-sm">
-             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-100 transition-opacity">
-                <Sparkles size={40} className="text-[#B89B66]" />
-             </div>
-             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-600 mb-8 block">Project One</span>
-             <h3 className="text-5xl font-black italic uppercase tracking-tighter mb-6">AI Tutorial Helper</h3>
-             <p className="text-zinc-500 italic mb-12 text-lg leading-relaxed">A revolutionary tool designed to bridge the gap between complex software and user execution.</p>
-             <div className="pt-8 border-t border-white/5">
-                <p className="text-[9px] font-black text-[#B89B66] uppercase tracking-[0.3em] mb-8">Launch Countdown: August 1, 2026</p>
-                <Countdown />
-             </div>
-          </div>
-       </div>
-    </section>
-
-    <InterestingMenu />
-  </div>
-);
-
-const AILab = () => (
-  <div className="animate-in slide-in-from-bottom-8 duration-1000 py-32 px-6 max-w-7xl mx-auto">
-    <div className="text-center mb-32">
-       <h2 className="text-8xl font-black italic uppercase tracking-tighter mb-8 leading-none">AI Lab</h2>
-       <p className="text-zinc-500 font-bold uppercase tracking-[0.5em] text-[10px]">The 24/7 Digital Employee</p>
-    </div>
-
-    <div className="grid lg:grid-cols-2 gap-12 mb-32">
-       {[
-         { 
-           title: "Simple Call Assistant", 
-           benefit: "100% Lead Capture", 
-           desc: "Handles basic FAQs and redirects calls based on intent. Replaces basic reception." 
-         },
-         { 
-           title: "Complex AI Systems", 
-           benefit: "Full CRM Integration", 
-           desc: "Nuanced, human-like voice systems designed to book appointments and handle objections." 
-         }
-       ].map((lab, i) => (
-         <div key={i} className="bg-zinc-900/30 p-16 border border-white/5 hover:border-[#B89B66]/30 transition-all">
-            <h3 className="text-4xl font-black italic uppercase mb-6">{lab.title}</h3>
-            <div className="bg-[#87A96B]/10 text-[#87A96B] px-4 py-1 text-[10px] font-black uppercase w-fit mb-8">{lab.benefit}</div>
-            <p className="text-zinc-500 italic leading-relaxed mb-10">{lab.desc}</p>
-            <button className="w-full py-5 border border-white/10 font-black uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all">Request Details</button>
-         </div>
-       ))}
-    </div>
-
-    {/* Nursing AI: Project in Work */}
-    <div className="max-w-4xl mx-auto">
-       <div className="bg-[#050505] border border-[#B89B66]/20 p-16 rounded-sm relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8"><Layers size={32} className="text-[#B89B66]" /></div>
-          <span className="text-[#B89B66] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Project in Work</span>
-          <h3 className="text-5xl font-black italic uppercase tracking-tighter mb-6 leading-none text-white">Voice AI: <br />Nursing Protocol</h3>
-          <p className="text-zinc-400 text-xl font-light leading-relaxed mb-10 italic">
-             Architecting a specialized high-fidelity voice system for healthcare intake. Leveraging medical-grade protocols to ensure absolute precision in patient lead qualification.
-          </p>
-          <div className="flex gap-8 items-center pt-8 border-t border-white/5 opacity-50">
-             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-                <Activity size={14} /> Status: Core Logic Phase
-             </div>
-             <div className="text-[10px] font-black uppercase tracking-widest">
-                Est. Deployment: Q4 2026
-             </div>
-          </div>
-       </div>
-    </div>
-  </div>
-);
-
-const TradingFloor = () => {
-  const [ticks, setTicks] = useState([
-    { date: '2026-01-20', tick: '+45.0', status: 'Win' },
-    { date: '2026-01-21', tick: '-12.5', status: 'Loss' },
-    { date: '2026-01-22', tick: '+22.0', status: 'Win' },
-    { date: '2026-01-23', tick: '0.0', status: 'Breakeven' },
-    { date: '2026-01-24', tick: '+15.5', status: 'Win' },
-  ]);
-
-  return (
-    <div className="animate-in fade-in duration-1000 py-32 px-6 max-w-7xl mx-auto text-center">
-      <div className="mb-24">
-         <h2 className="text-8xl font-black italic uppercase tracking-tighter mb-4 leading-none">The Proof.</h2>
-         <p className="text-[#87A96B] font-black uppercase tracking-[0.5em] text-[10px]">Proof in the Process — Mentor: Swush</p>
-      </div>
-
-      <div className="grid lg:grid-cols-4 gap-12 text-left mb-32">
-         <div className="lg:col-span-3 bg-zinc-900/50 border border-white/5 overflow-hidden">
-            <div className="p-8 border-b border-white/5 bg-black/40 flex justify-between items-center font-black uppercase tracking-widest text-[10px] text-zinc-500 italic">
-               <span>Tick Performance Feed</span>
-               <span>Status: Verified</span>
+                <div className="absolute top-1/4 right-1/4 w-px h-32 bg-gradient-to-b from-transparent via-[#B89B66]/20 to-transparent animate-bounce"></div>
+                <div className="absolute inset-0 w-full h-1 bg-gradient-to-r from-transparent via-white/5 to-transparent top-0 animate-scan"></div>
             </div>
-            <div className="overflow-x-auto">
-               <table className="w-full font-mono">
-                  <thead>
-                    <tr className="text-[10px] text-zinc-700 uppercase tracking-widest border-b border-white/5">
-                      <th className="p-8 font-bold">Date</th>
-                      <th className="p-8 text-center">Status</th>
-                      <th className="p-8 text-right">Daily Ticks +/-</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5">
-                    {ticks.map((t, i) => (
-                      <tr key={i} className="hover:bg-white/5 transition-colors group">
-                        <td className="p-8 text-zinc-500 text-sm">{t.date}</td>
-                        <td className="p-8 text-center">
-                          <span className={`px-4 py-1 rounded-sm text-[10px] font-black uppercase ${
-                            t.status === 'Win' ? 'bg-[#87A96B]/10 text-[#87A96B]' : 
-                            t.status === 'Loss' ? 'bg-[#B2635E]/10 text-[#B2635E]' : 'bg-zinc-800 text-zinc-600'
-                          }`}>
-                            {t.status}
-                          </span>
-                        </td>
-                        <td className={`p-8 text-right font-black text-xl italic ${
-                          t.tick.includes('+') ? 'text-[#87A96B]' : 
-                          t.tick.includes('-') ? 'text-[#B2635E]' : 'text-zinc-600'
-                        }`}>
-                          {t.tick}
-                        </td>
-                      </tr>
+        );
+
+        // --- PAGES ---
+        const Home = ({ setActivePage }) => (
+            <div className="py-32 text-center px-6">
+                <section className="max-w-5xl mx-auto mb-40 relative">
+                    <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-[#B89B66]/20 bg-[#B89B66]/5 text-[#B89B66] text-[10px] font-black uppercase tracking-[0.4em] mb-12">
+                        <Icon name="zap" size={14} /> Engineering Efficiency
+                    </div>
+                    <h1 className="text-6xl md:text-[130px] font-black tracking-tighter mb-10 leading-[0.8] italic uppercase">
+                        Mastering <br />
+                        <span className="text-[#B89B66]">Markets.</span>
+                    </h1>
+                    <p className="text-xl md:text-3xl text-zinc-400 mb-14 max-w-3xl mx-auto font-light leading-relaxed">
+                        Leveraging high-stakes healthcare discipline to build the future of AI automation and financial psychology.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                        <button onClick={() => setActivePage('ai-lab')} className="bg-white text-black px-12 py-5 font-black uppercase tracking-widest text-xs hover:bg-[#B89B66] transition-all flex items-center gap-2">
+                            Explore AI <Icon name="arrow-right" size={16} />
+                        </button>
+                        <button onClick={() => setActivePage('trading')} className="border border-white/10 px-12 py-5 font-black uppercase tracking-widest text-xs hover:bg-white/5 transition-all">
+                            View Live Trading
+                        </button>
+                    </div>
+                </section>
+
+                <section className="py-40 border-y border-white/5 bg-[#050505] relative overflow-hidden">
+                    <div className="max-w-4xl mx-auto px-6 relative z-10">
+                        <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 italic">The Narrative</h2>
+                        <p className="text-2xl md:text-4xl font-light leading-relaxed italic text-zinc-300">
+                            "In nursing, there is no room for 'maybe.' My early career was built on protocol and precision. I founded Nikofinanciar because the discipline required to save a life is the same discipline required to master a market."
+                        </p>
+                        <div className="mt-12 text-[#B89B66] font-black uppercase tracking-widest text-[10px] italic">— Systems over Emotions</div>
+                    </div>
+                </section>
+
+                <section className="py-40 border-t border-white/5">
+                    <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center text-left">
+                        <div className="relative p-12 bg-zinc-900/30 border border-white/5 rounded-sm overflow-hidden backdrop-blur-md">
+                            <div className="h-32 bg-[#B89B66]/5 rounded border border-[#B89B66]/10 flex items-center justify-center">
+                                <Icon name="layout" size={48} className="text-[#B89B66]/20" />
+                            </div>
+                        </div>
+                        <div>
+                            <span className="text-[#B89B66] font-black tracking-[0.4em] uppercase text-[10px] mb-6 block italic">Digital Architecture</span>
+                            <h2 className="text-5xl font-black italic uppercase tracking-tighter mb-8 leading-tight">High-Performance Hubs.</h2>
+                            <p className="text-zinc-400 text-lg leading-relaxed mb-10 font-light italic">
+                                We engineer conversion-focused websites that act as the neural center for your business. Fast, optimized, and built with absolute protocol.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        );
+
+        const AILab = () => (
+            <div className="py-32 px-6 max-w-5xl mx-auto text-center">
+                <h2 className="text-8xl font-black italic uppercase tracking-tighter mb-8 leading-none">AI Lab</h2>
+                <div className="grid md:grid-cols-2 gap-8 mb-32">
+                    <div className="bg-zinc-900/30 p-16 border border-white/5 text-left">
+                        <h3 className="text-4xl font-black italic uppercase mb-6 tracking-tighter">Simple Call Assistant</h3>
+                        <p className="text-zinc-500 italic mb-10 text-sm">Handles basic FAQs and redirects calls based on intent. Replaces human reception overhead.</p>
+                        <button className="w-full py-5 border border-white/10 font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all">Request Deployment</button>
+                    </div>
+                    <div className="bg-zinc-900/30 p-16 border border-white/5 text-left text-white">
+                        <h3 className="text-4xl font-black italic uppercase mb-6 tracking-tighter">Complex AI Systems</h3>
+                        <p className="text-zinc-500 italic mb-10 text-sm">Nuanced, human-like voice systems designed for appointment setting and objection handling.</p>
+                        <button className="w-full py-5 bg-white text-black font-black uppercase text-[10px] tracking-widest hover:bg-[#B89B66] transition-all">Request Deployment</button>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const TradingFloor = () => (
+            <div className="py-32 px-6 max-w-7xl mx-auto text-center">
+                <h2 className="text-8xl font-black italic uppercase tracking-tighter mb-4 leading-none">The Proof.</h2>
+                <p className="text-[#87A96B] font-black uppercase tracking-[0.5em] text-[10px] mb-20">Transparency Hub — Mentor: Swush</p>
+                <div className="bg-zinc-900/50 border border-white/5 p-20 text-center backdrop-blur-md">
+                    <Icon name="bar-chart-3" size={64} className="mx-auto text-zinc-800 mb-8" />
+                    <p className="text-zinc-600 font-black italic uppercase tracking-widest italic">Tick Performance Feed Syncing...</p>
+                </div>
+            </div>
+        );
+
+        const DisciplineClub = () => (
+            <div className="py-32 px-6 max-w-5xl mx-auto text-center">
+                <div className="bg-zinc-900/30 border border-white/10 p-16 md:p-32 relative overflow-hidden">
+                    <h2 className="text-xs font-black uppercase tracking-[0.5em] text-[#B89B66] mb-12 italic">The $1 Commitment</h2>
+                    <h3 className="text-6xl md:text-8xl font-black italic uppercase tracking-tighter mb-10 leading-none">Discipline Vault.</h3>
+                    <p className="text-2xl text-zinc-400 font-light italic leading-relaxed mb-12 max-w-2xl mx-auto">
+                        "Master your psychology for the price of a coffee. Skin in the game changes the entire mindset."
+                    </p>
+                    <button className="bg-white text-black px-12 py-6 font-black uppercase tracking-widest text-sm hover:bg-[#B89B66] transition-all">Enter Vault for $1</button>
+                </div>
+            </div>
+        );
+
+        const SocialHub = () => (
+            <div className="py-40 text-center px-6 max-w-5xl mx-auto">
+                <h2 className="text-7xl font-black italic uppercase tracking-tighter mb-20 leading-none">Social Hub</h2>
+                <div className="grid md:grid-cols-3 gap-1 bg-white/5 border border-white/5 p-1">
+                    {['Instagram', 'YouTube', 'Twitter'].map((p) => (
+                        <div key={p} className="bg-black p-20 hover:bg-zinc-900 transition-all cursor-pointer">
+                            <Icon name={p.toLowerCase()} size={36} className="mx-auto mb-8" />
+                            <h4 className="text-xl font-black italic uppercase tracking-tighter">{p}</h4>
+                        </div>
                     ))}
-                  </tbody>
-               </table>
+                </div>
             </div>
-         </div>
+        );
 
-         <div className="space-y-8">
-            <div className="bg-zinc-900 p-10 border border-white/5 rounded-sm">
-               <h4 className="text-[10px] font-black uppercase tracking-widest text-zinc-600 mb-8">Prop Firm Progress</h4>
-               <div className="text-5xl font-black italic tracking-tighter text-white mb-4">72.4%</div>
-               <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden mb-6">
-                  <div className="h-full bg-[#87A96B] w-[72.4%] shadow-[0_0_10px_#87A96B] animate-pulse"></div>
-               </div>
-               <p className="text-[9px] font-black uppercase tracking-widest text-zinc-700">Next Funded Account Target</p>
-            </div>
-            <div className="bg-[#050505] border border-white/5 p-10 font-black uppercase italic tracking-tighter text-zinc-700 flex items-center justify-center gap-2">
-               <ShieldCheck size={16} /> Precision First
-            </div>
-         </div>
-      </div>
-    </div>
-  );
-};
+        // --- ROOT APP ---
+        const App = () => {
+            const [activePage, setActivePage] = useState('home');
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [scrolled, setScrolled] = useState(false);
+            const [loading, setLoading] = useState(true);
 
-const DisciplineClub = () => (
-  <div className="animate-in slide-in-from-bottom-8 duration-1000 py-32 px-6 max-w-7xl mx-auto text-center">
-    <div className="max-w-4xl mx-auto bg-zinc-900/30 border border-white/10 rounded-sm p-16 md:p-32 relative overflow-hidden">
-       <div className="absolute top-0 left-0 w-full h-1 bg-[#B89B66]"></div>
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#B89B66]/5 blur-[120px]"></div>
-       
-       <h2 className="text-xs font-black uppercase tracking-[0.5em] text-[#B89B66] mb-12 italic">The $1 Commitment</h2>
-       <h3 className="text-6xl md:text-8xl font-black italic uppercase tracking-tighter mb-10 leading-none tracking-tight">Discipline <br />Vault.</h3>
-       <p className="text-2xl text-zinc-400 font-light italic leading-relaxed mb-12">
-          "Master your discipline for the price of a single coffee per month. Skin in the game changes the mindset."
-       </p>
-       
-       <ul className="text-left max-w-md mx-auto space-y-6 mb-16">
-          {[
-            "Daily Accountability Protocols",
-            "Psychology & Risk Workshops",
-            "Morning Routine Audits",
-            "Community of Like-minded Builders"
-          ].map((feat, i) => (
-            <li key={i} className="flex items-center gap-4 text-xs font-black uppercase tracking-widest border-b border-white/5 pb-4 last:border-0">
-               <CheckCircle size={16} className="text-[#87A96B]" /> {feat}
-            </li>
-          ))}
-       </ul>
+            useEffect(() => {
+                const timer = setTimeout(() => setLoading(false), 2000);
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => {
+                    window.removeEventListener('scroll', handleScroll);
+                    clearTimeout(timer);
+                };
+            }, []);
 
-       <button className="bg-white text-black px-12 py-6 font-black uppercase tracking-widest text-sm hover:bg-[#B89B66] transition-all shadow-2xl shadow-white/5">
-          Join for $1/Month
-       </button>
-       <p className="mt-8 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Powered by Stripe</p>
-    </div>
-  </div>
-);
+            if (loading) {
+                return (
+                    <div className="fixed inset-0 z-[100] bg-[#020202] flex flex-col items-center justify-center">
+                        <Logo className="w-48 h-40 animate-pulse mb-8" />
+                        <div className="w-40 h-[1px] bg-zinc-800 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-[#B89B66] animate-loading"></div>
+                        </div>
+                    </div>
+                );
+            }
 
-const SocialHub = () => (
-  <div className="animate-in fade-in duration-1000 py-40 text-center px-6 max-w-7xl mx-auto">
-    <h2 className="text-7xl font-black italic uppercase tracking-tighter mb-12">The Social Hub</h2>
-    <div className="grid md:grid-cols-3 gap-1 bg-white/5 border border-white/5 p-1 rounded-sm">
-       {[
-         { icon: <Instagram size={36} />, title: "Instagram/TikTok", tag: "High Velocity", color: COLORS.terracotta },
-         { icon: <Youtube size={36} />, title: "YouTube", tag: "Long-form Dives", color: COLORS.sage },
-         { icon: <Twitter size={36} />, title: "X (Twitter)", tag: "Real-time Logic", color: "white" }
-       ].map((social, i) => (
-         <a key={i} href="#" className="bg-black p-20 hover:bg-zinc-900 transition-all group flex flex-col items-center">
-            <div className="mb-10 group-hover:scale-125 transition-all duration-500" style={{ color: social.color }}>{social.icon}</div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-zinc-700 mb-4">{social.tag}</span>
-            <h4 className="text-xl font-black italic uppercase tracking-tighter">{social.title}</h4>
-         </a>
-       ))}
-    </div>
-  </div>
-);
+            const renderPage = () => {
+                switch (activePage) {
+                    case 'home': return <Home setActivePage={setActivePage} />;
+                    case 'ai-lab': return <AILab />;
+                    case 'trading': return <TradingFloor />;
+                    case 'club': return <DisciplineClub />;
+                    case 'social': return <SocialHub />;
+                    default: return <Home setActivePage={setActivePage} />;
+                }
+            };
 
-export default App;
+            return (
+                <div className="min-h-screen text-white font-sans bg-[#020202]">
+                    <FloatingSystems />
+                    <nav className={`fixed w-full z-50 transition-all duration-500 border-b ${scrolled ? 'bg-black/95 backdrop-blur-xl py-4 border-white/10 shadow-2xl' : 'bg-transparent py-8 border-transparent'}`}>
+                        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                            <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActivePage('home')}>
+                                <Logo className="w-10 h-8" />
+                                <span className="text-xl font-black tracking-tighter uppercase italic tracking-widest">NikoFinanciar</span>
+                            </div>
+                            <div className="hidden md:flex space-x-10 items-center text-[10px] font-black tracking-[0.3em] uppercase">
+                                {['Home', 'AI Lab', 'Trading', 'Club', 'Social'].map((page) => (
+                                    <button key={page} onClick={() => setActivePage(page.toLowerCase().replace(' ', '-'))} className={`hover:text-[#B89B66] transition-colors ${activePage === page.toLowerCase().replace(' ', '-') ? 'text-[#B89B66]' : 'text-zinc-500'}`}>{page}</button>
+                                ))}
+                            </div>
+                            <div className="md:hidden">
+                                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 bg-zinc-900/50">
+                                    <Icon name={isMenuOpen ? "x" : "menu"} size={20} />
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {isMenuOpen && (
+                        <div className="fixed inset-0 z-40 bg-black pt-32 px-10 md:hidden">
+                            <div className="flex flex-col space-y-6">
+                                {['Home', 'AI Lab', 'Trading', 'Club', 'Social'].map((page) => (
+                                    <button key={page} onClick={() => { setActivePage(page.toLowerCase().replace(' ', '-')); setIsMenuOpen(false); }} className="text-4xl font-black italic uppercase text-left border-b border-white/5 pb-4">{page}</button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <main className="relative z-10">{renderPage()}</main>
+
+                    <footer className="py-20 border-t border-white/5 bg-black text-center relative overflow-hidden">
+                        <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-8">
+                            <Logo className="w-12 h-10 opacity-20" />
+                            <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-[0.4em]">Systems Over Emotions — 2026</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
