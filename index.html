@@ -1,1351 +1,531 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikofinanciar | Trading, Development & Management Solutions</title>
-    <!-- Favicon: Added the tuning ball N logo as the browser tab icon -->
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/128/6065/6065747.png">
+import React, { useState, useEffect } from 'react';
+import { 
+  Menu, X, Cpu, TrendingUp, ShieldCheck, 
+  MessageSquare, Users, Instagram, 
+  Twitter, Youtube, ArrowRight, Activity,
+  CheckCircle, Zap, Globe, BarChart3,
+  Quote, ExternalLink, Sparkles, ChevronDown, ChevronUp, Clock,
+  Layers, Wallet, Brain, Layout, Code, Monitor
+} from 'lucide-react';
+
+// Theme Configuration
+const COLORS = {
+  bg: '#020202',
+  card: '#0A0A0A',
+  sage: '#87A96B', 
+  terracotta: '#B2635E', 
+  gold: '#B89B66', 
+  border: 'rgba(255,255,255,0.08)'
+};
+
+// --- ANIMATED BACKGROUND COMPONENTS ---
+
+const FloatingSystems = () => (
+  <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    {/* Floating Orb 1 */}
+    <div className="absolute top-[10%] left-[15%] w-64 h-64 bg-[#B89B66]/5 blur-[100px] rounded-full animate-pulse"></div>
+    {/* Floating Orb 2 */}
+    <div className="absolute bottom-[20%] right-[10%] w-96 h-96 bg-[#87A96B]/5 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
     
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 
-        ================================================== 
-        GOOGLE ANALYTICS 4 (GA4) INTEGRATION BLOCK 
-        ================================================== 
-        
-        Measurement ID: G-67Z913Z6VC
-    -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-67Z913Z6VC"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-67Z913Z6VC'); 
-    </script>
-    <!-- END GOOGLE ANALYTICS BLOCK -->
-    
-    <style>
-        /* Custom font import and base styles */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0A0A0A; /* Deep Dark Background */
-            color: #FAFAFA;
-            overflow-x: hidden;
-        }
-
-        /* Accent Color Variable */
-        :root {
-            --color-accent: #06B6D4; /* Tailwind cyan-500 */
-        }
-
-        /* Custom Scrollbar for a sleek look */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 10px; }
-        ::-webkit-scrollbar-track { background: #18181B; }
-
-        /* KEYFRAMES FOR LOGO ANIMATION (Tuning Ball) */
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Applying the spin animation to the logo image */
-        .logo-tuning {
-            animation: spin 8s linear infinite; /* 8 seconds duration, continuous spin */
-            transform-origin: center;
-            transition: all 0.3s ease-in-out;
-        }
-        
-        /* LOGO FLOATING STATE (REMOVED: Now handled by simple opacity/visibility) */
-        
-        /* Hiding the original logo container during animation to avoid duplicates */
-        .logo-container.is-hiding {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Animation Classes */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-in-up.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Button Hover Effect */
-        .btn-accent {
-            transition: all 0.3s ease;
-            box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
-        }
-        .btn-accent:hover {
-            box-shadow: 0 0 20px 0 rgba(6, 182, 212, 0.5);
-            transform: translateY(-2px);
-        }
-
-        /* Card Hover Effect */
-        .feature-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #1f2937; /* Initial border color */
-        }
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
-            border-color: var(--color-accent); /* Highlight border on hover */
-        }
-
-        /* Pricing Card Emphasis */
-        .pricing-card-best {
-            border: 3px solid var(--color-accent);
-            box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
-            background-color: #111111; /* Slightly darker to stand out */
-        }
-
-        /* Service Selector Icon Animation */
-        .service-selector {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
-        }
-        .service-selector:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(6, 182, 212, 0.2);
-            background-color: #1f2937;
-        }
-
-        /* Social Icon Styling for Pop */
-        .social-icon-wrapper {
-            transition: all 0.3s ease;
-            filter: grayscale(100%); /* Makes PNGs initially grey */
-            opacity: 0.8; /* Slight opacity adjustment */
-        }
-        .social-icon-wrapper:hover {
-            transform: scale(1.1);
-            filter: grayscale(0%); /* Restores original color on hover */
-            opacity: 1;
-        }
-        .social-icon-wrapper img {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* --- CONTACT MODAL (SMALL, DARK) --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            display: none; 
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease-out;
-        }
-        .modal-overlay.open {
-            display: flex;
-            opacity: 1;
-        }
-        .modal-content {
-            background-color: #111827; 
-            color: #FAFAFA;
-            padding: 2.5rem;
-            border-radius: 1rem;
-            max-width: 90%;
-            width: 450px;
-            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease-out;
-            position: relative;
-        }
-        .modal-overlay.open .modal-content {
-            transform: translateY(0);
-        }
-
-        /* --- ABOUT MODAL (CINEMATIC, WHITE, CONTOURED) --- */
-        /* Simplified modal expansion without complex logo movement */
-        #about-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1010; 
-            display: none;
-            background-color: rgba(0, 0, 0, 0.85); /* Dark overlay */
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease-out; /* Fade in overlay */
-        }
-        #about-modal.open {
-            display: flex;
-            opacity: 1;
-        }
-
-        #about-modal-content {
-            background-color: #FAFAFA; /* White background */
-            color: #0A0A0A; /* Black text */
-            padding: 2.5rem;
-            border-radius: 1.5rem; /* Contoured look */
-            max-width: 800px;
-            width: 90%;
-            max-height: 90vh; /* Prevents modal from filling the entire height */
-            overflow-y: auto; /* Allows scrolling inside if content is long */
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            
-            /* Cinematic Scaling properties (Simplified: always opens from center) */
-            transform-origin: center center; 
-            transform: scale(0.1);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.32, 1.275); /* Bounce effect transition */
-            opacity: 0;
-            
-            /* Logo space is no longer required as logo does not land here */
-        }
-
-        #about-modal.open #about-modal-content {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        /* Style adjustments for content inside the white modal */
-        #about-modal .text-white, #about-modal .text-gray-400 {
-            color: #0A0A0A !important;
-        }
-        #about-modal .text-gray-300 {
-            color: #374151 !important; /* Darker grey for body text */
-        }
-        #about-modal .bg-card-dark {
-            background-color: #F3F4F6 !important; /* Light background for the content box */
-            border-color: #D1D5DB !important;
-            box-shadow: none;
-        }
-
-
-        /* Tailwind Configuration */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'background-dark': '#0A0A0A',
-                        'card-dark': '#18181B',
-                        'accent-cyan': '#06B6D4',
-                    }
-                }
-            }
-        }
-
-        /* Hide all views by default, show based on JS routing */
-        .main-view {
-            display: none;
-        }
-    </style>
-</head>
-<body class="bg-background-dark min-h-screen">
-
-    <!-- FLOATING LOGO ELEMENT (REMOVED: No longer needed for travel animation) -->
-
-
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-sm shadow-xl shadow-black/10">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <!-- LOGO: Added click handler to open the new modal -->
-            <a href="#" id="logo-link" class="text-2xl font-extrabold text-white tracking-widest uppercase router-link logo-container">
-                <img src="https://cdn-icons-png.flaticon.com/128/6065/6065747.png" alt="Nikofinanciar Logo" id="nav-logo" class="w-10 h-10 inline-block align-middle mr-0 -mb-0 logo-tuning" onerror="this.src='https://placehold.co/40x40/06B6D4/FFF?text=Niko'" />
-                <span class="inline-block align-middle">ikofinanciar</span>
-            </a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#view=home" class="hover:text-accent-cyan transition duration-300 router-link">Home</a>
-                <a href="#view=trading" class="hover:text-accent-cyan transition duration-300 router-link">Trading</a>
-                <a href="#view=dev" class="hover:text-accent-cyan transition duration-300 router-link">Programming & WebDev</a>
-                <a href="#view=biz" class="hover:text-accent-cyan transition duration-300 router-link">Business Management</a>
-            </div>
-            <!-- Updated Link to Global Pricing -->
-            <a href="#view=home&section=global-pricing" class="hidden md:block bg-accent-cyan text-background-dark px-4 py-2 rounded-lg font-semibold text-sm btn-accent smooth-scroll router-link">
-                Join Community
-            </a>
-            <button id="menu-button" class="md:hidden text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2 bg-background-dark transition-all duration-300 ease-in-out">
-            <a href="#view=home" class="block py-2 text-sm text-white hover:text-accent-cyan router-link">Home</a>
-            <a href="#view=trading" class="block py-2 text-sm text-white hover:text-accent-cyan router-link">Trading</a>
-            <a href="#view=dev" class="block py-2 text-sm text-white hover:text-accent-cyan router-link">Programming & WebDev</a>
-            <a href="#view=biz" class="block py-2 text-sm text-white hover:text-accent-cyan router-link">Business Management</a>
-            <!-- Updated Link to Global Pricing -->
-            <a href="#view=home&section=global-pricing" class="block text-center mt-4 bg-accent-cyan text-background-dark px-4 py-2 rounded-lg font-semibold text-sm btn-accent router-link smooth-scroll">
-                Join Community
-            </a>
-        </div>
-    </header>
-
-    <main id="app-content">
-
-        <!-- ========================================================= -->
-        <!-- 0. HOME VIEW (New Landing Page) -->
-        <!-- ========================================================= -->
-        <div id="home-view" class="main-view">
-            <!-- 0.1 Home Hero / Main Pitch -->
-            <section id="home-hero" class="py-20 md:py-32 text-center max-w-7xl mx-auto px-4 fade-in-up">
-                <div class="space-y-6">
-                    <p class="text-accent-cyan uppercase font-bold text-sm tracking-widest fade-in-up is-visible">
-                        Nikofinanciar - Master Your Markets, Master Your Business
-                    </p>
-                    <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tighter text-white fade-in-up is-visible" style="transition-delay: 0.1s;">
-                        Multi-Faceted <br class="hidden md:inline">
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-500">
-                            Strategy for Modern Success.
-                        </span>
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto pt-4 fade-in-up is-visible" style="transition-delay: 0.2s;">
-                        I provide expert guidance in futures trading, custom digital development, and scalable business operations. Choose your path below.
-                    </p>
-                    
-                    <div class="inline-flex flex-col items-center pt-4 fade-in-up is-visible" style="transition-delay: 0.3s;">
-                         <!-- Button now opens the new about modal -->
-                         <a href="#" id="about-modal-open-btn" class="inline-block border border-white/20 text-white px-8 py-3 rounded-xl font-bold text-lg hover:bg-white/10 transition duration-300 btn-accent smooth-scroll">
-                            Get to Know Niko
-                        </a>
-                        <!-- START: New Socials Block in Hero Zone -->
-                        <div class="flex justify-center space-x-4 pt-4">
-                            <!-- YouTube -->
-                            <a href="https://www.youtube.com/@Nikofinanciar" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="YouTube">
-                                <img src="https://cdn-icons-png.flaticon.com/128/174/174883.png" alt="YouTube" onerror="this.src='https://placehold.co/128x128/222/FFF?text=YT'" />
-                            </a>
-                            <!-- Instagram -->
-                            <a href="https://www.instagram.com/nikofinanciar/" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="Instagram">
-                                <img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png" alt="Instagram" onerror="this.src='https://placehold.co/128x128/222/FFF?text=IG'" />
-                            </a>
-                            <!-- TikTok -->
-                            <a href="https://www.tiktok.com/@nikofinanciar" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="TikTok">
-                                <img src="https://cdn-icons-png.flaticon.com/128/2504/2504942.png" alt="TikTok" onerror="this.src='https://placehold.co/128x128/222/FFF?text=TK'" />
-                            </a>
-                            <!-- Twitter/X -->
-                            <a href="#" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="Twitter/X">
-                                <img src="https://cdn-icons-png.flaticon.com/128/5968/5968830.png" alt="X / Twitter" onerror="this.src='https://placehold.co/128x128/222/FFF?text=X'" />
-                            </a>
-                            <!-- LinkedIn -->
-                            <a href="https://www.linkedin.com/in/nikofinanciar/" target="_blank" class="w-6 h-6 social-icon-wrapper" aria-label="LinkedIn">
-                                <img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn" onerror="this.src='https://placehold.co/128x128/222/FFF?text=LI'" />
-                            </a>
-                        </div>
-                        <!-- END: New Socials Block in Hero Zone -->
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- 0.2 Service Selection Icons (Animated) - CLEANED: Only one copy of this section remains -->
-            <section id="service-selection" class="py-20 bg-card-dark border-t border-b border-white/5">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-10 fade-in-up">
-                        Select Your Area of Focus
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        
-                        <!-- Icon 1: Trading -->
-                        <a href="#view=trading" class="service-selector p-8 rounded-xl bg-card-dark border-2 border-white/10 fade-in-up" style="transition-delay: 0.2s;">
-                            <span class="text-6xl text-accent-cyan block mb-4">
-                                <!-- Chart Icon SVG -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                                </svg>
-                            </span>
-                            <h3 class="text-xl font-bold text-white mb-1">Trading</h3>
-                            <p class="text-sm text-gray-400">Futures trading community, live analysis & profit tracking.</p>
-                        </a>
-
-                        <!-- Icon 2: Programming & WebDev -->
-                        <a href="#view=dev" class="service-selector p-8 rounded-xl bg-card-dark border-2 border-white/10 fade-in-up" style="transition-delay: 0.3s;">
-                            <span class="text-6xl text-accent-cyan block mb-4">
-                                <!-- Code Icon SVG -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                                </svg>
-                            </span>
-                            <h3 class="text-xl font-bold text-white mb-1">Programming & WebDev</h3>
-                            <p class="text-sm text-gray-400">Custom websites, systems automation, and digital management.</p>
-                        </a>
-
-                        <!-- Icon 3: Business Management (UPDATED ICON) -->
-                        <a href="#view=biz" class="service-selector p-8 rounded-xl bg-card-dark border-2 border-white/10 fade-in-up" style="transition-delay: 0.4s;">
-                            <span class="text-6xl text-accent-cyan block mb-4">
-                                <!-- Folder/File SVG for Management/Organization -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                                </svg>
-                            </span>
-                            <h3 class="text-xl font-bold text-white mb-1">Business Management</h3>
-                            <p class="text-sm text-gray-400">Financial planning, operational strategy, and growth consultation.</p>
-                        </a>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Removed original #about section to be replaced by the modal -->
-        </div>
-
-
-        <!-- ========================================================= -->
-        <!-- 1. TRADING VIEW (Modified to start with Dashboard) -->
-        <!-- ========================================================= -->
-        <div id="trading-view" class="main-view">
-            <section class="py-10 md:py-20 text-center max-w-7xl mx-auto px-4">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white fade-in-up">
-                    <span class="text-accent-cyan">Trading</span> Community & Analytics
-                </h1>
-                <p class="text-gray-400 text-lg max-w-3xl mx-auto mt-4 fade-in-up" style="transition-delay: 0.1s;">
-                    The essential tools, live trades, and mentorship required to turn ambition into consistent profit.
-                </p>
-            </section>
-            
-            <!-- 1.2 Dashboard Feature Mockup (Live Profits & Calendar) -->
-            <section id="trading-dashboard" class="py-20 bg-card-dark border-t border-b border-white/5">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <header class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
-                            Your Personal Trading Dashboard
-                        </h2>
-                        <p class="text-gray-400 text-lg max-w-3xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
-                            Track profits, ticks, and performance against a calendar view of your trades, connected to Notion.
-                        </p>
-                    </header>
-
-                    <div class="bg-[#1C1C1E] p-6 md:p-10 rounded-2xl shadow-2xl shadow-cyan-900/20 fade-in-up" style="transition-delay: 0.3s;">
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <!-- Left: Live Chart Mockup -->
-                            <div class="lg:col-span-2 space-y-4">
-                                <h3 class="text-xl font-bold text-accent-cyan">Live P&L Performance</h3>
-                                <div class="h-64 md:h-96 bg-[#28282A] rounded-xl flex items-center justify-center text-gray-500 border border-white/10">
-                                    <p class="text-center text-sm md:text-base">
-                                        [CHART MOCKUP HERE] Placeholder for a live Chart.js or D3.js candlestick/line chart.
-                                        <br>
-                                        In a real implementation, this would pull **live profit/loss and tick data** from your brokerage API or parsed data from Notion.
-                                    </p>
-                                </div>
-                                <div class="flex justify-between text-white font-semibold pt-2">
-                                    <span class="text-green-400">Total Profit (YTD): +$18,450</span>
-                                    <span class="text-gray-400">Win Rate: 62%</span>
-                                </div>
-                            </div>
-
-                            <!-- Right: Trade Calendar and Ticks Mockup -->
-                            <div class="lg:col-span-1 space-y-6">
-                                <div class="bg-[#28282A] p-4 rounded-xl border border-white/10">
-                                    <h3 class="font-bold text-white mb-3 flex items-center">
-                                        Trade Calendar
-                                        <span class="ml-2 text-xs text-accent-cyan">(Notion Sync Mock)</span>
-                                    </h3>
-                                    <div class="grid grid-cols-7 text-center gap-1 text-xs">
-                                        <!-- Day Headers -->
-                                        <span class="text-gray-500">M</span><span class="text-gray-500">T</span><span class="text-gray-500">W</span><span class="text-gray-500">T</span><span class="text-gray-500">F</span><span class="text-gray-500">S</span><span class="text-gray-500">S</span>
-                                        <!-- Days (Green/Red dots indicate trades) -->
-                                        <div class="p-1 rounded bg-gray-700/50">26</div><div class="p-1 rounded bg-gray-700/50">27</div><div class="p-1 rounded bg-gray-700/50">28</div><div class="p-1 rounded bg-gray-700/50">29</div>
-                                        <div class="p-1 rounded bg-red-800/50 border border-red-500">30</div><div class="p-1 rounded">1</div><div class="p-1 rounded">2</div>
-                                        <div class="p-1 rounded bg-green-800/50 border border-green-500">3</div><div class="p-1 rounded bg-green-800/50 border border-green-500">4</div><div class="p-1 rounded bg-red-800/50 border border-red-500">5</div><div class="p-1 rounded bg-green-800/50 border border-green-500">6</div><div class="p-1 rounded bg-green-800/50 border border-green-500">7</div><div class="p-1 rounded">8</div><div class="p-1 rounded">9</div>
-                                        <div class="p-1 rounded bg-green-800/50 border border-green-500">10</div><div class="p-1 rounded bg-green-800/50 border border-green-500">11</div><div class="p-1 rounded bg-green-800/50 border border-green-500">12</div><div class="p-1 rounded bg-red-800/50 border border-red-500">13</div><div class="p-1 rounded bg-green-800/50 border border-green-500">14</div><div class="p-1 rounded">15</div><div class="p-1 rounded">16</div>
-                                    </div>
-                                </div>
-                                <div class="bg-[#28282A] p-4 rounded-xl border border-white/10">
-                                    <h3 class="font-bold text-white mb-3">Live Profit Ticks</h3>
-                                    <ul class="space-y-2 text-sm">
-                                        <li class="flex justify-between text-green-400"><span>+12 Ticks</span> <span class="text-xs text-gray-400">NQ 10:30 AM</span></li>
-                                        <li class="flex justify-between text-red-400"><span>-4 Ticks</span> <span class="text-xs text-gray-400">ES 9:35 AM</span></li>
-                                        <li class="flex justify-between text-green-400"><span>+20 Ticks</span> <span class="text-xs text-gray-400">NQ 9:30 AM</span></li>
-                                        <li class="flex justify-between text-green-400"><span>+8 Ticks</span> <span class="text-xs text-gray-400">MES 9:15 AM</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- 1.2.5 Prop Firm Tracker (NEW SECTION) -->
-            <section id="prop-tracker" class="py-20">
-                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <header class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
-                            Prop Firm Challenge Tracker
-                        </h2>
-                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
-                            Monitor your progress toward funding with a custom-synced Notion template dashboard.
-                        </p>
-                    </header>
-                    <div class="bg-[#1C1C1E] p-6 md:p-8 rounded-2xl shadow-2xl fade-in-up" style="transition-delay: 0.3s;">
-                        <h3 class="text-xl font-bold text-accent-cyan mb-4">Account: $50,000 Challenge</h3>
-                        <div class="space-y-6">
-                            <!-- Target Progress -->
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span>Profit Target ($3000)</span>
-                                    <span>$2,100 / $3,000 (70%)</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-3">
-                                    <div id="profit-target-bar" class="bg-green-500 h-3 rounded-full" style="width: 70%"></div>
-                                </div>
-                            </div>
-                            <!-- Max Drawdown -->
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span>Max Drawdown Remaining ($2500)</span>
-                                    <span>$1,950 Remaining (78%)</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-3">
-                                    <!-- Use a high value for healthy drawdown remaining, green/yellow/red gradient here would be ideal -->
-                                    <div class="bg-yellow-500 h-3 rounded-full" style="width: 78%"></div>
-                                </div>
-                            </div>
-                            <!-- Daily Loss Limit -->
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span>Daily Loss Limit Used</span>
-                                    <span>$0 Used / $1000 (0%)</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-3">
-                                    <div class="bg-green-500 h-3 rounded-full" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-4 text-center">
-                            *Data displayed is a mock representation. Real connection requires Notion API integration to fetch specific metrics.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 1.3 Features Section (Trading) -->
-            <section id="features" class="py-20 bg-card-dark border-t border-b border-white/5">
-                <!-- ... existing features content ... -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <header class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
-                            The Nikofinanciar Edge
-                        </h2>
-                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
-                            Everything you need to trade with confidence and confluence, built into one seamless community.
-                        </p>
-                    </header>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <!-- Feature Card 1 -->
-                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.2s;">
-                            <span class="text-accent-cyan text-4xl mb-4 inline-block">🎯</span>
-                            <h3 class="text-xl font-bold mb-2">Daily Live Trades</h3>
-                            <p class="text-gray-400 text-sm">Follow our expert team as we execute our proprietary strategies in real-time, calling out entries and exits.</p>
-                        </div>
-
-                        <!-- Feature Card 2 -->
-                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.3s;">
-                            <span class="text-accent-cyan text-4xl mb-4 inline-block">📈</span>
-                            <h3 class="text-xl font-bold mb-2">Pre & Post Market Analysis</h3>
-                            <p class="text-gray-400 text-sm">We dissect market sentiment and economic news daily, ensuring you always know the key levels and targets.</p>
-                        </div>
-
-                        <!-- Feature Card 3 -->
-                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.4s;">
-                            <span class="text-accent-cyan text-4xl mb-4 inline-block">🔒</span>
-                            <h3 class="text-xl font-bold mb-2">Risk Management Mastery</h3>
-                            <p class="text-gray-400 text-sm">Learn the cornerstone of trading success. Develop robust risk strategies to protect your capital and maintain discipline.</p>
-                        </div>
-
-                        <!-- Feature Card 4 -->
-                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.5s;">
-                            <span class="text-accent-cyan text-4xl mb-4 inline-block">🎓</span>
-                            <h3 class="text-xl font-bold mb-2">Exclusive Training Hub</h3>
-                            <p class="text-gray-400 text-sm">Access deep dives into advanced concepts, proprietary setups, and market psychology sessions.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 1.4 Products (NEW SECTION for Ebooks) -->
-            <section id="products" class="py-20 border-t border-b border-white/5">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <header class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
-                            Digital Products & Ebooks
-                        </h2>
-                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
-                            Accelerate your learning with detailed guides on strategy, psychology, and automation.
-                        </p>
-                    </header>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.2s;">
-                            <span class="text-7xl mb-4 block">📚</span>
-                            <h3 class="text-xl font-bold mb-2">The Futures Mindset</h3>
-                            <p class="text-gray-400 text-sm mb-4">A comprehensive guide to managing trading psychology and discipline.</p>
-                            <a href="#" class="text-sm text-accent-cyan hover:text-cyan-300 font-semibold">View Details ($29)</a>
-                        </div>
-                         <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.3s;">
-                            <span class="text-7xl mb-4 block">🤖</span>
-                            <h3 class="text-xl font-bold mb-2">Notion Trade Journal Template</h3>
-                            <p class="text-gray-400 text-sm mb-4">The exact template we use to track metrics, P&L, and manage risk.</p>
-                            <a href="#" class="text-sm text-accent-cyan hover:text-cyan-300 font-semibold">View Details ($49)</a>
-                        </div>
-                         <div class="feature-card p-6 rounded-xl bg-card-dark text-center fade-in-up" style="transition-delay: 0.4s;">
-                            <span class="text-7xl mb-4 block">📈</span>
-                            <h3 class="text-xl font-bold mb-2">Advanced Confluence Guide</h3>
-                            <p class="text-gray-400 text-sm mb-4">Detailed setups and rules for high-probability market entries.</p>
-                            <a href="#" class="text-sm text-accent-cyan hover:text-cyan-300 font-semibold">View Details ($39)</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 1.6 Testimonials -->
-            <section id="testimonials" class="py-20 border-b border-white/5">
-                <!-- ... existing testimonials content ... -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <header class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
-                            Real Results. Real Traders.
-                        </h2>
-                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
-                            Hear from members who achieved consistency and funding with our guidance.
-                        </p>
-                    </header>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <!-- Testimonial 1 -->
-                        <div class="feature-card p-6 rounded-xl bg-card-dark border-accent-cyan/10 fade-in-up" style="transition-delay: 0.2s;">
-                            <blockquote class="text-gray-300 italic">
-                                "The best trading group I've ever joined. The risk management principles alone were worth the price. I passed my first prop challenge within a month!"
-                            </blockquote>
-                            <footer class="mt-4 pt-4 border-t border-white/10 flex items-center">
-                                <div class="bg-accent-cyan/20 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-accent-cyan mr-3">A</div>
-                                <div>
-                                    <p class="font-semibold text-white">Alex T.</p>
-                                    <p class="text-xs text-gray-500">Premium Member</p>
-                                </div>
-                            </footer>
-                        </div>
-
-                        <!-- Testimonial 2 -->
-                        <div class="feature-card p-6 rounded-xl bg-card-dark border-accent-cyan/10 fade-in-up" style="transition-delay: 0.3s;">
-                            <blockquote class="text-gray-300 italic">
-                                "The live market analysis is a game-changer. It's not just signals; it's deep-dive education on market structure and psychology. Truly transformative."
-                            </blockquote>
-                            <footer class="mt-4 pt-4 border-t border-white/10 flex items-center">
-                                <div class="bg-accent-cyan/20 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-accent-cyan mr-3">S</div>
-                                <div>
-                                    <p class="font-semibold text-white">Sarah M.</p>
-                                    <p class="text-xs text-gray-500">Funded Trader</p>
-                                </div>
-                            </footer>
-                        </div>
-
-                        <!-- Testimonial 3 -->
-                        <div class="feature-card p-6 rounded-xl bg-card-dark border-accent-cyan/10 fade-in-up" style="transition-delay: 0.4s;">
-                            <blockquote class="text-gray-300 italic">
-                                "I went from struggling to consistently profitable. The mentorship and supportive community are unmatched. Highly recommend Nikofinanciar to anyone serious."
-                            </blockquote>
-                            <footer class="mt-4 pt-4 border-t border-white/10 flex items-center">
-                                <div class="bg-accent-cyan/20 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-accent-cyan mr-3">J</div>
-                                <div>
-                                    <p class="font-semibold text-white">John P.</p>
-                                    <p class="text-xs text-gray-500">Lifetime Elite</p>
-                                </div>
-                            </footer>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <!-- 1.7 FAQ (Trading) -->
-            <section id="faq" class="py-20">
-                <!-- ... existing FAQ content ... -->
-                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <header class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2 fade-in-up">
-                            Frequently Asked Questions
-                        </h2>
-                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
-                            Quick answers to the most common questions about our trading membership.
-                        </p>
-                    </header>
-
-                    <div class="space-y-4 fade-in-up" style="transition-delay: 0.2s;">
-                        <!-- FAQ Item 1 -->
-                        <div class="accordion-item bg-card-dark p-4 rounded-xl border border-white/10">
-                            <button class="accordion-header w-full flex justify-between items-center text-left text-white font-semibold focus:outline-none py-2">
-                                Do you provide trading signals?
-                                <span class="accordion-icon transform transition-transform duration-300 text-accent-cyan text-2xl">+</span>
-                            </button>
-                            <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-                                <p class="pt-2 text-gray-400 text-sm border-t border-white/10 mt-2">
-                                    Yes, we provide our exact entry and exit points for our expert trades within the private Discord. However, our primary focus is teaching you the *why* behind every trade so you can eventually become self-sufficient.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- FAQ Item 2 -->
-                        <div class="accordion-item bg-card-dark p-4 rounded-xl border border-white/10">
-                            <button class="accordion-header w-full flex justify-between items-center text-left text-white font-semibold focus:outline-none py-2">
-                                What trading strategy do you teach?
-                                <span class="accordion-icon transform transition-transform duration-300 text-accent-cyan text-2xl">+</span>
-                            </button>
-                            <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-                                <p class="pt-2 text-gray-400 text-sm border-t border-white/10 mt-2">
-                                    We utilize a refined, proprietary blend of institutional trading concepts (similar to ICT) combined with pure price action and market flow analysis. This approach is highly adaptable across various futures tickers.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- FAQ Item 3 -->
-                        <div class="accordion-item bg-card-dark p-4 rounded-xl border border-white/10">
-                            <button class="accordion-header w-full flex justify-between items-center text-left text-white font-semibold focus:outline-none py-2">
-                                Can I get a refund if I cancel my membership?
-                                <span class="accordion-icon transform transition-transform duration-300 text-accent-cyan text-2xl">+</span>
-                            </button>
-                            <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-                                <p class="pt-2 text-gray-400 text-sm border-t border-white/10 mt-2">
-                                    Due to the immediate access to proprietary educational content, all membership fees are generally non-refundable. Please review our full terms of service before subscribing.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-
-        <!-- ========================================================= -->
-        <!-- 2. PROGRAMMING & WEB DEV VIEW -->
-        <!-- ========================================================= -->
-        <div id="dev-view" class="main-view py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <header class="text-center mb-16">
-                    <p class="text-accent-cyan uppercase font-bold text-sm tracking-widest fade-in-up">
-                        Digital Solutions & Management
-                    </p>
-                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-white mt-4 fade-in-up" style="transition-delay: 0.1s;">
-                        Code-Driven Growth for Your Business
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto pt-4 fade-in-up" style="transition-delay: 0.2s;">
-                        We build custom websites, manage digital infrastructure, and automate workflows so you can focus on core operations.
-                    </p>
-                </header>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Service Card 1 -->
-                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.3s;">
-                        <span class="text-accent-cyan text-4xl mb-4 inline-block">💻</span>
-                        <h3 class="text-2xl font-bold mb-3">Custom Web Development</h3>
-                        <p class="text-gray-400">From high-conversion landing pages (like this one!) to complex full-stack applications, we handle design, coding, and deployment.</p>
-                    </div>
-
-                    <!-- Service Card 2 -->
-                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.4s;">
-                        <span class="text-accent-cyan text-4xl mb-4 inline-block">⚙️</span>
-                        <h3 class="text-2xl font-bold mb-3">System Automation</h3>
-                        <p class="text-gray-400">Automate repetitive tasks like data entry, CRM updates, and lead nurturing using powerful scripts and no-code tools (Zapier, custom APIs).</p>
-                    </div>
-
-                    <!-- Service Card 3 -->
-                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.5s;">
-                        <span class="text-accent-cyan text-4xl mb-4 inline-block">🌐</span>
-                        <h3 class="text-2xl font-bold mb-3">Website Management</h3>
-                        <p class="text-gray-400">Secure hosting, continuous updates, performance optimization, and SEO maintenance to ensure your digital presence is always running smoothly.</p>
-                    </p>
-                    </div>
-                </div>
-
-                <!-- NEW: Projects Section -->
-                <section id="dev-projects" class="mt-20">
-                    <header class="text-center mb-12">
-                        <h2 class="text-3xl font-extrabold text-white mb-4 fade-in-up">Recent Projects</h2>
-                        <p class="text-gray-400 text-lg max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.1s;">
-                            A selection of recent work in web applications and systems automation.
-                        </p>
-                    </header>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="feature-card p-6 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.2s;">
-                            <h4 class="text-xl font-bold text-white mb-2">Algorithmic Trading Dashboard</h4>
-                            <p class="text-gray-400 mb-4 text-sm">A real-time P&L tracker built with React and D3.js, pulling data from a custom REST API.</p>
-                            <a href="https://github.com/nikofinanciar/project1" target="_blank" class="text-accent-cyan hover:text-cyan-300 text-sm font-medium flex items-center">
-                                View on GitHub
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </a>
-                        </div>
-                        <div class="feature-card p-6 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.3s;">
-                            <h4 class="text-xl font-bold text-white mb-2">CRM to Mail Automation Script</h4>
-                            <p class="text-gray-400 mb-4 text-sm">Python script utilizing Zapier webhooks to sync new leads and trigger a personalized email sequence.</p>
-                            <a href="https://github.com/nikofinanciar/project2" target="_blank" class="text-accent-cyan hover:text-cyan-300 text-sm font-medium flex items-center">
-                                View on GitHub
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-                <div class="text-center mt-16 fade-in-up" style="transition-delay: 0.6s;">
-                    <!-- UPDATED: Free Consultation Pitch -->
-                    <h3 class="text-2xl font-bold text-white mb-4">Start with a FREE Project Consultation</h3>
-                    <p class="text-gray-400 mb-6">Send a message now to schedule a Zoom call and discuss your digital needs at no cost.</p>
-                    <a href="https://calendly.com/nikofinanciar/consult" target="_blank" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
-                        Schedule Free Zoom Call
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- ========================================================= -->
-        <!-- 3. BUSINESS MANAGEMENT VIEW -->
-        <!-- ========================================================= -->
-        <div id="biz-view" class="main-view py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <header class="text-center mb-16">
-                    <p class="text-accent-cyan uppercase font-bold text-sm tracking-widest fade-in-up">
-                        Strategic Guidance
-                    </p>
-                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-white mt-4 fade-in-up" style="transition-delay: 0.1s;">
-                        Optimize Operations & Scale Profit
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto pt-4 fade-in-up" style="transition-delay: 0.2s;">
-                        Unlock maximum efficiency and identify new revenue streams through expert operational and financial consulting.
-                    </p>
-                </header>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Service Card 1 -->
-                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.3s;">
-                        <span class="text-accent-cyan text-4xl mb-4 inline-block">💰</span>
-                        <h3 class="text-2xl font-bold mb-3">Financial Planning</h3>
-                        <p class="text-gray-400">Budgeting, forecasting, cash flow analysis, and capital allocation strategies designed for sustained growth and resilience.</p>
-                    </div>
-
-                    <!-- Service Card 2 -->
-                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.4s;">
-                        <span class="text-accent-cyan text-4xl mb-4 inline-block">📋</span>
-                        <h3 class="text-2xl font-bold mb-3">Operational Efficiency</h3>
-                        <p class="text-gray-400">Streamline internal processes, implement lean methodologies, and optimize supply chains for reduced costs and better output.</p>
-                    </div>
-
-                    <!-- Service Card 3 -->
-                    <div class="feature-card p-8 rounded-xl bg-card-dark fade-in-up" style="transition-delay: 0.5s;">
-                        <span class="text-accent-cyan text-4xl mb-4 inline-block">🚀</span>
-                        <h3 class="text-2xl font-bold mb-3">Growth Strategy</h3>
-                        <p class="text-gray-400">Market entry strategies, competitor analysis, and product positioning to capture new opportunities and ensure long-term market dominance.</p>
-                    </div>
-                </div>
-
-                <div class="text-center mt-16 fade-in-up" style="transition-delay: 0.6s;">
-                    <!-- UPDATED: Free Consultation Pitch -->
-                    <h3 class="text-2xl font-bold text-white mb-4">Start with a FREE Strategy Consultation</h3>
-                    <p class="text-gray-400 mb-6">Send a message now to schedule a Zoom call and discuss your business goals at no cost.</p>
-                    <a href="https://calendly.com/nikofinanciar/consult" target="_blank" id="contact-modal-open-biz" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
-                        Schedule Free Strategy Session
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================================= -->
-        <!-- GLOBAL PRICING (New Section, visible on all pages below content) -->
-        <!-- ========================================================= -->
-        <section id="global-pricing" class="py-20 bg-card-dark border-t border-white/5">
-            <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <header class="mb-12">
-                    <h2 class="text-4xl font-extrabold text-white mb-3 fade-in-up">
-                        Join the Nikofinanciar Community
-                    </h2>
-                    <p class="text-gray-400 text-lg fade-in-up" style="transition-delay: 0.1s;">
-                        Your gateway to expert guidance in trading, development, and business strategy.
-                    </p>
-                </header>
-
-                <!-- Single Pricing Card - UPDATED FOR FREE BETA -->
-                <div class="pricing-card pricing-card-best feature-card p-8 rounded-2xl bg-[#111111] text-center fade-in-up" style="transition-delay: 0.3s;">
-                    <h3 class="text-3xl font-bold text-white mb-2">Early Access: Become a "Financial"</h3>
-                    <p class="text-gray-300 mb-6 font-semibold text-lg text-green-400">
-                        COMMUNITY IS CURRENTLY FREE (IN CONSTRUCTION)
-                    </p>
-                    
-                    <p class="text-6xl font-extrabold text-white mb-2">
-                        $0<span class="text-xl text-gray-500 font-medium">/for now</span>
-                    </p>
-                    <p class="text-lg font-bold text-red-400 mb-8">
-                        The group will cost after launch. Join now for free access!
-                    </p>
-
-                    <a href="#" class="block bg-accent-cyan text-background-dark px-6 py-4 rounded-lg font-bold text-lg btn-accent shadow-lg shadow-cyan-500/50 transition duration-300">
-                        Join Discord & Become a "Financial"
-                    </a>
-                    
-                    <p class="text-sm text-gray-400 italic mt-6">
-                        Early members will receive a **super promotion** when the paid model is introduced.
-                    </p>
-                    
-                    <ul class="text-left mt-6 space-y-2 text-gray-300 inline-block">
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Private Discord Access (Full Features)</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Live Trade Analysis & Signals (Beta)</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-accent-cyan" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Shape the Community Direction</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <!-- ========================================================= -->
-
-    </main>
-
-    <!-- Footer (UPDATED with 2025, Gew. and German Legal Links) -->
-    <footer class="py-12 bg-card-dark border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h4 class="text-2xl font-extrabold text-white tracking-widest uppercase">
-                 <!-- LOGO: Closer Spacing (mr-0), Added Tuning Class -->
-                <img src="https://cdn-icons-png.flaticon.com/128/6065/6065747.png" alt="Nikofinanciar Logo" class="w-6 h-6 inline-block align-middle mr-0 -mb-0 logo-tuning" onerror="this.src='https://placehold.co/40x40/06B6D4/FFF?text=Niko'" />
-                <span class="inline-block align-middle">ikofinanciar</span>
-            </h4>
-            <p class="text-gray-500 text-xs mt-6 max-w-3xl mx-auto">
-                <span class="font-bold text-red-400">HAFTUNGSAUSSCHLUSS (Trading):</span> Der Handel mit Futures und Optionen birgt erhebliche Verlustrisiken und ist nicht für jeden Anleger geeignet. Die von Nikofinanciar bereitgestellten Informationen und Schulungen dienen ausschließlich Bildungszwecken und stellen keine Finanzberatung dar.
-            </p>
-            
-            <!-- NEW: Legal Links for Germany -->
-            <div class="mt-4 flex justify-center space-x-4 text-sm font-medium text-gray-400">
-                <a href="#" class="hover:text-accent-cyan transition duration-300">Impressum</a>
-                <span class="text-gray-600">|</span>
-                <a href="#" class="hover:text-accent-cyan transition duration-300">Datenschutz</a>
-            </div>
-
-            <p class="text-gray-600 text-sm mt-4">
-                &copy; 2025 Nikofinanciar Gew. All Rights Reserved.
-            </p>
-        </div>
-    </footer>
-
-    <!-- ========================================================= -->
-    <!-- FULL SCREEN ABOUT ME MODAL (THE WHITE PAGE - CONTOURED) -->
-    <!-- ========================================================= -->
-    <section id="about-modal">
-        <!-- The modal content wrapper is centered by the parent section, and its transform-origin is set by JS -->
-        <div id="about-modal-content" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
-            
-            <!-- Close Button -->
-            <button onclick="closeAboutModal()" class="absolute top-4 right-4 text-black hover:text-red-600 transition duration-200 p-2 text-4xl" aria-label="Close About Me">
-                &times;
-            </button>
-
-            <header class="text-center mb-12 pt-8">
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-2 text-black">
-                    A Little Bit About Me (Niko)
-                </h2>
-                <p class="text-lg max-w-2xl mx-auto text-gray-700">
-                    Bridging the gap between financial intelligence and digital execution.
-                </p>
-            </header>
-
-            <div class="bg-card-dark p-8 rounded-xl border shadow-2xl">
-                <p class="leading-relaxed mb-6 text-gray-300">
-                    My journey began in the fast-paced world of **futures trading**, where discipline and systematic analysis are paramount. I quickly realized that success in any venture—from trading to running a company—relies on three pillars: **clear strategy, efficient operations, and robust digital tools.**
-                </p>
-                <p class="leading-relaxed mb-6 text-gray-300">
-                    That insight led me to expand my expertise into **programming and business management**. Now, I leverage my unique skill set to not only guide traders to profitability but also to help businesses automate their way to scale and optimize their core financial models. I am here to provide you with the same tools, systems, and mindset that drive my own success.
-                </p>
-                <div class="text-center pt-4">
-                    <a href="#" onclick="openContactModal(); closeAboutModal();" class="bg-accent-cyan text-background-dark px-8 py-3 rounded-xl font-bold text-lg btn-accent shadow-lg shadow-cyan-500/30 smooth-scroll">
-                        Contact Me Directly
-                    </a>
-                    
-                    <!-- Social Media Links on About Page -->
-                    <div class="flex justify-center space-x-6 pt-8">
-                        <!-- YouTube -->
-                        <a href="https://www.youtube.com/@Nikofinanciar" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="YouTube">
-                            <img src="https://cdn-icons-png.flaticon.com/128/174/174883.png" alt="YouTube" onerror="this.src='https://placehold.co/128x128/222/FFF?text=YT'" />
-                        </a>
-                        <!-- Instagram -->
-                        <a href="https://www.instagram.com/nikofinanciar/" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="Instagram">
-                            <img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png" alt="Instagram" onerror="this.src='https://placehold.co/128x128/222/FFF?text=IG'" />
-                        </a>
-                        <!-- TikTok -->
-                        <a href="https://www.tiktok.com/@nikofinanciar" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="TikTok">
-                            <img src="https://cdn-icons-png.flaticon.com/128/2504/2504942.png" alt="TikTok" onerror="this.src='https://placehold.co/128x128/222/FFF?text=TK'" />
-                        </a>
-                        <!-- Twitter/X -->
-                        <a href="#" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="Twitter/X">
-                            <img src="https://cdn-icons-png.flaticon.com/128/5968/5968830.png" alt="X / Twitter" onerror="this.src='https://placehold.co/128x128/222/FFF?text=X'" />
-                        </a>
-                        <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/in/nikofinanciar/" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="LinkedIn">
-                            <img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn" onerror="this.src='https://placehold.co/128x128/222/FFF?text=LI'" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ========================================================= -->
-
-
-    <!-- ========================================================= -->
-    <!-- CONTACT MODAL WINDOW -->
-    <!-- ========================================================= -->
-    <div id="contact-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="flex justify-between items-start mb-6 border-b border-white/10 pb-3">
-                <h3 class="text-2xl font-bold text-accent-cyan">Get In Touch</h3>
-                <button id="modal-close-button" class="text-gray-400 hover:text-white transition duration-200">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            
-            <div class="space-y-6">
-                <!-- Phone Number -->
-                <div class="flex items-center space-x-4">
-                    <span class="text-accent-cyan flex-shrink-0 text-xl">📞</span>
-                    <div>
-                        <p class="text-sm text-gray-400">Phone Number</p>
-                        <a href="tel:+40765436735" class="text-white font-semibold hover:text-accent-cyan transition duration-200">+40 765 436 735</a>
-                    </div>
-                </div>
-
-                <!-- Email Address -->
-                <div class="flex items-center space-x-4">
-                    <span class="text-accent-cyan flex-shrink-0 text-xl">📧</span>
-                    <div>
-                        <p class="text-sm text-gray-400">Email Address</p>
-                        <a href="mailto:contact@nikofinanciar.com" class="text-white font-semibold hover:text-accent-cyan transition duration-200">contact@nikofinanciar.com</a>
-                    </div>
-                </div>
-
-                <!-- Scheduling Link -->
-                <div class="flex items-center space-x-4 pt-4 border-t border-white/10">
-                    <span class="text-accent-cyan flex-shrink-0 text-xl">📅</span>
-                    <div>
-                        <p class="text-sm text-gray-400">Book Your Free Consultation</p>
-                        <a href="https://calendly.com/nikofinanciar/consult" target="_blank" class="text-white font-semibold hover:text-accent-cyan transition duration-200">
-                            Schedule Appointment Now
-                        </a>
-                        <p class="text-xs text-gray-500 mt-1">You will be redirected to an external scheduling page.</p>
-                    </div>
-                </div>
-
-
-                <!-- Social Media Links (Using all PNG URLs) -->
-                <div class="pt-4 border-t border-white/10">
-                    <p class="text-sm text-gray-400 mb-4 text-center">Follow My Journey</p>
-                    <div class="flex justify-center space-x-6">
-                        <!-- YouTube -->
-                        <a href="https://www.youtube.com/@Nikofinanciar" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="YouTube">
-                            <img src="https://cdn-icons-png.flaticon.com/128/174/174883.png" alt="YouTube" onerror="this.src='https://placehold.co/128x128/222/FFF?text=YT'" />
-                        </a>
-                        <!-- Instagram -->
-                        <a href="https://www.instagram.com/nikofinanciar/" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="Instagram">
-                            <img src="https://cdn-icons-png.flaticon.com/128/1384/1384063.png" alt="Instagram" onerror="this.src='https://placehold.co/128x128/222/FFF?text=IG'" />
-                        </a>
-                        <!-- TikTok -->
-                        <a href="https://www.tiktok.com/@nikofinanciar" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="TikTok">
-                            <img src="https://cdn-icons-png.flaticon.com/128/2504/2504942.png" alt="TikTok" onerror="this.src='https://placehold.co/128x128/222/FFF?text=TK'" />
-                        </a>
-                        <!-- Twitter/X -->
-                        <a href="#" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="Twitter/X">
-                            <img src="https://cdn-icons-png.flaticon.com/128/5968/5968830.png" alt="X / Twitter" onerror="this.src='https://placehold.co/128x128/222/FFF?text=X'" />
-                        </a>
-                        <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/in/nikofinanciar/" target="_blank" class="w-8 h-8 social-icon-wrapper" aria-label="LinkedIn">
-                            <img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn" onerror="this.src='https://placehold.co/128x128/222/FFF?text=LI'" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    {/* Animated Grid Lines */}
+    <div className="absolute inset-0 opacity-[0.03]" 
+         style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '80px 80px' }}>
     </div>
-    <!-- ========================================================= -->
 
-    <!-- JavaScript for Routing, Interactivity, and Animations -->
-    <script>
-        // --- 1. Core Functions (Must be defined first to prevent ReferenceErrors) ---
-        const views = {
-            'home': document.getElementById('home-view'),
-            'trading': document.getElementById('trading-view'),
-            'dev': document.getElementById('dev-view'),
-            'biz': document.getElementById('biz-view')
-        };
-        const defaultViewId = 'home';
-        
-        const logoContainer = document.querySelector('.logo-container');
-        const navLogo = document.getElementById('nav-logo');
-        const aboutModal = document.getElementById('about-modal');
-        const aboutModalContent = document.getElementById('about-modal-content');
-        const contactModal = document.getElementById('contact-modal');
+    {/* Moving Geometric Accents */}
+    <div className="absolute top-1/4 right-1/4 w-px h-32 bg-gradient-to-b from-transparent via-[#B89B66]/20 to-transparent animate-bounce" style={{ animationDuration: '4s' }}></div>
+    <div className="absolute bottom-1/3 left-1/4 w-px h-48 bg-gradient-to-b from-transparent via-[#87A96B]/20 to-transparent animate-bounce" style={{ animationDuration: '6s' }}></div>
+    
+    {/* Scanning Line Effect */}
+    <div className="absolute inset-0 w-full h-1 bg-gradient-to-r from-transparent via-white/5 to-transparent top-0 animate-[scan_8s_linear_infinite]"></div>
+  </div>
+);
 
+// Custom Logo Component
+const Logo = ({ className = "w-10 h-10", color = "#B89B66" }) => (
+  <svg viewBox="0 0 400 300" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M60 220V80H115L155 160V80H200V220H150L110 140V220H60Z" fill="white" />
+    <path d="M220 80H320V120H265V150H310V185H265V220H220V80Z" fill={color} />
+    <path d="M30 230L120 180L180 210L260 110L320 140L360 40" stroke={color} strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M340 45L360 40L355 60" stroke={color} strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
-        // 1.1 Smooth Scroll utility
-        const smoothScrollTo = (targetId) => {
-             const targetElement = document.querySelector(targetId);
-             if (targetElement) {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        };
-        
-        // 1.2 Animation Initializer
-        let observer = null;
-        function initAnimations() {
-            if (observer) observer.disconnect();
-            document.querySelectorAll('.fade-in-up').forEach(el => {
-                el.classList.remove('is-visible');
-            });
+const App = () => {
+  const [activePage, setActivePage] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-            const animateElements = document.querySelectorAll('.fade-in-up');
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-            observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    const parentView = entry.target.closest('.main-view');
-                    const isGlobal = entry.target.closest('#global-pricing');
+  const renderPage = () => {
+    switch (activePage) {
+      case 'home': return <Home setActivePage={setActivePage} />;
+      case 'ai-lab': return <AILab />;
+      case 'trading': return <TradingFloor />;
+      case 'club': return <DisciplineClub />;
+      case 'social': return <SocialHub />;
+      default: return <Home setActivePage={setActivePage} />;
+    }
+  };
 
-                    if (entry.isIntersecting && (isGlobal || (parentView && parentView.style.display !== 'none'))) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                rootMargin: '0px 0px -10% 0px',
-                threshold: 0.1
-            });
-
-            animateElements.forEach(element => {
-                observer.observe(element);
-            });
+  return (
+    <div className="min-h-screen text-white font-sans bg-[#020202] selection:bg-[#B89B66]/30 overflow-x-hidden">
+      <style>{`
+        @keyframes scan {
+          0% { transform: translateY(-100vh); }
+          100% { transform: translateY(200vh); }
         }
+      `}</style>
+      
+      <FloatingSystems />
 
+      {/* Navigation */}
+      <nav className={`fixed w-full z-50 transition-all duration-500 border-b ${scrolled ? 'bg-black/90 backdrop-blur-xl py-4 border-white/10' : 'bg-transparent py-8 border-transparent'}`}>
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActivePage('home')}>
+            <Logo className="w-10 h-8 group-hover:scale-110 transition-transform" />
+            <span className="text-xl font-black tracking-tighter uppercase italic">NikoFinanciar</span>
+          </div>
+          
+          <div className="hidden md:flex space-x-10 items-center text-[10px] font-black tracking-[0.3em] uppercase">
+            {['Home', 'AI Lab', 'Trading', 'Club', 'Social'].map((page) => (
+              <button
+                key={page}
+                onClick={() => setActivePage(page.toLowerCase().replace(' ', '-'))}
+                className={`transition-all hover:text-[#B89B66] ${
+                  activePage === page.toLowerCase().replace(' ', '-') ? 'text-[#B89B66]' : 'text-zinc-500'
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+            <button 
+              onClick={() => setActivePage('ai-lab')}
+              className="bg-white text-black px-6 py-2 rounded-sm font-black uppercase tracking-widest hover:bg-[#B89B66] transition-all"
+            >
+              Hire AI
+            </button>
+          </div>
 
-        // 1.3 Routing Logic
-        function handleRouting() {
-            const hash = window.location.hash.slice(1);
-            const params = new URLSearchParams(hash);
-            let viewId = params.get('view') || defaultViewId;
+          <div className="md:hidden">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 bg-zinc-900 rounded-sm">
+              {isMenuOpen ? <X size={20}/> : <Menu size={20}/>}
+            </button>
+          </div>
+        </div>
+      </nav>
 
-            if (!views[viewId]) {
-                viewId = defaultViewId;
-            }
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-black pt-32 px-10 md:hidden animate-in fade-in duration-300">
+          <div className="flex flex-col space-y-6">
+            {['Home', 'AI Lab', 'Trading', 'Club', 'Social'].map((page) => (
+              <button
+                key={page}
+                onClick={() => { setActivePage(page.toLowerCase().replace(' ', '-')); setIsMenuOpen(false); }}
+                className="text-4xl font-black italic uppercase text-left border-b border-white/5 pb-4"
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
-            Object.keys(views).forEach(key => {
-                if (views[key]) {
-                    views[key].style.display = (key === viewId) ? 'block' : 'none';
-                }
-            });
+      <main className="relative z-10">
+        {renderPage()}
+      </main>
 
-            const section = params.get('section');
-            if (section) {
-                setTimeout(() => {
-                    smoothScrollTo(`#${section}`);
-                }, 100);
-            } else {
-                 window.scrollTo(0, 0);
-            }
+      <footer className="py-20 border-t border-white/5 bg-black text-center relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-8">
+          <Logo className="w-12 h-10 opacity-20" />
+          <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-[0.4em]">Systems Over Emotions — Precision Engineered 2026</p>
+        </div>
+      </footer>
+    </div>
+  );
+};
 
-            initAnimations();
-        }
+/* --- SHARED COMPONENTS --- */
 
+const InterestingMenu = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+  const insights = [
+    { 
+      title: "The Nursing-to-Systems Thesis", 
+      content: "In nursing, 'maybe' is a liability. I spent my career in environments where protocol and precision were life-and-death. I realized the same discipline required to save a life is the discipline required to master a market or build a flawless AI system." 
+    },
+    { 
+      title: "Complexity is the Enemy", 
+      content: "Most software users fail because of the onboarding hurdle. Our AI Tutorial Helper is designed to bridge that gap, automating user execution layers in real-time." 
+    },
+    { 
+      title: "Transparency Protocol", 
+      content: "Mentorship under Swush isn't about following signals—it's about documenting the process. My trading floor is a transparency hub, not a group. We value proof over promises." 
+    }
+  ];
 
-        // --- 1.4 Special Modal Functions (Simplified) ---
+  return (
+    <div className="max-w-2xl mx-auto mt-32 border-t border-white/5 pt-12">
+      <h3 className="text-xs font-black uppercase tracking-[0.5em] text-[#B89B66] mb-8 italic">Interesting</h3>
+      <div className="space-y-4">
+        {insights.map((insight, idx) => (
+          <div key={idx} className="border border-white/5 bg-zinc-900/10">
+            <button 
+              onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+              className="w-full px-8 py-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors"
+            >
+              <span className="text-[10px] font-black uppercase tracking-widest">{insight.title}</span>
+              {openIndex === idx ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
+            {openIndex === idx && (
+              <div className="px-8 pb-8 text-zinc-500 text-sm leading-relaxed animate-in fade-in slide-in-from-top-2 duration-300">
+                {insight.content}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-        function openAboutModal() {
-            // Simple fade in and scale up from center
-            aboutModal.style.display = 'flex';
-            
-            // Hide the logo container immediately for clean transition
-            logoContainer.classList.add('is-hiding');
-            
-            // Use requestAnimationFrame to ensure display:flex is registered before transition
-            requestAnimationFrame(() => {
-                aboutModal.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            });
-        }
+const Countdown = () => {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  useEffect(() => {
+    const target = new Date("August 1, 2026 00:00:00").getTime();
+    const interval = setInterval(() => {
+      const distance = target - new Date().getTime();
+      if (distance < 0) return clearInterval(interval);
+      setTimeLeft({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000)
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-        function closeAboutModal() {
-            if (aboutModal) {
-                aboutModal.classList.remove('open');
-                
-                // Use a timeout to hide the modal and restore logo only after the transition completes
-                setTimeout(() => {
-                    aboutModal.style.display = 'none';
-                    logoContainer.classList.remove('is-hiding');
-                }, 600); 
-            }
-            document.body.style.overflow = '';
-        }
+  return (
+    <div className="flex gap-6 justify-center">
+      {[
+        { v: timeLeft.days, l: 'DAYS' },
+        { v: timeLeft.hours, l: 'HRS' },
+        { v: timeLeft.minutes, l: 'MIN' },
+        { v: timeLeft.seconds, l: 'SEC' }
+      ].map((item, i) => (
+        <div key={i} className="text-center">
+          <div className="text-4xl font-black italic tracking-tighter leading-none">{String(item.v).padStart(2, '0')}</div>
+          <div className="text-[8px] font-bold text-zinc-600 tracking-widest mt-1">{item.l}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-        function openContactModal() {
-            if (contactModal) {
-                contactModal.classList.add('open');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            }
-        }
+/* --- PAGE COMPONENTS --- */
 
-        function closeContactModal() {
-            if (contactModal) {
-                contactModal.classList.remove('open');
-                document.body.style.overflow = ''; // Restore scrolling
-            }
-        }
-        
+const Home = ({ setActivePage }) => (
+  <div className="animate-in fade-in duration-1000 py-32 text-center px-6">
+    <section className="max-w-5xl mx-auto mb-40">
+      <div className="inline-flex items-center gap-3 px-4 py-1.5 border border-[#B89B66]/20 bg-[#B89B66]/5 text-[#B89B66] text-[10px] font-black uppercase tracking-[0.4em] mb-12">
+        <Zap size={14} /> Engineering Efficiency
+      </div>
+      <h1 className="text-6xl md:text-[130px] font-black tracking-tighter mb-10 leading-[0.8] italic uppercase animate-in slide-in-from-bottom-4">
+        Mastering <br />
+        <span className="text-[#B89B66]">Markets.</span>
+      </h1>
+      <p className="text-xl md:text-3xl text-zinc-400 mb-14 max-w-3xl mx-auto font-light leading-relaxed">
+        Leveraging high-stakes healthcare discipline to build the future of AI automation and financial psychology.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <button onClick={() => setActivePage('ai-lab')} className="bg-white text-black px-12 py-5 font-black uppercase tracking-widest text-xs hover:bg-[#B89B66] transition-all">
+          Explore AI Solutions
+        </button>
+        <button onClick={() => setActivePage('trading')} className="border border-white/10 px-12 py-5 font-black uppercase tracking-widest text-xs hover:bg-white/5 transition-all">
+          View Live Trading
+        </button>
+      </div>
+    </section>
 
-        // --- 2. Event Attachments (Triggering Routing) ---
-        window.addEventListener('hashchange', handleRouting);
-        window.addEventListener('load', handleRouting);
+    {/* Brand Story */}
+    <section className="py-40 border-y border-white/5 bg-[#050505] relative overflow-hidden">
+      <div className="absolute top-0 right-0 p-32 opacity-5 pointer-events-none">
+        <Logo className="w-96 h-96" />
+      </div>
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
+        <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12">The Narrative</h2>
+        <p className="text-2xl md:text-4xl font-light leading-relaxed italic text-zinc-300">
+          "In nursing, there is no room for 'maybe.' My early career was built on protocol and precision. I founded <span className="text-white font-bold not-italic">Nikofinanciar</span> because the discipline required to save a life is the same discipline required to master a market."
+        </p>
+        <div className="mt-12 text-[#B89B66] font-black uppercase tracking-widest text-xs italic">
+          — Systems over Emotions
+        </div>
+      </div>
+    </section>
 
+    {/* The Three Pillars */}
+    <section className="py-40">
+       <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-1 bg-white/5 border border-white/5 rounded-sm overflow-hidden">
+             {[
+               { icon: <Cpu className="text-[#B89B66]" />, title: "AI Automation", desc: "Custom-built call assistants and software execution tools." },
+               { icon: <TrendingUp className="text-[#87A96B]" />, title: "Market Analysis", desc: "Transparent, data-driven trading based on order flow." },
+               { icon: <Brain className="text-[#B89B66]" />, title: "Discipline Hub", desc: "A community for peak psychological performance." }
+             ].map((pillar, i) => (
+               <div key={i} className="bg-black p-16 text-left hover:bg-zinc-900 transition-all group">
+                  <div className="mb-10 group-hover:scale-110 transition-transform">{pillar.icon}</div>
+                  <h4 className="text-2xl font-black italic uppercase mb-4 tracking-tighter">{pillar.title}</h4>
+                  <p className="text-zinc-500 text-sm leading-relaxed">{pillar.desc}</p>
+               </div>
+             ))}
+          </div>
+       </div>
+    </section>
 
-        // --- 3. DOM Ready Logic (All remaining listeners) ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuButton = document.getElementById('menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const logoLink = document.getElementById('logo-link');
-            const aboutModalOpenBtn = document.getElementById('about-modal-open-btn');
-            const contactModalCloseButton = document.getElementById('modal-close-button');
-            const contactModalOpenButtons = document.querySelectorAll('#contact-modal-open, #contact-modal-open-dev, #contact-modal-open-biz');
+    {/* Website Building Section */}
+    <section className="py-40 border-t border-white/5">
+       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center text-left">
+          <div className="relative group">
+             <div className="absolute inset-0 bg-[#B89B66]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+             <div className="relative p-12 bg-zinc-900/30 border border-white/5 rounded-sm overflow-hidden">
+                <div className="flex gap-4 mb-8">
+                   <div className="w-3 h-3 rounded-full bg-zinc-700"></div>
+                   <div className="w-3 h-3 rounded-full bg-zinc-700"></div>
+                   <div className="w-3 h-3 rounded-full bg-zinc-700"></div>
+                </div>
+                <div className="space-y-4">
+                   <div className="h-4 bg-zinc-800 w-3/4 rounded animate-pulse"></div>
+                   <div className="h-4 bg-zinc-800 w-1/2 rounded animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                   <div className="h-24 bg-[#B89B66]/10 rounded border border-[#B89B66]/20 mt-10"></div>
+                </div>
+             </div>
+          </div>
+          <div>
+             <span className="text-[#B89B66] font-black tracking-[0.4em] uppercase text-[10px] mb-6 block">Digital Architecture</span>
+             <h2 className="text-5xl font-black italic uppercase tracking-tighter mb-8 leading-tight">Engineering High-Performance Hubs.</h2>
+             <p className="text-zinc-400 text-lg leading-relaxed mb-10 italic">
+                We build fast, high-conversion websites that serve as the neural center for complex businesses. Focused on clarity, performance, and seamless user pathways.
+             </p>
+             <div className="grid grid-cols-2 gap-6">
+                {[
+                  { icon: <Monitor size={18}/>, label: "Responsive" },
+                  { icon: <Code size={18}/>, label: "Optimized" },
+                  { icon: <Layout size={18}/>, label: "UX-Focused" },
+                  { icon: <Globe size={18}/>, label: "SEO-Ready" }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                     <span className="text-[#B89B66]">{item.icon}</span> {item.label}
+                  </div>
+                ))}
+             </div>
+          </div>
+       </div>
+    </section>
 
+    {/* Spotlight: Tutorial Helper */}
+    <section className="py-40 bg-zinc-900/10 border-t border-white/5">
+       <div className="max-w-4xl mx-auto px-6">
+          <div className="p-16 border border-[#B89B66]/20 relative overflow-hidden group bg-black/40 backdrop-blur-sm">
+             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-100 transition-opacity">
+                <Sparkles size={40} className="text-[#B89B66]" />
+             </div>
+             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-600 mb-8 block">Project One</span>
+             <h3 className="text-5xl font-black italic uppercase tracking-tighter mb-6">AI Tutorial Helper</h3>
+             <p className="text-zinc-500 italic mb-12 text-lg leading-relaxed">A revolutionary tool designed to bridge the gap between complex software and user execution.</p>
+             <div className="pt-8 border-t border-white/5">
+                <p className="text-[9px] font-black text-[#B89B66] uppercase tracking-[0.3em] mb-8">Launch Countdown: August 1, 2026</p>
+                <Countdown />
+             </div>
+          </div>
+       </div>
+    </section>
 
-            // Mobile Menu Toggle
-            menuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+    <InterestingMenu />
+  </div>
+);
 
-            // Smooth Scroll & Router Link Logic
-            document.querySelectorAll('a.router-link, a.service-selector, a.smooth-scroll').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    // Close mobile menu on click
-                    if (!mobileMenu.classList.contains('hidden')) {
-                         mobileMenu.classList.add('hidden');
-                    }
-                    
-                    const href = this.getAttribute('href');
+const AILab = () => (
+  <div className="animate-in slide-in-from-bottom-8 duration-1000 py-32 px-6 max-w-7xl mx-auto">
+    <div className="text-center mb-32">
+       <h2 className="text-8xl font-black italic uppercase tracking-tighter mb-8 leading-none">AI Lab</h2>
+       <p className="text-zinc-500 font-bold uppercase tracking-[0.5em] text-[10px]">The 24/7 Digital Employee</p>
+    </div>
 
-                    if (href.startsWith('#view=')) {
-                        // Let the router handle navigation for view changes
-                        if (href.includes('&section=') || this.classList.contains('smooth-scroll')) {
-                            e.preventDefault();
-                            window.location.hash = href.slice(1);
-                        }
-                    } else if (href.startsWith('#')) {
-                        // Handle pure section scrolling on the current page
-                         e.preventDefault();
-                         
-                         // Check if href is not just '#' (to prevent SyntaxError)
-                         if (href.length > 1) { 
-                             smoothScrollTo(href);
-                         }
-                    }
-                });
-            });
+    <div className="grid lg:grid-cols-2 gap-12 mb-32">
+       {[
+         { 
+           title: "Simple Call Assistant", 
+           benefit: "100% Lead Capture", 
+           desc: "Handles basic FAQs and redirects calls based on intent. Replaces basic reception." 
+         },
+         { 
+           title: "Complex AI Systems", 
+           benefit: "Full CRM Integration", 
+           desc: "Nuanced, human-like voice systems designed to book appointments and handle objections." 
+         }
+       ].map((lab, i) => (
+         <div key={i} className="bg-zinc-900/30 p-16 border border-white/5 hover:border-[#B89B66]/30 transition-all">
+            <h3 className="text-4xl font-black italic uppercase mb-6">{lab.title}</h3>
+            <div className="bg-[#87A96B]/10 text-[#87A96B] px-4 py-1 text-[10px] font-black uppercase w-fit mb-8">{lab.benefit}</div>
+            <p className="text-zinc-500 italic leading-relaxed mb-10">{lab.desc}</p>
+            <button className="w-full py-5 border border-white/10 font-black uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all">Request Details</button>
+         </div>
+       ))}
+    </div>
 
-            // --- 3.1 FAQ Accordion Logic ---
-            document.querySelectorAll('.accordion-item').forEach(item => {
-                const header = item.querySelector('.accordion-header');
-                const content = item.querySelector('.accordion-content');
-                const icon = item.querySelector('.accordion-icon');
+    {/* Nursing AI: Project in Work */}
+    <div className="max-w-4xl mx-auto">
+       <div className="bg-[#050505] border border-[#B89B66]/20 p-16 rounded-sm relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8"><Layers size={32} className="text-[#B89B66]" /></div>
+          <span className="text-[#B89B66] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Project in Work</span>
+          <h3 className="text-5xl font-black italic uppercase tracking-tighter mb-6 leading-none text-white">Voice AI: <br />Nursing Protocol</h3>
+          <p className="text-zinc-400 text-xl font-light leading-relaxed mb-10 italic">
+             Architecting a specialized high-fidelity voice system for healthcare intake. Leveraging medical-grade protocols to ensure absolute precision in patient lead qualification.
+          </p>
+          <div className="flex gap-8 items-center pt-8 border-t border-white/5 opacity-50">
+             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                <Activity size={14} /> Status: Core Logic Phase
+             </div>
+             <div className="text-[10px] font-black uppercase tracking-widest">
+                Est. Deployment: Q4 2026
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+);
 
-                header.addEventListener('click', () => {
-                    if(views.trading.style.display !== 'block') return; // Only operate on the active view
+const TradingFloor = () => {
+  const [ticks, setTicks] = useState([
+    { date: '2026-01-20', tick: '+45.0', status: 'Win' },
+    { date: '2026-01-21', tick: '-12.5', status: 'Loss' },
+    { date: '2026-01-22', tick: '+22.0', status: 'Win' },
+    { date: '2026-01-23', tick: '0.0', status: 'Breakeven' },
+    { date: '2026-01-24', tick: '+15.5', status: 'Win' },
+  ]);
 
-                    const isExpanded = content.classList.contains('is-open');
+  return (
+    <div className="animate-in fade-in duration-1000 py-32 px-6 max-w-7xl mx-auto text-center">
+      <div className="mb-24">
+         <h2 className="text-8xl font-black italic uppercase tracking-tighter mb-4 leading-none">The Proof.</h2>
+         <p className="text-[#87A96B] font-black uppercase tracking-[0.5em] text-[10px]">Proof in the Process — Mentor: Swush</p>
+      </div>
 
-                    document.querySelectorAll('.accordion-item').forEach(otherItem => {
-                        const otherContent = otherItem.querySelector('.accordion-content');
-                        const otherIcon = otherItem.querySelector('.accordion-icon');
+      <div className="grid lg:grid-cols-4 gap-12 text-left mb-32">
+         <div className="lg:col-span-3 bg-zinc-900/50 border border-white/5 overflow-hidden">
+            <div className="p-8 border-b border-white/5 bg-black/40 flex justify-between items-center font-black uppercase tracking-widest text-[10px] text-zinc-500 italic">
+               <span>Tick Performance Feed</span>
+               <span>Status: Verified</span>
+            </div>
+            <div className="overflow-x-auto">
+               <table className="w-full font-mono">
+                  <thead>
+                    <tr className="text-[10px] text-zinc-700 uppercase tracking-widest border-b border-white/5">
+                      <th className="p-8 font-bold">Date</th>
+                      <th className="p-8 text-center">Status</th>
+                      <th className="p-8 text-right">Daily Ticks +/-</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    {ticks.map((t, i) => (
+                      <tr key={i} className="hover:bg-white/5 transition-colors group">
+                        <td className="p-8 text-zinc-500 text-sm">{t.date}</td>
+                        <td className="p-8 text-center">
+                          <span className={`px-4 py-1 rounded-sm text-[10px] font-black uppercase ${
+                            t.status === 'Win' ? 'bg-[#87A96B]/10 text-[#87A96B]' : 
+                            t.status === 'Loss' ? 'bg-[#B2635E]/10 text-[#B2635E]' : 'bg-zinc-800 text-zinc-600'
+                          }`}>
+                            {t.status}
+                          </span>
+                        </td>
+                        <td className={`p-8 text-right font-black text-xl italic ${
+                          t.tick.includes('+') ? 'text-[#87A96B]' : 
+                          t.tick.includes('-') ? 'text-[#B2635E]' : 'text-zinc-600'
+                        }`}>
+                          {t.tick}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+               </table>
+            </div>
+         </div>
 
-                        if (otherContent !== content && otherContent.classList.contains('is-open')) {
-                            otherContent.classList.remove('is-open');
-                            otherContent.style.maxHeight = '0';
-                            otherIcon.textContent = '+';
-                            otherIcon.classList.remove('rotate-45');
-                        }
-                    });
+         <div className="space-y-8">
+            <div className="bg-zinc-900 p-10 border border-white/5 rounded-sm">
+               <h4 className="text-[10px] font-black uppercase tracking-widest text-zinc-600 mb-8">Prop Firm Progress</h4>
+               <div className="text-5xl font-black italic tracking-tighter text-white mb-4">72.4%</div>
+               <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden mb-6">
+                  <div className="h-full bg-[#87A96B] w-[72.4%] shadow-[0_0_10px_#87A96B] animate-pulse"></div>
+               </div>
+               <p className="text-[9px] font-black uppercase tracking-widest text-zinc-700">Next Funded Account Target</p>
+            </div>
+            <div className="bg-[#050505] border border-white/5 p-10 font-black uppercase italic tracking-tighter text-zinc-700 flex items-center justify-center gap-2">
+               <ShieldCheck size={16} /> Precision First
+            </div>
+         </div>
+      </div>
+    </div>
+  );
+};
 
-                    if (isExpanded) {
-                        content.classList.remove('is-open');
-                        content.style.maxHeight = '0';
-                        icon.textContent = '+';
-                        icon.classList.remove('rotate-45');
-                    } else {
-                        content.classList.add('is-open');
-                        content.style.maxHeight = content.scrollHeight + "px";
-                        icon.textContent = '–';
-                        icon.classList.add('rotate-45');
-                    }
-                });
-            });
+const DisciplineClub = () => (
+  <div className="animate-in slide-in-from-bottom-8 duration-1000 py-32 px-6 max-w-7xl mx-auto text-center">
+    <div className="max-w-4xl mx-auto bg-zinc-900/30 border border-white/10 rounded-sm p-16 md:p-32 relative overflow-hidden">
+       <div className="absolute top-0 left-0 w-full h-1 bg-[#B89B66]"></div>
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#B89B66]/5 blur-[120px]"></div>
+       
+       <h2 className="text-xs font-black uppercase tracking-[0.5em] text-[#B89B66] mb-12 italic">The $1 Commitment</h2>
+       <h3 className="text-6xl md:text-8xl font-black italic uppercase tracking-tighter mb-10 leading-none tracking-tight">Discipline <br />Vault.</h3>
+       <p className="text-2xl text-zinc-400 font-light italic leading-relaxed mb-12">
+          "Master your discipline for the price of a single coffee per month. Skin in the game changes the mindset."
+       </p>
+       
+       <ul className="text-left max-w-md mx-auto space-y-6 mb-16">
+          {[
+            "Daily Accountability Protocols",
+            "Psychology & Risk Workshops",
+            "Morning Routine Audits",
+            "Community of Like-minded Builders"
+          ].map((feat, i) => (
+            <li key={i} className="flex items-center gap-4 text-xs font-black uppercase tracking-widest border-b border-white/5 pb-4 last:border-0">
+               <CheckCircle size={16} className="text-[#87A96B]" /> {feat}
+            </li>
+          ))}
+       </ul>
 
+       <button className="bg-white text-black px-12 py-6 font-black uppercase tracking-widest text-sm hover:bg-[#B89B66] transition-all shadow-2xl shadow-white/5">
+          Join for $1/Month
+       </button>
+       <p className="mt-8 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Powered by Stripe</p>
+    </div>
+  </div>
+);
 
-            // --- 3.2 Contact Modal Control (Normal Modal) ---
-            contactModalOpenButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openContactModal();
-                });
-            });
+const SocialHub = () => (
+  <div className="animate-in fade-in duration-1000 py-40 text-center px-6 max-w-7xl mx-auto">
+    <h2 className="text-7xl font-black italic uppercase tracking-tighter mb-12">The Social Hub</h2>
+    <div className="grid md:grid-cols-3 gap-1 bg-white/5 border border-white/5 p-1 rounded-sm">
+       {[
+         { icon: <Instagram size={36} />, title: "Instagram/TikTok", tag: "High Velocity", color: COLORS.terracotta },
+         { icon: <Youtube size={36} />, title: "YouTube", tag: "Long-form Dives", color: COLORS.sage },
+         { icon: <Twitter size={36} />, title: "X (Twitter)", tag: "Real-time Logic", color: "white" }
+       ].map((social, i) => (
+         <a key={i} href="#" className="bg-black p-20 hover:bg-zinc-900 transition-all group flex flex-col items-center">
+            <div className="mb-10 group-hover:scale-125 transition-all duration-500" style={{ color: social.color }}>{social.icon}</div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-zinc-700 mb-4">{social.tag}</span>
+            <h4 className="text-xl font-black italic uppercase tracking-tighter">{social.title}</h4>
+         </a>
+       ))}
+    </div>
+  </div>
+);
 
-
-            if (contactModalCloseButton) {
-                contactModalCloseButton.addEventListener('click', closeContactModal);
-            }
-
-            if (contactModal) {
-                contactModal.addEventListener('click', (e) => {
-                    if (e.target === contactModal) {
-                        closeContactModal();
-                    }
-                });
-            }
-
-
-            // --- 3.3 ABOUT MODAL CONTROL (New Cinematic Modal) ---
-            if (logoLink) {
-                 logoLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (!aboutModal.classList.contains('open')) {
-                        openAboutModal();
-                    }
-                });
-            }
-
-            if (aboutModalOpenBtn) {
-                 aboutModalOpenBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openAboutModal();
-                });
-            }
-
-            // Close with ESC key (for both modals)
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    if (aboutModal.classList.contains('open')) {
-                         closeAboutModal();
-                    } else if (contactModal.classList.contains('open')) {
-                         closeContactModal();
-                    }
-                }
-            });
-
-            // Close about-modal when clicking the dark overlay (not the content)
-            if (aboutModal) {
-                aboutModal.addEventListener('click', (e) => {
-                    // Check if the click occurred directly on the backdrop/section element
-                    if (e.target === aboutModal) {
-                        closeAboutModal();
-                    }
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+export default App;
